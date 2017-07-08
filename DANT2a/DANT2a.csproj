@@ -45,6 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAlarm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddAlarm.Designer.cs">
+      <DependentUpon>AddAlarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddWut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddWut.Designer.cs">
+      <DependentUpon>AddWut.cs</DependentUpon>
+    </Compile>
     <Compile Include="HeadsUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,6 +65,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddAlarm.resx">
+      <DependentUpon>AddAlarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddWut.resx">
+      <DependentUpon>AddWut.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HeadsUp.resx">
       <DependentUpon>HeadsUp.cs</DependentUpon>
     </EmbeddedResource>
