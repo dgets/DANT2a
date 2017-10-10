@@ -16,8 +16,9 @@ namespace DANT2a {
     }
 
     private void btnGo_Click(object sender, EventArgs e) {
+        //is this REALLY necessary? rbts normally come in groups...
         if (!rbtAlarm.Checked && !rbtTimer.Checked && !rbtReminder.Checked) {
-          MessageBox.Show("You must select the type\nto add!");
+          MessageBox.Show(Properties.Resources.SelectTypeToAdd);
           return;
         }
 

@@ -12,9 +12,9 @@ namespace DANT2a {
   public partial class HeadsUp : Form {
 
     //active lists
-    public List<Alarms> activeAlarms = new List<Alarms>();
-    public List<Timers> activeTimers = new List<Timers>();
-    public List<Reminders> activeReminders = new List<Reminders>();
+    public List<Alarm> activeAlarms = new List<Alarm>();
+    public List<Timer> activeTimers = new List<Timer>();
+    public List<Reminder> activeReminders = new List<Reminder>();           
 
     //debugging flags
     public const Boolean generalDebugging = true;
@@ -24,7 +24,7 @@ namespace DANT2a {
     public const Boolean fileIODebugging = true;
 
     //classes
-    public partial class Alarms {
+    public partial class Alarm {
       private String name;
       private DateTime activeAt;
       private String soundBite;
@@ -51,13 +51,21 @@ namespace DANT2a {
         set { running = value; }
       }
 
+      //constructors
+      public Alarm(String n, DateTime act, String sb) {
+        this.Name = n;
+        this.ActiveAt = act;
+        this.SoundBite = sb;
+        this.Running = false;
+      }
+
       //methods
       public Boolean toggleRunning() {
         running = !running;
         return running;
       }
 
-      public Boolean checkInterval() {
+      private Boolean checkInterval() {
         DateTime nao = DateTime.Now;
         
         if ((activeAt - DateTime.Now).Duration().TotalSeconds <= 1) {
@@ -66,9 +74,20 @@ namespace DANT2a {
           return false;
         }
       }
+
+      private Boolean isPast()
+      {
+        DateTime nao = DateTime.Now;
+
+        if (activeAt.Date <= nao) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
 
-    public partial class Timers {
+    public partial class Timer {
       private String name;
       private TimeSpan duration;
       //private TimeSpan currentCount;
@@ -97,6 +116,14 @@ namespace DANT2a {
         set { soundBite = value; }
       }
 
+      //constructor(s)
+      public Timer(String n, TimeSpan d, String sb) {
+        this.Name = n;
+        this.Duration = d;
+        this.Running = false;
+        this.SoundBite = sb;
+      }
+
       //methods
       public Boolean countDown() {
         //would this have less drift if I set 'nao' above the next 2 lines?
@@ -116,7 +143,7 @@ namespace DANT2a {
       }
     }
 
-    public partial class Reminders {
+    public partial class Reminder {
       private String name;
       private DateTime activeAt;
       private Boolean running;
@@ -139,7 +166,7 @@ namespace DANT2a {
         set { running = value; }
       }
 
-      public String Reminder {
+      public String Msg {
         get { return reminder; }
         set { reminder = value; }
       }
@@ -147,6 +174,15 @@ namespace DANT2a {
       public String SoundBite {
         get { return soundBite; }
         set { soundBite = value; }
+      }
+
+      //constructor(s)
+      public Reminder(String n, DateTime aa, String msg, String sb) {
+        this.Name = n;
+        this.ActiveAt = aa;
+        this.Running = false;
+        this.Msg = msg;
+        this.SoundBite = sb;
       }
 
       //methods
@@ -172,6 +208,18 @@ namespace DANT2a {
     private void btnAddAny_Click(object sender, EventArgs e) {
       AddWut newOne = new AddWut();
       newOne.Show();
+    }
+
+    public void addAlToList(Alarm newAlarm) {
+      activeAlarms.Add(newAlarm);
+    }
+
+    public void addTmToList(Timer newTimer) {
+      activeTimers.Add(newTimer);
+    }
+
+    public void addRmToList(Reminder newReminder) {
+      activeReminders.Add(newReminder);
     }
   }
 }

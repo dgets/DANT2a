@@ -28,8 +28,8 @@
       this.lblRingAt = new System.Windows.Forms.Label();
       this.dtpAlarmTarget = new System.Windows.Forms.DateTimePicker();
       this.label1 = new System.Windows.Forms.Label();
-      this.ofdSelectSoundBite = new System.Windows.Forms.OpenFileDialog();
       this.btnAddAlarm = new System.Windows.Forms.Button();
+      this.ofdLocateSoundbite = new System.Windows.Forms.OpenFileDialog();
       this.SuspendLayout();
       // 
       // lblName
@@ -47,6 +47,8 @@
       this.tbxName.Name = "tbxName";
       this.tbxName.Size = new System.Drawing.Size(100, 20);
       this.tbxName.TabIndex = 1;
+      this.tbxName.Enter += new System.EventHandler(this.tbxName_Enter);
+      this.tbxName.Leave += new System.EventHandler(this.tbxName_Leave);
       // 
       // lblRingAt
       // 
@@ -76,10 +78,6 @@
       this.label1.TabIndex = 4;
       this.label1.Text = "Alarm Sound:";
       // 
-      // ofdSelectSoundBite
-      // 
-      this.ofdSelectSoundBite.Title = "Pick an audio file";
-      // 
       // btnAddAlarm
       // 
       this.btnAddAlarm.Location = new System.Drawing.Point(89, 106);
@@ -88,6 +86,11 @@
       this.btnAddAlarm.TabIndex = 5;
       this.btnAddAlarm.Text = "Add Alarm";
       this.btnAddAlarm.UseVisualStyleBackColor = true;
+      this.btnAddAlarm.Click += new System.EventHandler(this.btnAddAlarm_Click);
+      // 
+      // ofdLocateSoundbite
+      // 
+      this.ofdLocateSoundbite.Title = "Locate Soundbite";
       // 
       // AddAlarm
       // 
@@ -114,7 +117,7 @@
     private System.Windows.Forms.Label lblRingAt;
     private System.Windows.Forms.DateTimePicker dtpAlarmTarget;
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.OpenFileDialog ofdSelectSoundBite;
     private System.Windows.Forms.Button btnAddAlarm;
+    private System.Windows.Forms.OpenFileDialog ofdLocateSoundbite;
   }
 }
