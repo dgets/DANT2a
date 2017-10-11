@@ -19,33 +19,41 @@ namespace DANT2a
       InitializeComponent();
 
       //init
-      this.tbxName.ForeColor = SystemColors.InactiveCaption;
-      this.tbxName.Text = Properties.Resources.InactiveNameTbx;
+      tbxName.ForeColor = SystemColors.InactiveCaption;
+      tbxName.Text = Properties.Resources.InactiveNameTbx;
     }
 
     private void btnAddAlarm_Click(object sender, EventArgs e)
     {
+      EntryType.Alarm godOuah = null;
+
       //problems?
-      if (this.tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
+      //need to implement better validation
+      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
         MessageBox.Show("No user text!", "You must set an alarm name!",
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
+      godOuah.Name = tbxName.Text;
+      godOuah.ActiveAt = dtpAlarmTarget.Value.Date;
+      godOuah.Running = false;
+      godOuah.SoundBite = ofdLocateSoundbite.FileName.
     }
 
     //usability methods
     private void tbxName_Enter(object sender, EventArgs e)
     {
-      this.tbxName.Text = "";
-      this.tbxName.ForeColor = SystemColors.ActiveCaption;
+      tbxName.Text = "";
+      tbxName.ForeColor = SystemColors.ActiveCaption;
     }
 
     private void tbxName_Leave(object sender, EventArgs e)
     {
-      if (this.tbxName.Text.Equals("")) {
-        this.tbxName.Text = Properties.Resources.InactiveNameTbx;
-        this.tbxName.ForeColor = SystemColors.InactiveCaption;
+      if (tbxName.Text.Equals("")) {
+        tbxName.Text = Properties.Resources.InactiveNameTbx;
+        tbxName.ForeColor = SystemColors.InactiveCaption;
       }
     }
+    
   }
 }

@@ -11,10 +11,11 @@ using System.Windows.Forms;
 namespace DANT2a {
   public partial class HeadsUp : Form {
 
-    //active lists
-    public List<Alarm> activeAlarms = new List<Alarm>();
-    public List<Timer> activeTimers = new List<Timer>();
-    public List<Reminder> activeReminders = new List<Reminder>();           
+    //active lists - make private?
+    public List<EntryType.Alarm> activeAlarms = new List<EntryType.Alarm>();
+    private List<EntryType.Timer> activeTimers = new List<EntryType.Timer>();
+    private List<EntryType.Reminder> activeReminders = 
+      new List<EntryType.Reminder>();           
 
     //debugging flags
     public const Boolean generalDebugging = true;
@@ -24,202 +25,108 @@ namespace DANT2a {
     public const Boolean fileIODebugging = true;
 
     //classes
-    public partial class Alarm {
-      private String name;
-      private DateTime activeAt;
-      private String soundBite;
-      private Boolean running;
-
-      //getters & setters
-      public String Name {
-        get { return name; }
-        set { name = value; }
-      }
-
-      public DateTime ActiveAt {
-        get { return activeAt; }
-        set { activeAt = value; }
-      }
-
-      public String SoundBite {
-        get { return soundBite; }
-        set { soundBite = value; }
-      }
-
-      public Boolean Running {
-        get { return running; }
-        set { running = value; }
-      }
-
-      //constructors
-      public Alarm(String n, DateTime act, String sb) {
-        this.Name = n;
-        this.ActiveAt = act;
-        this.SoundBite = sb;
-        this.Running = false;
-      }
-
-      //methods
-      public Boolean toggleRunning() {
-        running = !running;
-        return running;
-      }
-
-      private Boolean checkInterval() {
-        DateTime nao = DateTime.Now;
-        
-        if ((activeAt - DateTime.Now).Duration().TotalSeconds <= 1) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-      private Boolean isPast()
-      {
-        DateTime nao = DateTime.Now;
-
-        if (activeAt.Date <= nao) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
-
-    public partial class Timer {
-      private String name;
-      private TimeSpan duration;
-      //private TimeSpan currentCount;
-      private Boolean running;
-      private DateTime lastTime;
-      private String soundBite;
-
-      //getters & setters
-      public String Name {
-        get { return name; }
-        set { name = value; }
-      }
-
-      public TimeSpan Duration {
-        get { return duration; }
-        set { duration = value; }
-      }
-
-      public Boolean Running {
-        get { return running; }
-        set { running = value; }
-      }
-
-      private String SoundBite {
-        get { return soundBite; }
-        set { soundBite = value; }
-      }
-
-      //constructor(s)
-      public Timer(String n, TimeSpan d, String sb) {
-        this.Name = n;
-        this.Duration = d;
-        this.Running = false;
-        this.SoundBite = sb;
-      }
-
-      //methods
-      public Boolean countDown() {
-        //would this have less drift if I set 'nao' above the next 2 lines?
-        duration = duration - (DateTime.Now - lastTime);
-        lastTime = DateTime.Now;
-
-        if (duration.TotalSeconds <= 1) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-      public Boolean toggleRunning() {
-        running = !running;
-        return running;
-      }
-    }
-
-    public partial class Reminder {
-      private String name;
-      private DateTime activeAt;
-      private Boolean running;
-      private String reminder;
-      private String soundBite;
-
-      //getters & setters
-      public String Name {
-        get { return name; }
-        set { name = value; }
-      }
-
-      public DateTime ActiveAt {
-        get { return activeAt; }
-        set { activeAt = value; }
-      }
-
-      public Boolean Running {
-        get { return running; }
-        set { running = value; }
-      }
-
-      public String Msg {
-        get { return reminder; }
-        set { reminder = value; }
-      }
-
-      public String SoundBite {
-        get { return soundBite; }
-        set { soundBite = value; }
-      }
-
-      //constructor(s)
-      public Reminder(String n, DateTime aa, String msg, String sb) {
-        this.Name = n;
-        this.ActiveAt = aa;
-        this.Running = false;
-        this.Msg = msg;
-        this.SoundBite = sb;
-      }
-
-      //methods
-      public Boolean toggleRunning() {
-        running = !running;
-        return running;
-      }
-
-      public Boolean checkInterval() {
-        if (((DateTime.Now) - activeAt).TotalSeconds <= 1) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
 
     //HeadsUp form constructor
     public HeadsUp() {
       InitializeComponent();
     }
 
+    //misc methods
     private void btnAddAny_Click(object sender, EventArgs e) {
       AddWut newOne = new AddWut();
       newOne.Show();
     }
-
-    public void addAlToList(Alarm newAlarm) {
+    
+    public void addActiveAlarm(EntryType.Alarm newAlarm) {
       activeAlarms.Add(newAlarm);
+      
+      //update display, whether or not running entries have triggered ticking
+
     }
 
-    public void addTmToList(Timer newTimer) {
-      activeTimers.Add(newTimer);
+    private void updateDisplay(EntryType.Entries eType) {
+      if (eType.Equals(EntryType.Entries.Alarm)) {
+        //clear display (primarily in lieu of # of listed changing downwards
+        clbAlarms.Items.Clear();
+
+        //add entry's display text
+        foreach (EntryType.Alarm al in activeAlarms) {
+          clbAlarms.Items.Add(al.Name + " - " + al.ActiveAt);
+
+          if (al.Running == true) {
+            clbAlarms.Items.Add("Checked", true);
+          } else {
+            clbAlarms.Items.Add("Checked", false);
+          }
+        }
+
+      } else if (eType.Equals(EntryType.Entries.Timer)) {
+        //clear display
+        clbTimers.Items.Clear();
+
+        //add display text
+        foreach (EntryType.Timer tm in activeTimers) {
+          clbTimers.Items.Add(tm.Name + " - " + tm.Remaining);
+
+          if (tm.Running == true) {
+            clbTimers.Items.Add("Checked", true);
+          } else {
+            clbTimers.Items.Add("Checked", false);
+          }
+        }
+      } else if (eType.Equals(EntryType.Entries.Reminder)) {
+        //clear display
+        clbReminders.Items.Clear();
+
+        //add display text
+        foreach (EntryType.Reminder rm in activeReminders) {
+          clbReminders.Items.Add(rm.Name + " - " + rm.ActiveAt + " - " +
+            rm.Msg);
+
+          if (rm.Running == true) {
+            clbReminders.Items.Add("Checked", true);
+          } else {
+            clbReminders.Items.Add("Checked", false);
+          }
+        }
+      } else {
+        //do 'em all
+        //clear
+        clbTimers.Items.Clear();
+        clbTimers.Items.Clear();
+        clbReminders.Items.Clear();
+
+        //add display text (modularize above)
+
+      }
+      
+      //String displayText = null;
+      //int nr = getNumRunning();
+      //EntryType.Alarm curAlarm = null;
+
+      /*for (int cntr = 0; cntr <= nr;) {
+        if (activeAlarms[cntr].Running) {
+          curAlarm = activeAlarms[cntr++];
+          clbAlarms.Items.Add(curAlarm.Name + " - " + curAlarm.
+      }*/
+
+      /*foreach (EntryType.Alarm a in activeAlarms) {
+        //displayText = a.Name + " - " + a.ActiveAt;
+        clbAlarms. .Text = a.Name + " - " + a.ActiveAt;
+      }*/
     }
 
-    public void addRmToList(Reminder newReminder) {
-      activeReminders.Add(newReminder);
+    private int getNumRunning() {
+      int cntr = 0;
+
+      foreach (EntryType.Alarm al in activeAlarms) {
+        if (al.Running == true) {
+          cntr++;
+        }
+      }
+
+      return cntr;
     }
+
   }
 }

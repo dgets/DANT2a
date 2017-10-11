@@ -57,6 +57,7 @@
     <Compile Include="AddWut.Designer.cs">
       <DependentUpon>AddWut.cs</DependentUpon>
     </Compile>
+    <Compile Include="EntryType.cs" />
     <Compile Include="HeadsUp.cs">
       <SubType>Form</SubType>
     </Compile>
