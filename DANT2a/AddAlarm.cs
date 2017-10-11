@@ -21,11 +21,12 @@ namespace DANT2a
       //init
       tbxName.ForeColor = SystemColors.InactiveCaption;
       tbxName.Text = Properties.Resources.InactiveNameTbx;
+      dtpAlarmTarget.CustomFormat = "MMMM.dd, yy '@' H:mm:ss";
     }
 
     private void btnAddAlarm_Click(object sender, EventArgs e)
     {
-      EntryType.Alarm godOuah = null;
+      EntryType.Alarm godOuah = new EntryType.Alarm();
 
       //problems?
       //need to implement better validation
@@ -37,21 +38,35 @@ namespace DANT2a
       godOuah.Name = tbxName.Text;
       godOuah.ActiveAt = dtpAlarmTarget.Value.Date;
       godOuah.Running = false;
-      godOuah.SoundBite = ofdLocateSoundbite.FileName.
+      //godOuah.SoundBite = ofdLocateSoundbite.FileName.
     }
 
     //usability methods
-    private void tbxName_Enter(object sender, EventArgs e)
-    {
-      tbxName.Text = "";
-      tbxName.ForeColor = SystemColors.ActiveCaption;
+    private void tbxName_Enter(object sender, EventArgs e) {
+      if (!tbxName.Equals(Properties.Resources.InactiveNameTbx)) {
+        tbxName.ForeColor = SystemColors.ActiveCaptionText;
+        tbxName.Text = "";
+        //tbxName.
+        //tbxName.ForeColor = SystemColors.ActiveCaption;
+      }
+
+      tbxName.ForeColor = SystemColors.ActiveCaptionText;
+    }
+
+    private void tbxName_Click(object sender, EventArgs e) {
+      tbxName.ForeColor = SystemColors.InactiveCaption;
+
+      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
+        tbxName.Text = Properties.Resources.InactiveNameTbx;
+      }
     }
 
     private void tbxName_Leave(object sender, EventArgs e)
     {
+      tbxName.ForeColor = SystemColors.InactiveCaption;
+
       if (tbxName.Text.Equals("")) {
         tbxName.Text = Properties.Resources.InactiveNameTbx;
-        tbxName.ForeColor = SystemColors.InactiveCaption;
       }
     }
     

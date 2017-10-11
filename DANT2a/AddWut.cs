@@ -24,6 +24,8 @@ namespace DANT2a {
 
         if (rbtAlarm.Checked) {
           //addAlarm();
+          AddAlarm ouah = new AddAlarm();
+          ouah.Show();
         } else if (rbtTimer.Checked) {
           //addTimer();
         } else {

@@ -64,10 +64,13 @@
       this.dtpAlarmTarget.CustomFormat = "f";
       this.dtpAlarmTarget.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
       this.dtpAlarmTarget.Location = new System.Drawing.Point(89, 39);
+      this.dtpAlarmTarget.MaxDate = new System.DateTime(3000, 10, 11, 0, 0, 0, 0);
+      this.dtpAlarmTarget.MinDate = new System.DateTime(2017, 10, 11, 0, 0, 0, 0);
       this.dtpAlarmTarget.Name = "dtpAlarmTarget";
       this.dtpAlarmTarget.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.dtpAlarmTarget.Size = new System.Drawing.Size(200, 20);
+      this.dtpAlarmTarget.Size = new System.Drawing.Size(201, 20);
       this.dtpAlarmTarget.TabIndex = 3;
+      this.dtpAlarmTarget.Value = new System.DateTime(2017, 10, 11, 0, 0, 0, 0);
       // 
       // label1
       // 
@@ -96,7 +99,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(302, 147);
+      this.ClientSize = new System.Drawing.Size(302, 199);
       this.Controls.Add(this.btnAddAlarm);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.dtpAlarmTarget);
