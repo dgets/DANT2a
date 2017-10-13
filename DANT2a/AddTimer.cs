@@ -27,6 +27,40 @@ namespace DANT2a {
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
+      godOuah.Name = tbxName.Text;
+      godOuah.Duration = new TimeSpan((int) nudHrs.Value, (int) nudMin.Value,
+        (int) nudSec.Value);
+      //need to set soundbite after we get that set up on the form, too
+
+      mainForm.addActiveTimer(godOuah);
+
+      this.Close();
+    }
+
+    //usability methods
+    private void tbxName_Enter(object sender, EventArgs e) {
+      tbxName.ForeColor = SystemColors.WindowText;
+
+      if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
+          (tbxName.Text.Length < 3)) {
+        tbxName.Text = "";
+      }
+    }
+
+    private void tbxName_Click(object sender, EventArgs e) {
+      tbxName.ForeColor = SystemColors.InactiveCaption;
+
+      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
+        tbxName.Text = Properties.Resources.InactiveNameTbx;
+      }
+    }
+
+    private void tbxName_Leave(object sender, EventArgs e) {
+      tbxName.ForeColor = SystemColors.InactiveCaption;
+
+      if (tbxName.Text.Equals("")) {
+        tbxName.Text = Properties.Resources.InactiveNameTbx;
+      }
     }
   }
 }

@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DANT2a {
-  public partial class AddAlarm : Form
-  {
+  public partial class AddAlarm : Form {
     private HeadsUp mainForm = 
       (HeadsUp) Application.OpenForms[0];
 
