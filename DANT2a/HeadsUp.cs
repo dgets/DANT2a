@@ -31,21 +31,88 @@ namespace DANT2a {
       InitializeComponent();
     }
 
+    //List setters (add edit/delete) - should these just be a single generic
+    //passed an EntryType?
+    public void addActiveAlarm(EntryType.Alarm newAl) {
+      activeAlarms.Add(newAl);
+
+      //trigger display update
+      updateDisplay(EntryType.Entries.Alarm);
+    }
+
+    public void addActiveTimer(EntryType.Timer newTm) {
+      activeTimers.Add(newTm);
+
+      //display update
+      updateDisplay(EntryType.Entries.Timer);
+    }
+
+    public void addActiveReminder(EntryType.Reminder newRe) {
+      activeReminders.Add(newRe);
+
+      //display, etc
+      updateDisplay(EntryType.Entries.Reminder);
+    }
+
     //misc methods
     private void btnAddAny_Click(object sender, EventArgs e) {
       AddWut newOne = new AddWut();
       newOne.Show();
     }
     
-    public void addActiveAlarm(EntryType.Alarm newAlarm) {
+    /*public void addActiveAlarm(EntryType.Alarm newAlarm) {
       activeAlarms.Add(newAlarm);
       
       //update display, whether or not running entries have triggered ticking
 
-    }
+    }*/
 
     private void updateDisplay(EntryType.Entries eType) {
-      if (eType.Equals(EntryType.Entries.Alarm)) {
+      //let's make this one a switch/case, so that it doesn't look so gross
+
+      int cntr = 0;
+
+      switch (eType) {
+        case EntryType.Entries.Alarm:
+          clbAlarms.Items.Clear();
+
+          foreach (EntryType.Alarm al in activeAlarms) {
+            if (al.Running) {
+              clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, true);
+            } else {
+              clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
+            }
+          }
+          break;
+        
+       case EntryType.Entries.Timer:
+          clbTimers.Items.Clear();
+
+          foreach (EntryType.Timer tm in activeTimers) {
+            if (tm.Running) {
+              clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
+            } else {
+              clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
+            }
+          }
+          break;
+
+       case EntryType.Entries.Reminder:
+         clbReminders.Items.Clear();
+
+         foreach (EntryType.Reminder rm in activeReminders) {
+           if (rm.Running) {
+             clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, true);
+           } else {
+             clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
+           }
+         }
+
+         break;
+
+      }
+
+      /* if (eType.Equals(EntryType.Entries.Alarm)) {
         //clear display (primarily in lieu of # of listed changing downwards
         clbAlarms.Items.Clear();
 
@@ -98,7 +165,7 @@ namespace DANT2a {
 
         //add display text (modularize above)
 
-      }
+      } */
       
       //String displayText = null;
       //int nr = getNumRunning();

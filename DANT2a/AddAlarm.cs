@@ -12,11 +12,15 @@ namespace DANT2a
 {
   public partial class AddAlarm : Form
   {
-
+    private HeadsUp mainForm = 
+      (HeadsUp) System.Windows.Forms.Application.OpenForms[0];
+    
     //constructor(s)
-    public AddAlarm()
-    {
+    public AddAlarm(/*HeadsUp whosYrDaddy*/) {
       InitializeComponent();
+
+      //mainForm = whosYrDaddy;
+      //mainForm = (HeadsUp) Parent.FindForm();
 
       //init
       tbxName.ForeColor = SystemColors.InactiveCaption;
@@ -38,7 +42,12 @@ namespace DANT2a
       godOuah.Name = tbxName.Text;
       godOuah.ActiveAt = dtpAlarmTarget.Value.Date;
       godOuah.Running = false;
+      godOuah.SoundBite = null; //this'll just mean a console beep
       //godOuah.SoundBite = ofdLocateSoundbite.FileName.
+
+      mainForm.addActiveAlarm(godOuah);
+
+      this.Close();
     }
 
     //usability methods

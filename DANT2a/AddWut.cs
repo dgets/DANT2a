@@ -31,6 +31,8 @@ namespace DANT2a {
         } else {
           //addReminder();
         }
+
+        this.Close();
     }
   }
 }
