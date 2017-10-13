@@ -21,7 +21,7 @@ namespace DANT2a
       //init
       tbxName.ForeColor = SystemColors.InactiveCaption;
       tbxName.Text = Properties.Resources.InactiveNameTbx;
-      dtpAlarmTarget.CustomFormat = "MMMM.dd, yy '@' H:mm:ss";
+      dtpAlarmTarget.CustomFormat = "MMMM.dd, yyyy '@' H:mm:ss";
     }
 
     private void btnAddAlarm_Click(object sender, EventArgs e)
@@ -43,14 +43,12 @@ namespace DANT2a
 
     //usability methods
     private void tbxName_Enter(object sender, EventArgs e) {
-      if (!tbxName.Equals(Properties.Resources.InactiveNameTbx)) {
-        tbxName.ForeColor = SystemColors.ActiveCaptionText;
-        tbxName.Text = "";
-        //tbxName.
-        //tbxName.ForeColor = SystemColors.ActiveCaption;
-      }
+      tbxName.ForeColor = SystemColors.WindowText;
 
-      tbxName.ForeColor = SystemColors.ActiveCaptionText;
+      if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) || 
+          (tbxName.Text.Length < 3)) {
+        tbxName.Text = "";
+      }
     }
 
     private void tbxName_Click(object sender, EventArgs e) {
