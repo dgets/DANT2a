@@ -121,6 +121,10 @@ namespace DANT2a {
         this.SoundBite = sb;
       }
 
+      public Timer() {
+        this.Running = false;
+      }
+
       //methods
       public Boolean countDown() {
         //would this have less drift if I set 'nao' above the next 2 lines?

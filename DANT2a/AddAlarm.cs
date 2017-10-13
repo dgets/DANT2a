@@ -8,21 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DANT2a
-{
+namespace DANT2a {
   public partial class AddAlarm : Form
   {
     private HeadsUp mainForm = 
-      (HeadsUp) System.Windows.Forms.Application.OpenForms[0];
-    
+      (HeadsUp) Application.OpenForms[0];
+
     //constructor(s)
-    public AddAlarm(/*HeadsUp whosYrDaddy*/) {
+    public AddAlarm() {
       InitializeComponent();
-
-      //mainForm = whosYrDaddy;
-      //mainForm = (HeadsUp) Parent.FindForm();
-
-      //init
+      
       tbxName.ForeColor = SystemColors.InactiveCaption;
       tbxName.Text = Properties.Resources.InactiveNameTbx;
       dtpAlarmTarget.CustomFormat = "MMMM.dd, yyyy '@' H:mm:ss";
@@ -39,6 +34,7 @@ namespace DANT2a
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
+      //this is done in the wrong place, isn't it?
       godOuah.Name = tbxName.Text;
       godOuah.ActiveAt = dtpAlarmTarget.Value.Date;
       godOuah.Running = false;

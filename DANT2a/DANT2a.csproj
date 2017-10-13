@@ -51,6 +51,12 @@
     <Compile Include="AddAlarm.Designer.cs">
       <DependentUpon>AddAlarm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddTimer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTimer.Designer.cs">
+      <DependentUpon>AddTimer.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddWut.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddAlarm.resx">
       <DependentUpon>AddAlarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddTimer.resx">
+      <DependentUpon>AddTimer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddWut.resx">
       <DependentUpon>AddWut.cs</DependentUpon>

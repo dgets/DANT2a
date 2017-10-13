@@ -23,11 +23,11 @@ namespace DANT2a {
         }
 
         if (rbtAlarm.Checked) {
-          //addAlarm();
           AddAlarm ouah = new AddAlarm();
           ouah.Show();
         } else if (rbtTimer.Checked) {
-          //addTimer();
+          AddTimer ouah = new AddTimer();
+          ouah.Show();
         } else {
           //addReminder();
         }
