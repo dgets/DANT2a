@@ -120,6 +120,9 @@
   <data name="InactiveNameTbx" xml:space="preserve">
     <value>Name Goes Here</value>
   </data>
+  <data name="InactiveReminderTbx" xml:space="preserve">
+    <value>Enter your reminder message here</value>
+  </data>
   <data name="SelectTypeToAdd" xml:space="preserve">
     <value>You must select\ntype to add!</value>
   </data>

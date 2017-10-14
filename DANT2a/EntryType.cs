@@ -187,6 +187,10 @@ namespace DANT2a {
         this.SoundBite = sb;
       }
 
+      public Reminder() {
+        this.Running = false;
+      }
+
       //methods
       public Boolean toggleRunning() {
         running = !running;

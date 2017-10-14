@@ -81,6 +81,7 @@
       this.Controls.Add(this.rbtReminder);
       this.Controls.Add(this.rbtTimer);
       this.Controls.Add(this.rbtAlarm);
+      this.MaximizeBox = false;
       this.Name = "AddWut";
       this.Text = "Adding What?";
       this.ResumeLayout(false);

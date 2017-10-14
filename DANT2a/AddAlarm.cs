@@ -12,6 +12,8 @@ namespace DANT2a {
   public partial class AddAlarm : Form {
     private HeadsUp mainForm = 
       (HeadsUp) Application.OpenForms[0];
+    /*private AddAlarm addAlarmForm =
+      (AddAlarm) Application.OpenForms[1];*/
 
     //constructor(s)
     public AddAlarm() {
@@ -45,8 +47,12 @@ namespace DANT2a {
       this.Close();
     }
 
-    //usability methods
+    //usability methods - trying to modularize
     private void tbxName_Enter(object sender, EventArgs e) {
+      FriendlyForms.Usability.nameWipe(tbxName); //addAlarmForm.Controls.I );
+    }
+
+    /* private void tbxName_Enter(object sender, EventArgs e) {
       tbxName.ForeColor = SystemColors.WindowText;
 
       if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) || 
@@ -70,7 +76,7 @@ namespace DANT2a {
       if (tbxName.Text.Equals("")) {
         tbxName.Text = Properties.Resources.InactiveNameTbx;
       }
-    }
+    }*/
     
   }
 }

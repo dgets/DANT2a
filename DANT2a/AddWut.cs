@@ -11,8 +11,14 @@ using System.Windows.Forms;
 namespace DANT2a {
   public partial class AddWut : Form {
 
+    private HeadsUp mainForm =
+      (HeadsUp) Application.OpenForms[0];
+
     public AddWut() {
       InitializeComponent();
+
+      mainForm.Enabled = false;
+
     }
 
     private void btnGo_Click(object sender, EventArgs e) {
@@ -29,9 +35,11 @@ namespace DANT2a {
           AddTimer ouah = new AddTimer();
           ouah.Show();
         } else {
-          //addReminder();
+          AddReminder ouah = new AddReminder();
+          ouah.Show();
         }
 
+        mainForm.Enabled = true;
         this.Close();
     }
   }

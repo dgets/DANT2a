@@ -70,6 +70,15 @@ namespace DANT2a.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter your reminder message here.
+        /// </summary>
+        internal static string InactiveReminderTbx {
+            get {
+                return ResourceManager.GetString("InactiveReminderTbx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must select\ntype to add!.
         /// </summary>
         internal static string SelectTypeToAdd {

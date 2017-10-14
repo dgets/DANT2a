@@ -28,8 +28,9 @@
       this.lblSoundBite = new System.Windows.Forms.Label();
       this.lblReminder = new System.Windows.Forms.Label();
       this.tbxName = new System.Windows.Forms.TextBox();
-      this.dtpTarget = new System.Windows.Forms.DateTimePicker();
+      this.dtpReminderTarget = new System.Windows.Forms.DateTimePicker();
       this.tbxReminder = new System.Windows.Forms.TextBox();
+      this.btnAddReminder = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // lblName
@@ -75,14 +76,14 @@
       this.tbxName.Size = new System.Drawing.Size(100, 20);
       this.tbxName.TabIndex = 4;
       // 
-      // dtpTarget
+      // dtpReminderTarget
       // 
-      this.dtpTarget.Location = new System.Drawing.Point(99, 44);
-      this.dtpTarget.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
-      this.dtpTarget.MinDate = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
-      this.dtpTarget.Name = "dtpTarget";
-      this.dtpTarget.Size = new System.Drawing.Size(272, 20);
-      this.dtpTarget.TabIndex = 5;
+      this.dtpReminderTarget.Location = new System.Drawing.Point(99, 44);
+      this.dtpReminderTarget.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
+      this.dtpReminderTarget.MinDate = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
+      this.dtpReminderTarget.Name = "dtpReminderTarget";
+      this.dtpReminderTarget.Size = new System.Drawing.Size(272, 20);
+      this.dtpReminderTarget.TabIndex = 5;
       // 
       // tbxReminder
       // 
@@ -93,11 +94,22 @@
       this.tbxReminder.Size = new System.Drawing.Size(272, 157);
       this.tbxReminder.TabIndex = 6;
       // 
+      // btnAddReminder
+      // 
+      this.btnAddReminder.Location = new System.Drawing.Point(141, 267);
+      this.btnAddReminder.Name = "btnAddReminder";
+      this.btnAddReminder.Size = new System.Drawing.Size(102, 23);
+      this.btnAddReminder.TabIndex = 7;
+      this.btnAddReminder.Text = "Add Reminder";
+      this.btnAddReminder.UseVisualStyleBackColor = true;
+      this.btnAddReminder.Click += new System.EventHandler(this.btnAddReminder_Click);
+      // 
       // AddReminder
       // 
-      this.ClientSize = new System.Drawing.Size(383, 273);
+      this.ClientSize = new System.Drawing.Size(383, 297);
+      this.Controls.Add(this.btnAddReminder);
       this.Controls.Add(this.tbxReminder);
-      this.Controls.Add(this.dtpTarget);
+      this.Controls.Add(this.dtpReminderTarget);
       this.Controls.Add(this.tbxName);
       this.Controls.Add(this.lblReminder);
       this.Controls.Add(this.lblSoundBite);
@@ -117,7 +129,8 @@
     private System.Windows.Forms.Label lblSoundBite;
     private System.Windows.Forms.Label lblReminder;
     private System.Windows.Forms.TextBox tbxName;
-    private System.Windows.Forms.DateTimePicker dtpTarget;
+    private System.Windows.Forms.DateTimePicker dtpReminderTarget;
     private System.Windows.Forms.TextBox tbxReminder;
+    private System.Windows.Forms.Button btnAddReminder;
   }
 }
