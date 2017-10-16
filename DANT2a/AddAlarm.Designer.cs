@@ -44,11 +44,13 @@
       // tbxName
       // 
       this.tbxName.Location = new System.Drawing.Point(89, 7);
+      this.tbxName.MaxLength = 25;
       this.tbxName.Name = "tbxName";
       this.tbxName.Size = new System.Drawing.Size(100, 20);
       this.tbxName.TabIndex = 1;
+      this.tbxName.Click += new System.EventHandler(this.tbxName_Click);
       this.tbxName.Enter += new System.EventHandler(this.tbxName_Enter);
-      //this.tbxName.Leave += new System.EventHandler(this.tbxName_Leave);
+      this.tbxName.Leave += new System.EventHandler(this.tbxName_Leave);
       // 
       // lblRingAt
       // 

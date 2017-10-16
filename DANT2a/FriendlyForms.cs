@@ -18,7 +18,14 @@ namespace DANT2a {
       Properties.Resources.InactiveReminderTbx;
 
     public partial class Usability {
+
+      private IAddAlarm addAlarmFormTbx;
+      public Usability(IAddAlarm addAlarmFormTbx) {
+        this.addAlarmFormTbx = addAlarmFormTbx;
+      }
+
       public static void nameWipe(TextBox tbx) {
+        //AddAlarm.getNameTbx();
         tbx.ForeColor = inactive;
 
         if (tbx.Text.Length < 3) {
@@ -29,21 +36,13 @@ namespace DANT2a {
       //we should probably put the name_Click() logic here, too, but I'm
       //not really sure why it's different from name_Enter's in the first 
       //place :-?(beep)
-      public void nameEnter(TextBox tbx) {
+      public static void nameEnter(TextBox tbx) {
         tbx.ForeColor = active;
 
         if ((tbx.Text.Equals(inactiveName)) || (tbx.Text.Length < 3)) {
           tbx.Text = "";
         }
       }
-
-      //I guess this can be carried out by nameWipe() above
-      /*public void nameLeave(TextBox tbx) {
-        tbx.
-      }*/
-
-
     }
-
   }
 }

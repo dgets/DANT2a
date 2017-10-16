@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DANT2a {
-  public partial class AddAlarm : Form {
+  public partial class AddAlarm : Form, IAddAlarm {
     private HeadsUp mainForm = 
       (HeadsUp) Application.OpenForms[0];
-    /*private AddAlarm addAlarmForm =
-      (AddAlarm) Application.OpenForms[1];*/
+
+    public TextBox nameTbx {
+      get { return this.tbxName; }
+      set { this.tbxName = nameTbx; }
+    }
 
     //constructor(s)
     public AddAlarm() {
@@ -30,7 +33,8 @@ namespace DANT2a {
 
       //problems?
       //need to implement better validation
-      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
+      if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
+          (tbxName.Text.Length < 3)) {
         MessageBox.Show("No user text!", "You must set an alarm name!",
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
@@ -49,34 +53,15 @@ namespace DANT2a {
 
     //usability methods - trying to modularize
     private void tbxName_Enter(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameWipe(tbxName); //addAlarmForm.Controls.I );
-    }
-
-    /* private void tbxName_Enter(object sender, EventArgs e) {
-      tbxName.ForeColor = SystemColors.WindowText;
-
-      if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) || 
-          (tbxName.Text.Length < 3)) {
-        tbxName.Text = "";
-      }
+      FriendlyForms.Usability.nameEnter(nameTbx);
     }
 
     private void tbxName_Click(object sender, EventArgs e) {
-      tbxName.ForeColor = SystemColors.InactiveCaption;
-
-      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
-        tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }
+      FriendlyForms.Usability.nameEnter(nameTbx);
     }
-
-    private void tbxName_Leave(object sender, EventArgs e)
-    {
-      tbxName.ForeColor = SystemColors.InactiveCaption;
-
-      if (tbxName.Text.Equals("")) {
-        tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }
-    }*/
     
+    private void tbxName_Leave(object sender, EventArgs e) {
+      FriendlyForms.Usability.nameWipe(nameTbx);
+    }
   }
 }
