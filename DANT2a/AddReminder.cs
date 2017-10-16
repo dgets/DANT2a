@@ -32,12 +32,12 @@ namespace DANT2a {
 
       //really weak form validation
       if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
-        MessageBox.Show("No user text!", "You must set an alarm name!",
+        MessageBox.Show("You must set an alarm name!", "No user text!",
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
       if (tbxReminder.Text.Equals(Properties.Resources.InactiveReminderTbx)) {
-        MessageBox.Show("No reminder text!", "You should use an alarm if " +
-          "you're not concerned about having a reminder message!",
+        MessageBox.Show("You should use an alarm if you're not concerned " +
+          "about having a reminder message!", "No reminder text!",
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 

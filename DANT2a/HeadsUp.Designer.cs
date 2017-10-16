@@ -36,6 +36,7 @@
       this.btnEditReminder = new System.Windows.Forms.Button();
       this.clbReminders = new System.Windows.Forms.CheckedListBox();
       this.btnAddAny = new System.Windows.Forms.Button();
+      this.btnResetTimer = new System.Windows.Forms.Button();
       this.grpAlarms.SuspendLayout();
       this.grpTimers.SuspendLayout();
       this.grpReminders.SuspendLayout();
@@ -81,6 +82,7 @@
       // 
       // grpTimers
       // 
+      this.grpTimers.Controls.Add(this.btnResetTimer);
       this.grpTimers.Controls.Add(this.btnDeleteTimer);
       this.grpTimers.Controls.Add(this.btnEditTimer);
       this.grpTimers.Controls.Add(this.clbTimers);
@@ -165,6 +167,16 @@
       this.btnAddAny.UseVisualStyleBackColor = true;
       this.btnAddAny.Click += new System.EventHandler(this.btnAddAny_Click);
       // 
+      // btnResetTimer
+      // 
+      this.btnResetTimer.Location = new System.Drawing.Point(186, 181);
+      this.btnResetTimer.Name = "btnResetTimer";
+      this.btnResetTimer.Size = new System.Drawing.Size(75, 23);
+      this.btnResetTimer.TabIndex = 3;
+      this.btnResetTimer.Text = "Reset Timer";
+      this.btnResetTimer.UseVisualStyleBackColor = true;
+      this.btnResetTimer.Click += new System.EventHandler(this.btnResetTimer_Click);
+      // 
       // HeadsUp
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,6 +210,7 @@
     private System.Windows.Forms.Button btnEditReminder;
     private System.Windows.Forms.CheckedListBox clbReminders;
     private System.Windows.Forms.Button btnAddAny;
+    private System.Windows.Forms.Button btnResetTimer;
   }
 }
 

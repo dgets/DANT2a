@@ -35,7 +35,7 @@ namespace DANT2a {
       //need to implement better validation
       if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
           (tbxName.Text.Length < 3)) {
-        MessageBox.Show("No user text!", "You must set an alarm name!",
+        MessageBox.Show("You must set an alarm name!", "No user text!",
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 

@@ -120,5 +120,18 @@ namespace DANT2a {
       return cntr;
     }
 
+    private void btnResetTimer_Click(object sender, EventArgs e) {
+      if (clbTimers.SelectedIndices.Count == 0) {
+        MessageBox.Show("You must first select timer(s) to reset!", 
+          "No selected timer(s)!", MessageBoxButtons.OK, 
+          MessageBoxIcon.Error);
+      } else {
+        foreach (int idx in clbTimers.SelectedIndices) {
+          activeTimers[idx].Remaining = activeTimers[idx].Duration;
+        }
+      }
+
+      updateDisplay(EntryType.Entries.Timer);
+    }
   }
 }
