@@ -28,7 +28,8 @@ namespace DANT2a {
       EntryType.Timer godOuah = new EntryType.Timer();
 
       if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
-        MessageBox.Show("You must set a timer name!", "No user text!",
+        MessageBox.Show(Properties.Resources.NoNameSetError, 
+          Properties.Resources.NoTextError,
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 

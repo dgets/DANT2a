@@ -79,6 +79,33 @@ namespace DANT2a.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must selected a name!.
+        /// </summary>
+        internal static string NoNameSetError {
+            get {
+                return ResourceManager.GetString("NoNameSetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No user text entered!.
+        /// </summary>
+        internal static string NoTextError {
+            get {
+                return ResourceManager.GetString("NoTextError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No selected timers!.
+        /// </summary>
+        internal static string NoTimerSelectedError {
+            get {
+                return ResourceManager.GetString("NoTimerSelectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must select\ntype to add!.
         /// </summary>
         internal static string SelectTypeToAdd {

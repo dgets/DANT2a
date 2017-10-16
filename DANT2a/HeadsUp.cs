@@ -120,10 +120,11 @@ namespace DANT2a {
       return cntr;
     }
 
+    //is this really the best place for this?
     private void btnResetTimer_Click(object sender, EventArgs e) {
       if (clbTimers.SelectedIndices.Count == 0) {
         MessageBox.Show("You must first select timer(s) to reset!", 
-          "No selected timer(s)!", MessageBoxButtons.OK, 
+          Properties.Resources.NoTimerSelectedError, MessageBoxButtons.OK,
           MessageBoxIcon.Error);
       } else {
         foreach (int idx in clbTimers.SelectedIndices) {

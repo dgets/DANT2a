@@ -123,6 +123,15 @@
   <data name="InactiveReminderTbx" xml:space="preserve">
     <value>Enter your reminder message here</value>
   </data>
+  <data name="NoNameSetError" xml:space="preserve">
+    <value>You must selected a name!</value>
+  </data>
+  <data name="NoTextError" xml:space="preserve">
+    <value>No user text entered!</value>
+  </data>
+  <data name="NoTimerSelectedError" xml:space="preserve">
+    <value>No selected timers!</value>
+  </data>
   <data name="SelectTypeToAdd" xml:space="preserve">
     <value>You must select\ntype to add!</value>
   </data>
