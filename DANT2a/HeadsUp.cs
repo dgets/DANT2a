@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DANT2a {
-  public interface IAddAlarm {
+  public interface IAddForm {
     //not an interface virgin anymore, yay
     TextBox nameTbx {
       get;

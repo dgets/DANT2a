@@ -7,9 +7,14 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace DANT2a {
-  public partial class AddTimer : Form {
+  public partial class AddTimer : Form, IAddForm {
     private HeadsUp mainForm =
       (HeadsUp)Application.OpenForms[0];
+
+    public TextBox nameTbx {
+      get { return this.tbxName; }
+      set { this.tbxName = nameTbx; }
+    }
 
     //constructor
     public AddTimer() {
@@ -39,28 +44,33 @@ namespace DANT2a {
 
     //usability methods
     private void tbxName_Enter(object sender, EventArgs e) {
-      tbxName.ForeColor = SystemColors.WindowText;
+      FriendlyForms.Usability.nameEnter(nameTbx);
+      /*tbxName.ForeColor = SystemColors.WindowText;
 
       if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
           (tbxName.Text.Length < 3)) {
         tbxName.Text = "";
-      }
+      }*/
     }
 
     private void tbxName_Click(object sender, EventArgs e) {
-      tbxName.ForeColor = SystemColors.InactiveCaption;
+      FriendlyForms.Usability.nameEnter(nameTbx); 
+      
+      /*tbxName.ForeColor = SystemColors.InactiveCaption;
 
       if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
         tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }
+      }*/
     }
 
     private void tbxName_Leave(object sender, EventArgs e) {
-      tbxName.ForeColor = SystemColors.InactiveCaption;
+      FriendlyForms.Usability.nameWipe(nameTbx);
+
+      /*tbxName.ForeColor = SystemColors.InactiveCaption;
 
       if (tbxName.Text.Equals("")) {
         tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }
+      }*/
     }
   }
 }

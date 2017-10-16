@@ -19,8 +19,8 @@ namespace DANT2a {
 
     public partial class Usability {
 
-      private IAddAlarm addAlarmFormTbx;
-      public Usability(IAddAlarm addAlarmFormTbx) {
+      private IAddForm addAlarmFormTbx;
+      public Usability(IAddForm addAlarmFormTbx) {
         this.addAlarmFormTbx = addAlarmFormTbx;
       }
 
