@@ -19,7 +19,8 @@ namespace DANT2a {
   public partial class HeadsUp : Form {
 
     //active lists - make private?
-    public List<EntryType.Alarm> activeAlarms = new List<EntryType.Alarm>();
+    public static List<EntryType.Alarm> activeAlarms =
+      new List<EntryType.Alarm>();
     private List<EntryType.Timer> activeTimers = new List<EntryType.Timer>();
     private List<EntryType.Reminder> activeReminders = 
       new List<EntryType.Reminder>();           
@@ -120,6 +121,15 @@ namespace DANT2a {
       return cntr;
     }
 
+    //display update methods
+    public void updateEntry(EntryType.Entries whichType, int curr) {
+      switch (whichType) {
+        case EntryType.Entries.Alarm:
+
+
+      }
+    }
+
     //is this really the best place for this?
     private void btnResetTimer_Click(object sender, EventArgs e) {
       if (clbTimers.SelectedIndices.Count == 0) {
@@ -133,6 +143,13 @@ namespace DANT2a {
       }
 
       updateDisplay(EntryType.Entries.Timer);
+    }
+
+    //alright, let's get down to the meat of things here.  or the tofu,
+    //at least
+    private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
+      //we'll start by updating the displays
+
     }
   }
 }

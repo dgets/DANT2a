@@ -65,6 +65,10 @@ namespace DANT2a {
         }
       }
 
+      public TimeSpan getInterval() {
+        return (activeAt - DateTime.Now);
+      }
+
       public Boolean isPast() {
         DateTime nao = DateTime.Now;
 
@@ -75,6 +79,14 @@ namespace DANT2a {
         }
       }
       
+      private void updateDisplay() {
+        for (int cntr = 0; cntr < HeadsUp.activeAlarms.Count; cntr++) {
+          if (HeadsUp.activeAlarms.ElementAt(cntr).running) {
+            HeadsUp.updateEntry(EntryType.Entries.Alarm, cntr);
+          }
+        }
+      }
+
     }
 
     public partial class Timer

@@ -32,7 +32,7 @@ namespace DANT2a {
 
       //really weak form validation
       if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
-        MessageBox.Show(Properties.Resources.NonameSetError, 
+        MessageBox.Show(Properties.Resources.NoNameSetError, 
           Properties.Resources.NoTextError,
           MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
