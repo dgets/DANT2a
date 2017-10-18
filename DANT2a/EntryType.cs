@@ -87,10 +87,21 @@ namespace DANT2a {
         }
       }
 
+      public override String ToString() {
+        if (!running) {
+          return (activeAt + " - " + name);
+        } else if ((!checkInterval()) && (!isPast())) {
+          return (activeAt + " - " + name + " - " + getInterval());
+        } else if (checkInterval()) {
+          return (name + " Ring ring, Neo " + activeAt);
+        } else {
+          return (getInterval() + " -+=*" + name + "*=+- " +
+            "Ring ring, Neo; alarm in past . . .");
+        }
+      }
     }
 
-    public partial class Timer
-    {
+    public partial class Timer {
       private String name;
       private TimeSpan duration;
       //private TimeSpan currentCount;
@@ -156,8 +167,7 @@ namespace DANT2a {
       }
     }
 
-    public partial class Reminder
-    {
+    public partial class Reminder {
       private String name;
       private DateTime activeAt;
       private Boolean running;

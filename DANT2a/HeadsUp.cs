@@ -125,8 +125,11 @@ namespace DANT2a {
     public void updateEntry(EntryType.Entries whichType, int curr) {
       switch (whichType) {
         case EntryType.Entries.Alarm:
-
-
+          clbAlarms.Items[curr] = activeAlarms[curr].ToString();
+          break;
+        default:
+          //ouah
+          break;
       }
     }
 
