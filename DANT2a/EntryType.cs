@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DANT2a {
   public class EntryType {
     public enum Entries { Alarm, Timer, Reminder, All };
+    //we're going to need an actual array of the Alarm/Timer/Reminder
+    //objects themselves, not goddamned strings
+    /*public static string[] types = 
+      new string[] { "Alarm", "Timer", "Reminder" };*/
 
     public partial class Alarm {
       private String name;
@@ -36,14 +41,15 @@ namespace DANT2a {
       }
 
       //constructors
-      public Alarm(String n, DateTime act, String sb) {
+      /*public Alarm(String n, DateTime act, String sb) {
         Name = n;
         ActiveAt = act;
         SoundBite = sb;
         Running = false;
-      }
+      }*/
 
       public Alarm() {
+
         this.Running = false;
       }
 
@@ -80,9 +86,11 @@ namespace DANT2a {
       }
       
       private void updateDisplay() {
+        HeadsUp mommy = (HeadsUp) Form.ActiveForm;
+
         for (int cntr = 0; cntr < HeadsUp.activeAlarms.Count; cntr++) {
           if (HeadsUp.activeAlarms.ElementAt(cntr).running) {
-            HeadsUp.updateEntry(EntryType.Entries.Alarm, cntr);
+            mommy.updateEntry(EntryType.Entries.Alarm, cntr);
           }
         }
       }
@@ -90,14 +98,18 @@ namespace DANT2a {
       public override String ToString() {
         if (!running) {
           return (activeAt + " - " + name);
-        } else if ((!checkInterval()) && (!isPast())) {
+        } else {
+          return (name + " - " + activeAt + " - " + getInterval());
+        }
+        
+          /*else if (!isPast()) {
           return (activeAt + " - " + name + " - " + getInterval());
         } else if (checkInterval()) {
           return (name + " Ring ring, Neo " + activeAt);
         } else {
           return (getInterval() + " -+=*" + name + "*=+- " +
             "Ring ring, Neo; alarm in past . . .");
-        }
+        }*/
       }
     }
 

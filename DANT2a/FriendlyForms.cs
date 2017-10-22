@@ -11,7 +11,7 @@ namespace DANT2a {
 
     //'constants'
     private static Color inactive = SystemColors.InactiveCaption;
-    private static Color active = SystemColors.ActiveCaption; 
+    private static Color active = SystemColors.WindowText; 
     //or SystemColors.WindowText?
     private static String inactiveName = Properties.Resources.InactiveNameTbx;
     private static String inactiveReminder = 

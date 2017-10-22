@@ -16,13 +16,42 @@ namespace DANT2a {
     }
   }
 
-  public partial class HeadsUp : Form {
+  public interface IHeadsUp {
+    CheckedListBox alarmCLB {
+      get;
+    }
 
-    //active lists - make private?
+    CheckedListBox timerCLB {
+      get;
+    }
+
+    CheckedListBox reminderCLB {
+      get;
+    }
+  }
+
+  public partial class HeadsUp : Form, IHeadsUp {
+    //interface schiesse
+    public CheckedListBox alarmCLB {
+      get { return this.clbAlarms; }
+      set { this.clbAlarms = alarmCLB;  }
+    }
+
+    public CheckedListBox timerCLB {
+      get { return this.clbTimers; }
+      set { this.clbTimers = timerCLB; }
+    }
+
+    public CheckedListBox reminderCLB {
+      get { return this.clbReminders; }
+      set { this.clbReminders = reminderCLB; }
+    }
+
+    //active lists - should these be private w/getters & setters?
     public static List<EntryType.Alarm> activeAlarms =
       new List<EntryType.Alarm>();
-    private List<EntryType.Timer> activeTimers = new List<EntryType.Timer>();
-    private List<EntryType.Reminder> activeReminders = 
+    public List<EntryType.Timer> activeTimers = new List<EntryType.Timer>();
+    public List<EntryType.Reminder> activeReminders = 
       new List<EntryType.Reminder>();           
 
     //debugging flags
@@ -31,8 +60,6 @@ namespace DANT2a {
     public const Boolean timerDebugging = true;
     public const Boolean tickDebugging = true;
     public const Boolean fileIODebugging = true;
-
-    //classes
 
     //HeadsUp form constructor
     public HeadsUp() {
@@ -69,17 +96,23 @@ namespace DANT2a {
     }
 
     private void updateDisplay(EntryType.Entries eType) {
+      int cntr = 0;
+
       switch (eType) {
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
 
           foreach (EntryType.Alarm al in activeAlarms) {
             if (al.Running) {
-              clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, true);
+              //clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, true);
+              updateEntry(EntryType.Entries.Alarm, cntr);
             } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
             }
+
+            cntr++;
           }
+          cntr = 0;
           break;
         
        case EntryType.Entries.Timer:
@@ -121,11 +154,13 @@ namespace DANT2a {
       return cntr;
     }
 
-    //display update methods
+    //display update methods - this (and the related ToString() methods,
+    //are going to almost certainly be replacing the above update*() method
+    //at least where it contains the switch/case logic
     public void updateEntry(EntryType.Entries whichType, int curr) {
       switch (whichType) {
         case EntryType.Entries.Alarm:
-          clbAlarms.Items[curr] = activeAlarms[curr].ToString();
+          alarmCLB.Items.Add(activeAlarms[curr].ToString());
           break;
         default:
           //ouah
@@ -151,8 +186,23 @@ namespace DANT2a {
     //alright, let's get down to the meat of things here.  or the tofu,
     //at least
     private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
+      //int cntr = 0;
       //we'll start by updating the displays
 
+      //alarms
+      foreach (EntryType.Alarm current in activeAlarms) {
+        if (current.Running) {
+          updateDisplay(EntryType.Entries.Alarm);
+          //alarmCLB. current.ToString();
+        }
+      }
+
+    }
+
+    private void alarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      activeAlarms.ElementAt(e.Index).Running = true;
+      //MessageBox.Show(e.Index.ToString());
+      tmrGreenwichAtomic.Start();
     }
   }
 }

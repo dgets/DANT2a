@@ -76,11 +76,13 @@
       // 
       // clbAlarms
       // 
+      this.clbAlarms.CheckOnClick = true;
       this.clbAlarms.FormattingEnabled = true;
       this.clbAlarms.Location = new System.Drawing.Point(7, 20);
       this.clbAlarms.Name = "clbAlarms";
       this.clbAlarms.Size = new System.Drawing.Size(237, 154);
       this.clbAlarms.TabIndex = 0;
+      this.clbAlarms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.alarmCLB_ItemCheck);
       // 
       // grpTimers
       // 
