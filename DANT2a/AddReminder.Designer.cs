@@ -75,6 +75,9 @@
       this.tbxName.Name = "tbxName";
       this.tbxName.Size = new System.Drawing.Size(100, 20);
       this.tbxName.TabIndex = 4;
+      this.tbxName.Click += new System.EventHandler(this.tbxName_Enter);
+      this.tbxName.Enter += new System.EventHandler(this.tbxName_Enter);
+      this.tbxName.Leave += new System.EventHandler(this.tbxName_Leave);
       // 
       // dtpReminderTarget
       // 
@@ -93,6 +96,9 @@
       this.tbxReminder.Name = "tbxReminder";
       this.tbxReminder.Size = new System.Drawing.Size(272, 157);
       this.tbxReminder.TabIndex = 6;
+      this.tbxReminder.Click += new System.EventHandler(this.tbxName_Enter);
+      this.tbxReminder.Enter += new System.EventHandler(this.tbxName_Enter);
+      this.tbxReminder.Leave += new System.EventHandler(this.tbxName_Leave);
       // 
       // btnAddReminder
       // 

@@ -96,6 +96,8 @@ namespace DANT2a {
     }
 
     private void updateDisplay(EntryType.Entries eType) {
+      //this method needs to be updated to take advantage of updateEntry()
+      //properly
       int cntr = 0;
 
       switch (eType) {
@@ -115,29 +117,32 @@ namespace DANT2a {
           cntr = 0;
           break;
         
-       case EntryType.Entries.Timer:
+        case EntryType.Entries.Timer:
+          cntr = 0;
+
           clbTimers.Items.Clear();
 
           foreach (EntryType.Timer tm in activeTimers) {
             if (tm.Running) {
-              clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
+              //clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
+              updateEntry(EntryType.Entries.Timer, cntr);
             } else {
               clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
             }
           }
           break;
 
-       case EntryType.Entries.Reminder:
-         clbReminders.Items.Clear();
+        case EntryType.Entries.Reminder:
+          clbReminders.Items.Clear();
 
-         foreach (EntryType.Reminder rm in activeReminders) {
-           if (rm.Running) {
-             clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, true);
-           } else {
-             clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
-           }
-         }
-         break;
+          foreach (EntryType.Reminder rm in activeReminders) {
+            if (rm.Running) {
+              clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, true);
+            } else {
+              clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
+            }
+          }
+          break;
 
       }
     }
@@ -161,6 +166,12 @@ namespace DANT2a {
       switch (whichType) {
         case EntryType.Entries.Alarm:
           alarmCLB.Items.Add(activeAlarms[curr].ToString());
+          break;
+        case EntryType.Entries.Timer:
+          timerCLB.Items.Add(activeTimers[curr].ToString());
+          break;
+        case EntryType.Entries.Reminder:
+          reminderCLB.Items.Add(activeReminders[curr].ToString());
           break;
         default:
           //ouah
@@ -193,10 +204,14 @@ namespace DANT2a {
       foreach (EntryType.Alarm current in activeAlarms) {
         if (current.Running) {
           updateDisplay(EntryType.Entries.Alarm);
-          //alarmCLB. current.ToString();
         }
       }
 
+      foreach (EntryType.Timer current in activeTimers) {
+        if (current.Running) {
+          updateDisplay(EntryType.Entries.Timer);
+        }
+      }
     }
 
     private void alarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {

@@ -177,6 +177,15 @@ namespace DANT2a {
         running = !running;
         return running;
       }
+
+      public override String ToString() {
+        if (!running) {
+          return (duration + " - " + name);
+        } else {
+          return (name + " - " + remaining + " - ");
+          //return (name + " - " + activeAt + " - " + getInterval());
+        }
+      }
     }
 
     public partial class Reminder {

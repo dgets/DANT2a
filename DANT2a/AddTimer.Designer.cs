@@ -72,6 +72,9 @@
       this.tbxName.Name = "tbxName";
       this.tbxName.Size = new System.Drawing.Size(100, 20);
       this.tbxName.TabIndex = 3;
+      this.tbxName.Click += new System.EventHandler(this.tbxName_Enter);
+      this.tbxName.Enter += new System.EventHandler(this.tbxName_Enter);
+      this.tbxName.Leave += new System.EventHandler(this.tbxName_Leave);
       // 
       // nudHrs
       // 

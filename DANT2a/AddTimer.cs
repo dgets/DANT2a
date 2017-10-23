@@ -46,32 +46,14 @@ namespace DANT2a {
     //usability methods
     private void tbxName_Enter(object sender, EventArgs e) {
       FriendlyForms.Usability.nameEnter(nameTbx);
-      /*tbxName.ForeColor = SystemColors.WindowText;
-
-      if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
-          (tbxName.Text.Length < 3)) {
-        tbxName.Text = "";
-      }*/
     }
 
     private void tbxName_Click(object sender, EventArgs e) {
       FriendlyForms.Usability.nameEnter(nameTbx); 
-      
-      /*tbxName.ForeColor = SystemColors.InactiveCaption;
-
-      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
-        tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }*/
     }
 
     private void tbxName_Leave(object sender, EventArgs e) {
       FriendlyForms.Usability.nameWipe(nameTbx);
-
-      /*tbxName.ForeColor = SystemColors.InactiveCaption;
-
-      if (tbxName.Text.Equals("")) {
-        tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }*/
     }
   }
 }
