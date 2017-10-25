@@ -96,9 +96,9 @@
       this.tbxReminder.Name = "tbxReminder";
       this.tbxReminder.Size = new System.Drawing.Size(272, 157);
       this.tbxReminder.TabIndex = 6;
-      this.tbxReminder.Click += new System.EventHandler(this.tbxName_Enter);
-      this.tbxReminder.Enter += new System.EventHandler(this.tbxName_Enter);
-      this.tbxReminder.Leave += new System.EventHandler(this.tbxName_Leave);
+      this.tbxReminder.Click += new System.EventHandler(this.tbxReminder_Enter);
+      this.tbxReminder.Enter += new System.EventHandler(this.tbxReminder_Enter);
+      this.tbxReminder.Leave += new System.EventHandler(this.tbxReminder_Leave);
       // 
       // btnAddReminder
       // 

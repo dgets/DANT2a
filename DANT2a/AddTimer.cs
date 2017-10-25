@@ -36,6 +36,7 @@ namespace DANT2a {
       godOuah.Name = tbxName.Text;
       godOuah.Duration = new TimeSpan((int) nudHrs.Value, (int) nudMin.Value,
         (int) nudSec.Value);
+      godOuah.Remaining = godOuah.Duration;
       //need to set soundbite after we get that set up on the form, too
 
       mainForm.addActiveTimer(godOuah);

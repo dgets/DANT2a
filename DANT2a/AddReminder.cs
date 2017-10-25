@@ -57,33 +57,32 @@ namespace DANT2a {
     //external c# file; inclusion in 3 different forms is ridiculous
     private void tbxName_Enter(object sender, EventArgs e) {
       FriendlyForms.Usability.nameEnter(nameTbx);
-
-      /*tbxName.ForeColor = SystemColors.WindowText;
-
-      if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
-          (tbxName.Text.Length < 3)) {
-        tbxName.Text = "";
-      }*/
     }
 
-    private void tbxName_Click(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameEnter(nameTbx); 
-      
-      /*tbxName.ForeColor = SystemColors.InactiveCaption;
+    private void tbxReminder_Enter(object sender, EventArgs e) {
+      tbxReminder.ForeColor = SystemColors.WindowText;
 
-      if (tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) {
-        tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }*/
+      if (tbxReminder.Text.Equals(Properties.Resources.InactiveReminderTbx) ||
+        (tbxReminder.Text.Length < 3)) {
+        tbxReminder.Text = "";
+      }
+    }
+
+    //not sure that this is really necessary any more
+    private void tbxName_Click(object sender, EventArgs e) {
+      FriendlyForms.Usability.nameEnter(nameTbx);
     }
 
     private void tbxName_Leave(object sender, EventArgs e) {
       FriendlyForms.Usability.nameWipe(nameTbx);
+    }
 
-      /*tbxName.ForeColor = SystemColors.InactiveCaption;
+    private void tbxReminder_Leave(object sender, EventArgs e) {
+      tbxReminder.ForeColor = SystemColors.InactiveCaption;
 
-      if (tbxName.Text.Equals("")) {
-        tbxName.Text = Properties.Resources.InactiveNameTbx;
-      }*/
+      if (tbxReminder.Text.Length < 3) {
+        tbxReminder.Text = Properties.Resources.InactiveReminderTbx;
+      }
     }
   }
 }
