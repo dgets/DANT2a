@@ -105,10 +105,14 @@ namespace DANT2a {
           clbAlarms.Items.Clear();
 
           foreach (EntryType.Alarm al in activeAlarms) {
-            if (al.Running) {
-              //clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, true);
+            if (al.Running && !al.isPast()) {
               updateEntry(EntryType.Entries.Alarm, cntr);
             } else {
+              if (al.Running) {
+                //executed if the alarm is in the past but for some
+                //reason still flagged as running
+                al.toggleRunning();
+              }
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
             }
 
