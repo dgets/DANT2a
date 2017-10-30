@@ -70,6 +70,7 @@
       <DependentUpon>AddWut.cs</DependentUpon>
     </Compile>
     <Compile Include="EntryType.cs" />
+    <Compile Include="FileIO.cs" />
     <Compile Include="FriendlyForms.cs" />
     <Compile Include="HeadsUp.cs">
       <SubType>Form</SubType>
