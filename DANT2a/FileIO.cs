@@ -12,10 +12,17 @@ namespace DANT2a{
         //for now we're going to use a static hardcoded pathway for debugging;
         //later on we'll do the following:
         //set up a standard (per-user) location to store the active lists
-        public static void WriteActivesBinary<EntryType>(string path,
-            EntryType wutOne) {
+        public static void WriteActivesBinary<List>(string path,
+          EntryType.AllEntries glob) {
+
+          if (HeadsUp.fileIODebugging) {
             path = debugPath;
-            
+          }
+
+          //List<EntryType> ouah = new List<EntryType>(HeadsUp.activeAlarms,
+            //HeadsUp.activeTimers, HeadsUp.activeReminders);
+          
+
             try {
                 using (Stream stream = File.Open(path, FileMode.Create)) {
                     var binFmttr =
@@ -23,7 +30,7 @@ namespace DANT2a{
                             BinaryFormatter();
                     //don't forget to try/catch wrap .Serialize(), too
                     try {
-                        binFmttr.Serialize(stream, wutOne);
+                        binFmttr.Serialize(stream, glob);
                     } catch (Exception e) {
                         //bubble any BinaryFormatter.Serialize() issues up
                         throw e;
@@ -36,7 +43,7 @@ namespace DANT2a{
             }
         }
 
-        public static EntryType ReadActivesBinary<EntryType>(string path) {
+        public static EntryType.AllEntries ReadActivesBinary<List>(string path) {
             path = debugPath;   //just for debugging
 
             //ffs add the try/catch code
@@ -44,7 +51,7 @@ namespace DANT2a{
                 var binFmttr =
                     new System.Runtime.Serialization.Formatters.Binary.
                         BinaryFormatter();
-                return (EntryType)binFmttr.Deserialize(stream);
+                return (EntryType.AllEntries)binFmttr.Deserialize(stream);
             }
         }
     }

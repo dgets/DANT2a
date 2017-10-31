@@ -162,5 +162,27 @@ namespace DANT2a {
       }
     }
 
+    [Serializable]
+    public partial class AllEntries {
+      private List<EntryType.Alarm> als;
+      private List<EntryType.Timer> tms;
+      private List<EntryType.Reminder> rms;
+
+      public List<EntryType.Alarm> Als {
+        get { return als; }
+        set { als = value; }
+      }
+
+      public List<EntryType.Timer> Tms {
+        get { return tms; }
+        set { tms = value; }
+      }
+
+      public List<EntryType.Reminder> Rms {
+        get { return rms; }
+        set { rms = value; }
+      }
+    }
+
   }
 }

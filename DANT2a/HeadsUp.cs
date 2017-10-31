@@ -96,32 +96,29 @@ namespace DANT2a {
     }
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
+      EntryType.AllEntries theGlob = new EntryType.AllEntries();
+
+      theGlob.Als = activeAlarms; theGlob.Tms = activeTimers;
+      theGlob.Rms = activeReminders;
+
         try {
-            //I really dislike having to do things this way; I want to be able
-            //to iterate and not repeat :|  What am I not thinking of here,
-            //other than making them all the same class?  Would all of them
-            //extending a common base class help?
-            FileIO.WriteActivesBinary<List<EntryType.Timer>>(
-                "", activeTimers);
-            FileIO.WriteActivesBinary<List<EntryType.Alarm>>(
-                "", activeAlarms);
-            FileIO.WriteActivesBinary<List<EntryType.Reminder>>(
-                "", activeReminders);
+          FileIO.WriteActivesBinary<EntryType.AllEntries>("", theGlob);
         } catch (Exception ex) {
-            MessageBox.Show("Exception saving: " + ex.Message);
+          MessageBox.Show("Exception saving: " + ex.Message);
         }
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
+      EntryType.AllEntries theGlob = new EntryType.AllEntries();
+
       try {
-        //so yeah, read in the same order they were written.  duh
-        activeReminders =
-          FileIO.ReadActivesBinary<List<EntryType.Reminder>>("");
-        activeAlarms = FileIO.ReadActivesBinary<List<EntryType.Alarm>>("");
-        activeTimers = FileIO.ReadActivesBinary<List<EntryType.Timer>>("");
+        theGlob = FileIO.ReadActivesBinary<EntryType.AllEntries>("");
       } catch (Exception ex) {
         MessageBox.Show("Exception loading: " + ex.Message);
       }
+
+      activeAlarms = theGlob.Als; activeTimers = theGlob.Tms;
+      activeReminders = theGlob.Rms;
 
       updateDisplay(EntryType.Entries.Alarm);
       updateDisplay(EntryType.Entries.Timer);
