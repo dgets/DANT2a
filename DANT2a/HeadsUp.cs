@@ -95,6 +95,14 @@ namespace DANT2a {
       newOne.Show();
     }
 
+    private void btnDbgSave_Click(object sender, EventArgs e) {
+        try {
+            FileIO.WriteActivesBinary<List<EntryType.Timer>>("", activeTimers);
+        } catch (Exception ex) {
+                MessageBox.Show("Exception: " + ex.Message);
+        }
+    }
+
     private void updateDisplay(EntryType.Entries eType) {
       //this method needs to be updated to take advantage of updateEntry()
       //properly

@@ -40,27 +40,16 @@ namespace DANT2a {
         set { running = value; }
       }
 
-      //constructors
-      /*public Alarm(String n, DateTime act, String sb) {
-        Name = n;
-        ActiveAt = act;
-        SoundBite = sb;
-        Running = false;
-      }*/
-
       public Alarm() {
-
         this.Running = false;
       }
 
       //methods
       public Boolean toggleRunning() {
         running = !running;
-        return running;
+        return running; //not sure if I'll ever use this, but why not...
       }
-
-      //rename to 'getInterval' & return TimeSpan instead for more general
-      //usage, mayhaps (public)
+ 
       private Boolean checkInterval() {
         DateTime nao = DateTime.Now;
 
@@ -113,6 +102,7 @@ namespace DANT2a {
       }
     }
 
+    [Serializable]
     public partial class Timer {
       private String name;
       private TimeSpan duration;
