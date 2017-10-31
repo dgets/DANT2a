@@ -8,14 +8,14 @@ using System.Windows.Forms;
 namespace DANT2a {
   public class EntryType {
     public enum Entries { Alarm, Timer, Reminder, All };
-    //we're going to need an actual array of the Alarm/Timer/Reminder
-    //objects themselves, not goddamned strings
-    /*public static string[] types = 
-      new string[] { "Alarm", "Timer", "Reminder" };*/
 
-    public partial class Alarm {
+    [Serializable]
+    public partial class Entry {
+      //I guess we could put a DateTime & TimeSpan in here in order to
+      //save more duplicate code when writing the extending classes, but
+      //I just hate the waste of the unused fields, then :P
+
       private String name;
-      private DateTime activeAt;
       private String soundBite;
       private Boolean running;
 
@@ -23,11 +23,6 @@ namespace DANT2a {
       public String Name {
         get { return name; }
         set { name = value; }
-      }
-
-      public DateTime ActiveAt {
-        get { return activeAt; }
-        set { activeAt = value; }
       }
 
       public String SoundBite {
@@ -40,14 +35,24 @@ namespace DANT2a {
         set { running = value; }
       }
 
-      public Alarm() {
-        this.Running = false;
-      }
-
       //methods
       public Boolean toggleRunning() {
         running = !running;
         return running; //not sure if I'll ever use this, but why not...
+      }
+    }
+
+    [Serializable]
+    public partial class Alarm : Entry {
+      private DateTime activeAt;
+
+      public DateTime ActiveAt {
+        get { return activeAt; }
+        set { activeAt = value; }
+      }
+
+      public Alarm() {
+        this.Running = false;
       }
  
       private Boolean checkInterval() {
@@ -78,76 +83,36 @@ namespace DANT2a {
         HeadsUp mommy = (HeadsUp) Form.ActiveForm;
 
         for (int cntr = 0; cntr < HeadsUp.activeAlarms.Count; cntr++) {
-          if (HeadsUp.activeAlarms.ElementAt(cntr).running) {
+          if (HeadsUp.activeAlarms.ElementAt(cntr).Running) {
             mommy.updateEntry(EntryType.Entries.Alarm, cntr);
           }
         }
       }
 
       public override String ToString() {
-        if (!running) {
-          return (activeAt + " - " + name);
+        if (!Running) {
+          return (activeAt + " - " + Name);
         } else {
-          return (name + " - " + activeAt + " - " + getInterval());
+          return (Name + " - " + activeAt + " - " + getInterval());
         }
-        
-          /*else if (!isPast()) {
-          return (activeAt + " - " + name + " - " + getInterval());
-        } else if (checkInterval()) {
-          return (name + " Ring ring, Neo " + activeAt);
-        } else {
-          return (getInterval() + " -+=*" + name + "*=+- " +
-            "Ring ring, Neo; alarm in past . . .");
-        }*/
       }
     }
 
     [Serializable]
-    public partial class Timer {
-      private String name;
+    public partial class Timer : Entry {
       private TimeSpan duration;
-      //private TimeSpan currentCount;
-      private Boolean running;
+      private TimeSpan currentCount;
       private DateTime lastTime;  //is this really necessary?
       private TimeSpan remaining;
-      private String soundBite;
-
-      //getters & setters
-      public String Name {
-        get { return name; }
-        set { name = value; }
-      }
 
       public TimeSpan Duration {
         get { return duration; }
         set { duration = value; }
       }
 
-      public Boolean Running {
-        get { return running; }
-        set { running = value; }
-      }
-
-      private String SoundBite {
-        get { return soundBite; }
-        set { soundBite = value; }
-      }
-
       public TimeSpan Remaining {
         get { return remaining;  }
         set { remaining = value; }
-      }
-
-      //constructor(s)
-      public Timer(String n, TimeSpan d, String sb) {
-        this.Name = n;
-        this.Duration = d;
-        this.Running = false;
-        this.SoundBite = sb;
-      }
-
-      public Timer() {
-        this.Running = false;
       }
 
       //methods
@@ -163,71 +128,29 @@ namespace DANT2a {
         }
       }
 
-      public Boolean toggleRunning() {
-        running = !running;
-        return running;
-      }
-
       public override String ToString() {
-        if (!running) {
-          return (duration + " - " + name);
+        if (!Running) {
+          return (duration + " - " + Name);
         } else {
-          return (name + " - " + remaining + " - ");
+          return (Name + " - " + remaining + " - ");
           //return (name + " - " + activeAt + " - " + getInterval());
         }
       }
     }
 
-    public partial class Reminder {
-      private String name;
+    [Serializable]
+    public partial class Reminder : Entry {
       private DateTime activeAt;
-      private Boolean running;
       private String reminder;
-      private String soundBite;
-
-      //getters & setters
-      public String Name {
-        get { return name; }
-        set { name = value; }
-      }
 
       public DateTime ActiveAt {
         get { return activeAt; }
         set { activeAt = value; }
       }
 
-      public Boolean Running {
-        get { return running; }
-        set { running = value; }
-      }
-
       public String Msg {
         get { return reminder; }
         set { reminder = value; }
-      }
-
-      public String SoundBite {
-        get { return soundBite; }
-        set { soundBite = value; }
-      }
-
-      //constructor(s)
-      public Reminder(String n, DateTime aa, String msg, String sb) {
-        this.Name = n;
-        this.ActiveAt = aa;
-        this.Running = false;
-        this.Msg = msg;
-        this.SoundBite = sb;
-      }
-
-      public Reminder() {
-        this.Running = false;
-      }
-
-      //methods
-      public Boolean toggleRunning() {
-        running = !running;
-        return running;
       }
 
       public Boolean checkInterval() {
@@ -240,5 +163,4 @@ namespace DANT2a {
     }
 
   }
-
 }

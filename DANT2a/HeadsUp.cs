@@ -97,10 +97,35 @@ namespace DANT2a {
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
         try {
-            FileIO.WriteActivesBinary<List<EntryType.Timer>>("", activeTimers);
+            //I really dislike having to do things this way; I want to be able
+            //to iterate and not repeat :|  What am I not thinking of here,
+            //other than making them all the same class?  Would all of them
+            //extending a common base class help?
+            FileIO.WriteActivesBinary<List<EntryType.Timer>>(
+                "", activeTimers);
+            FileIO.WriteActivesBinary<List<EntryType.Alarm>>(
+                "", activeAlarms);
+            FileIO.WriteActivesBinary<List<EntryType.Reminder>>(
+                "", activeReminders);
         } catch (Exception ex) {
-                MessageBox.Show("Exception: " + ex.Message);
+            MessageBox.Show("Exception saving: " + ex.Message);
         }
+    }
+
+    private void btnDbgLoad_Click(object sender, EventArgs e) {
+      try {
+        //so yeah, read in the same order they were written.  duh
+        activeReminders =
+          FileIO.ReadActivesBinary<List<EntryType.Reminder>>("");
+        activeAlarms = FileIO.ReadActivesBinary<List<EntryType.Alarm>>("");
+        activeTimers = FileIO.ReadActivesBinary<List<EntryType.Timer>>("");
+      } catch (Exception ex) {
+        MessageBox.Show("Exception loading: " + ex.Message);
+      }
+
+      updateDisplay(EntryType.Entries.Alarm);
+      updateDisplay(EntryType.Entries.Timer);
+      updateDisplay(EntryType.Entries.Reminder);
     }
 
     private void updateDisplay(EntryType.Entries eType) {
@@ -109,6 +134,7 @@ namespace DANT2a {
       int cntr = 0;
 
       switch (eType) {
+        //implement EntryType.Entires.All, ffs
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
 

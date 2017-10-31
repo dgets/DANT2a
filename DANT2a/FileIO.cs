@@ -39,6 +39,7 @@ namespace DANT2a{
         public static EntryType ReadActivesBinary<EntryType>(string path) {
             path = debugPath;   //just for debugging
 
+            //ffs add the try/catch code
             using (Stream stream = File.Open(path, FileMode.Open)) {
                 var binFmttr =
                     new System.Runtime.Serialization.Formatters.Binary.
