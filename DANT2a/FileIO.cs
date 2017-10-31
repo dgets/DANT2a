@@ -19,10 +19,6 @@ namespace DANT2a{
             path = debugPath;
           }
 
-          //List<EntryType> ouah = new List<EntryType>(HeadsUp.activeAlarms,
-            //HeadsUp.activeTimers, HeadsUp.activeReminders);
-          
-
             try {
                 using (Stream stream = File.Open(path, FileMode.Create)) {
                     var binFmttr =

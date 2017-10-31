@@ -183,6 +183,5 @@ namespace DANT2a {
         set { rms = value; }
       }
     }
-
   }
 }

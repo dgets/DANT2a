@@ -79,6 +79,11 @@
       // nudHrs
       // 
       this.nudHrs.Location = new System.Drawing.Point(88, 38);
+      this.nudHrs.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
       this.nudHrs.Name = "nudHrs";
       this.nudHrs.Size = new System.Drawing.Size(40, 20);
       this.nudHrs.TabIndex = 4;

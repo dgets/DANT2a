@@ -96,10 +96,8 @@ namespace DANT2a {
     }
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
-      EntryType.AllEntries theGlob = new EntryType.AllEntries();
-
-      theGlob.Als = activeAlarms; theGlob.Tms = activeTimers;
-      theGlob.Rms = activeReminders;
+      //construct & deconstructGlob() need to be moved to EntryType
+      EntryType.AllEntries theGlob = constructGlob();
 
         try {
           FileIO.WriteActivesBinary<EntryType.AllEntries>("", theGlob);
@@ -109,16 +107,11 @@ namespace DANT2a {
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
-      EntryType.AllEntries theGlob = new EntryType.AllEntries();
-
       try {
-        theGlob = FileIO.ReadActivesBinary<EntryType.AllEntries>("");
+        deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(""));
       } catch (Exception ex) {
         MessageBox.Show("Exception loading: " + ex.Message);
       }
-
-      activeAlarms = theGlob.Als; activeTimers = theGlob.Tms;
-      activeReminders = theGlob.Rms;
 
       updateDisplay(EntryType.Entries.Alarm);
       updateDisplay(EntryType.Entries.Timer);
@@ -131,7 +124,13 @@ namespace DANT2a {
       int cntr = 0;
 
       switch (eType) {
-        //implement EntryType.Entires.All, ffs
+        //implement EntryType.Entries.All, ffs
+        case EntryType.Entries.All:
+          clbAlarms.Items.Clear(); clbTimers.Items.Clear();
+          clbReminders.Items.Clear();
+
+          break;
+
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
 
@@ -151,7 +150,7 @@ namespace DANT2a {
           }
           cntr = 0;
           break;
-        
+
         case EntryType.Entries.Timer:
           cntr = 0;
 
@@ -178,7 +177,6 @@ namespace DANT2a {
             }
           }
           break;
-
       }
     }
 
@@ -232,9 +230,6 @@ namespace DANT2a {
     //alright, let's get down to the meat of things here.  or the tofu,
     //at least
     private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
-      //int cntr = 0;
-      //we'll start by updating the displays
-
       //alarms
       foreach (EntryType.Alarm current in activeAlarms) {
         if (current.Running) {
@@ -249,6 +244,22 @@ namespace DANT2a {
       }
     }
 
+    private EntryType.AllEntries constructGlob() {
+      EntryType.AllEntries newGlob = new EntryType.AllEntries();
+
+      newGlob.Als = activeAlarms; newGlob.Tms = activeTimers;
+      newGlob.Rms = activeReminders;
+
+      return newGlob;
+    }
+
+    private void deconstructGlob(EntryType.AllEntries readGlob) {
+      activeAlarms = readGlob.Als; activeTimers = readGlob.Tms;
+      activeReminders = readGlob.Rms;
+    }
+
+    //put this in a more logical location, verify that other methods are
+    //grouped reasonably, as well
     private void alarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
       activeAlarms.ElementAt(e.Index).Running = true;
       //MessageBox.Show(e.Index.ToString());
