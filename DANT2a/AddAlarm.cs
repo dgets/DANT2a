@@ -42,7 +42,7 @@ namespace DANT2a {
 
       //this is done in the wrong place, isn't it?
       godOuah.Name = tbxName.Text;
-      godOuah.ActiveAt = dtpAlarmTarget.Value.Date;
+      godOuah.ActiveAt = dtpAlarmTarget.Value;
       godOuah.Running = false;
       godOuah.SoundBite = null; //this'll just mean a console beep
       //godOuah.SoundBite = ofdLocateSoundbite.FileName.

@@ -43,7 +43,7 @@ namespace DANT2a {
       }
 
       godOuah.Name = tbxName.Text;
-      godOuah.ActiveAt = dtpReminderTarget.Value.Date;
+      godOuah.ActiveAt = dtpReminderTarget.Value;
       godOuah.SoundBite = null;
       godOuah.Running = false;  //don't need this, but maybe we will l8r
       godOuah.Msg = tbxReminder.Text;

@@ -138,7 +138,7 @@ namespace DANT2a {
             if (al.Running && !al.isPast()) {
               updateEntry(EntryType.Entries.Alarm, cntr);
             } else {
-              if (al.Running) {
+              if (al.Running && al.isPast()) {
                 //executed if the alarm is in the past but for some
                 //reason still flagged as running
                 al.toggleRunning();
@@ -233,6 +233,11 @@ namespace DANT2a {
       //alarms
       foreach (EntryType.Alarm current in activeAlarms) {
         if (current.Running) {
+          if (current.getInterval().Seconds < 1) {
+            MessageBox.Show("Ring ring, neo");
+            current.toggleRunning();
+          }
+
           updateDisplay(EntryType.Entries.Alarm);
         }
       }
