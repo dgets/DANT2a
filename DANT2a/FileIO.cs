@@ -7,17 +7,8 @@ using System.Threading.Tasks;
 
 namespace DANT2a{
     class FileIO {
-        private static string debugPath = 
-            "C:\\Users\\lobotomy\\Desktop\\ouah.sav";
-        //for now we're going to use a static hardcoded pathway for debugging;
-        //later on we'll do the following:
-        //set up a standard (per-user) location to store the active lists
         public static void WriteActivesBinary<List>(string path,
           EntryType.AllEntries glob) {
-
-          if (HeadsUp.fileIODebugging) {
-            path = debugPath;
-          }
 
             try {
                 using (Stream stream = File.Open(path, FileMode.Create)) {
@@ -40,8 +31,6 @@ namespace DANT2a{
         }
 
         public static EntryType.AllEntries ReadActivesBinary<List>(string path) {
-            path = debugPath;   //just for debugging
-
             //ffs add the try/catch code
             using (Stream stream = File.Open(path, FileMode.Open)) {
                 var binFmttr =

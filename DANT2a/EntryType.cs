@@ -55,6 +55,7 @@ namespace DANT2a {
         this.Running = false;
       }
  
+      //this can probably be removed, as isPast() is doing the same
       private Boolean checkInterval() {
         DateTime nao = DateTime.Now;
 

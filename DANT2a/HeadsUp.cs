@@ -96,19 +96,29 @@ namespace DANT2a {
     }
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
-      //construct & deconstructGlob() need to be moved to EntryType
-      EntryType.AllEntries theGlob = constructGlob();
+      const String saveFile = "DANTentries.cfg";
+      String saveDir = Environment.GetFolderPath(
+        Environment.SpecialFolder.ApplicationData);
+
+    //construct & deconstructGlob() need to be moved to EntryType
+    EntryType.AllEntries theGlob = constructGlob();
 
         try {
-          FileIO.WriteActivesBinary<EntryType.AllEntries>("", theGlob);
+          FileIO.WriteActivesBinary<EntryType.AllEntries>(
+            saveDir + saveFile, theGlob);
         } catch (Exception ex) {
           MessageBox.Show("Exception saving: " + ex.Message);
         }
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
+      const String saveFile = "DANTentries.cfg";
+      String saveDir = Environment.GetFolderPath(
+        Environment.SpecialFolder.ApplicationData);
+
       try {
-        deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(""));
+        deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(
+          saveDir + saveFile));
       } catch (Exception ex) {
         MessageBox.Show("Exception loading: " + ex.Message);
       }
@@ -242,9 +252,16 @@ namespace DANT2a {
       //alarms
       foreach (EntryType.Alarm current in activeAlarms) {
         if (current.Running) {
-          if (current.getInterval().Seconds < 1) {
+          if (/*current.getInterval().Seconds < 1*/
+              current.isPast()) {  //consolidate to isPast()
+            Boolean ouah;
+
             MessageBox.Show("Ring ring, neo");
-            current.toggleRunning();
+
+            ouah = current.toggleRunning();
+            if (alarmDebugging) {
+              MessageBox.Show("ouah: " + ouah.ToString(), "ouah status");
+            }
           }
 
           updateDisplay(EntryType.Entries.Alarm);
