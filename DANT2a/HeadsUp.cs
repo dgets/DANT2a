@@ -119,8 +119,6 @@ namespace DANT2a {
     }
 
     private void updateDisplay(EntryType.Entries eType) {
-      //this method needs to be updated to take advantage of updateEntry()
-      //properly
       int cntr = 0;
 
       switch (eType) {
@@ -135,14 +133,18 @@ namespace DANT2a {
           clbAlarms.Items.Clear();
 
           foreach (EntryType.Alarm al in activeAlarms) {
-            if (al.Running && !al.isPast()) {
-              updateEntry(EntryType.Entries.Alarm, cntr);
-            } else {
-              if (al.Running && al.isPast()) {
-                //executed if the alarm is in the past but for some
-                //reason still flagged as running
+            //switch the above to a 'for' loop & remove cntr++ below
+            if (al.Running) {
+              if (!al.isPast()) {
+                /*if (tickDebugging && alarmDebugging) {
+                  MessageBox.Show("Entering updateEntry()");
+                }*/
+
+                updateEntry(EntryType.Entries.Alarm, cntr);
+              } else {
                 al.toggleRunning();
               }
+            } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
             }
 
@@ -196,15 +198,22 @@ namespace DANT2a {
     //are going to almost certainly be replacing the above update*() method
     //at least where it contains the switch/case logic
     public void updateEntry(EntryType.Entries whichType, int curr) {
+      /*if (tickDebugging) {
+        MessageBox.Show("In updateEntry()", "Tick Debugging");
+      }*/
+      
       switch (whichType) {
         case EntryType.Entries.Alarm:
-          alarmCLB.Items.Add(activeAlarms[curr].ToString());
+          alarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
+          alarmCLB.Show();
           break;
         case EntryType.Entries.Timer:
-          timerCLB.Items.Add(activeTimers[curr].ToString());
+          timerCLB.Items.Add(activeTimers[curr].ToString(), true);
+          timerCLB.Show();
           break;
         case EntryType.Entries.Reminder:
-          reminderCLB.Items.Add(activeReminders[curr].ToString());
+          reminderCLB.Items.Add(activeReminders[curr].ToString(), true);
+          reminderCLB.Show();
           break;
         default:
           //ouah
