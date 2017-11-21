@@ -31,6 +31,13 @@ namespace DANT2a {
         MessageBox.Show(Properties.Resources.NoNameSetError, 
           Properties.Resources.NoTextError,
           MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
+
+      if ((nudHrs.Value == 0) && (nudMin.Value == 0) && (nudSec.Value ==0)) {
+        MessageBox.Show("Timer cannot be for null countdown!",
+          "Timer Set for Zero", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
       }
 
       godOuah.Name = tbxName.Text;

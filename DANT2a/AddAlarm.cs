@@ -27,17 +27,17 @@ namespace DANT2a {
       dtpAlarmTarget.CustomFormat = "MMMM.dd, yyyy '@' H:mm:ss";
     }
 
-    private void btnAddAlarm_Click(object sender, EventArgs e)
-    {
+    private void btnAddAlarm_Click(object sender, EventArgs e) {
       EntryType.Alarm godOuah = new EntryType.Alarm();
-
+      
       //problems?
       //need to implement better validation
       if ((tbxName.Text.Equals(Properties.Resources.InactiveNameTbx)) ||
-          (tbxName.Text.Length < 3)) {
-        MessageBox.Show(Properties.Resources.NoNameSetError, 
+          (tbxName.Text.Length < 3)) { 
+        MessageBox.Show(Properties.Resources.NoNameSetError,
           Properties.Resources.NoTextError,
           MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
       }
 
       //this is done in the wrong place, isn't it?

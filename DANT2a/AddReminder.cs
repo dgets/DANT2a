@@ -35,11 +35,14 @@ namespace DANT2a {
         MessageBox.Show(Properties.Resources.NoNameSetError, 
           Properties.Resources.NoTextError,
           MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
       }
+
       if (tbxReminder.Text.Equals(Properties.Resources.InactiveReminderTbx)) {
         MessageBox.Show("You should use an alarm if you're not concerned " +
           "about having a reminder message!", Properties.Resources.NoTextError,
           MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
       }
 
       godOuah.Name = tbxName.Text;
