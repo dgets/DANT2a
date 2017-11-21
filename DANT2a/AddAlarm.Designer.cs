@@ -72,7 +72,7 @@
       this.dtpAlarmTarget.RightToLeft = System.Windows.Forms.RightToLeft.No;
       this.dtpAlarmTarget.Size = new System.Drawing.Size(201, 20);
       this.dtpAlarmTarget.TabIndex = 3;
-      this.dtpAlarmTarget.Value = new System.DateTime(2017, 10, 11, 0, 0, 0, 0);
+      this.dtpAlarmTarget.Value = new System.DateTime(2017, 11, 21, 0, 0, 0, 0);
       // 
       // label1
       // 
