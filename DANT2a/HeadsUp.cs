@@ -50,15 +50,17 @@ namespace DANT2a {
     //active lists - should these be private w/getters & setters?
     public static List<EntryType.Alarm> activeAlarms =
       new List<EntryType.Alarm>();
-    public List<EntryType.Timer> activeTimers = new List<EntryType.Timer>();
-    public List<EntryType.Reminder> activeReminders = 
+    public static List<EntryType.Timer> activeTimers = 
+      new List<EntryType.Timer>();
+    public static List<EntryType.Reminder> activeReminders = 
       new List<EntryType.Reminder>();           
 
     //debugging flags
     public const Boolean generalDebugging = true;
-    public const Boolean alarmDebugging = true;
+    public const Boolean alarmDebugging = false;
     public const Boolean timerDebugging = true;
-    public const Boolean tickDebugging = true;
+    public const Boolean reminderDebugging = true;
+    public const Boolean tickDebugging = false;
     public const Boolean fileIODebugging = true;
 
     //HeadsUp form constructor
@@ -129,38 +131,46 @@ namespace DANT2a {
     }
 
     private void updateDisplay(EntryType.Entries eType) {
-      int cntr = 0;
+      int cntr;
 
       switch (eType) {
         //implement EntryType.Entries.All, ffs
-        case EntryType.Entries.All:
+        /*case EntryType.Entries.All:
           clbAlarms.Items.Clear(); clbTimers.Items.Clear();
           clbReminders.Items.Clear();
 
-          break;
+          break;*/
 
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
 
-          foreach (EntryType.Alarm al in activeAlarms) {
+          for (int cntr2 = 0; cntr2 < activeAlarms.Count; cntr2++) {
             //switch the above to a 'for' loop & remove cntr++ below
+            EntryType.Alarm al = activeAlarms[cntr2];
+
             if (al.Running) {
               if (!al.isPast()) {
-                /*if (tickDebugging && alarmDebugging) {
-                  MessageBox.Show("Entering updateEntry()");
-                }*/
+                updateEntry(EntryType.Entries.Alarm, cntr2);
 
-                updateEntry(EntryType.Entries.Alarm, cntr);
+                if (tickDebugging && alarmDebugging) {
+                  MessageBox.Show("Entered updateEntry()",
+                    "Tick & Alarm Debugging");
+                }
               } else {
+                if (tickDebugging && alarmDebugging) {
+                  MessageBox.Show("toggling", "Tick & Alarm Debugging");
+                }
+
                 al.toggleRunning();
               }
             } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
-            }
 
-            cntr++;
+              if (tickDebugging && alarmDebugging) {
+                MessageBox.Show("#" + cntr2.ToString() + " not running");
+              }
+            }
           }
-          cntr = 0;
           break;
 
         case EntryType.Entries.Timer:
@@ -246,28 +256,61 @@ namespace DANT2a {
       updateDisplay(EntryType.Entries.Timer);
     }
 
-    //alright, let's get down to the meat of things here.  or the tofu,
-    //at least
-    private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
-      //alarms
-      foreach (EntryType.Alarm current in activeAlarms) {
-        if (current.Running) {
-          if (/*current.getInterval().Seconds < 1*/
-              current.isPast()) {  //consolidate to isPast()
-            Boolean ouah;
-
-            MessageBox.Show("Ring ring, neo");
-
-            ouah = current.toggleRunning();
-            if (alarmDebugging) {
-              MessageBox.Show("ouah: " + ouah.ToString(), "ouah status");
-            }
-          }
-
-          updateDisplay(EntryType.Entries.Alarm);
+    //not sure at this point if it would be useful to have an option to 
+    //select just one type; we'll keep it generic for now
+    private Boolean anythingRunning() {
+      foreach (EntryType.Alarm al in activeAlarms) {
+        if (al.Running) {
+          return true;
+        }
+      }
+      foreach (EntryType.Timer tm in activeTimers) {
+        if (tm.Running) {
+          return true;
+        }
+      }
+      foreach (EntryType.Reminder rm in activeReminders) {
+        if (rm.Running) {
+          return true;
         }
       }
 
+      return false;
+    }
+
+    //alright, let's get down to the meat of things here.  or the tofu,
+    //at least
+    private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
+      if (!anythingRunning()) {
+        if (tickDebugging) {
+          MessageBox.Show("anythingRunning() sez false");
+        }
+
+        tmrGreenwichAtomic.Enabled = false;
+        return;
+      }
+
+      //alarms
+      foreach (EntryType.Alarm current in activeAlarms) {
+        if (current.Running) {
+          if (current.isPast()) {
+            Boolean ouah;
+
+            ouah = current.toggleRunning();
+
+            if (tickDebugging) {
+              MessageBox.Show(current.Name + " toggle");
+            }
+
+            MessageBox.Show(current.Name + " isPast(); ouah = "
+              + ouah.ToString());
+          } else {
+            updateDisplay(EntryType.Entries.Alarm);
+          }
+        }
+      }
+
+      //timers
       foreach (EntryType.Timer current in activeTimers) {
         if (current.Running) {
           updateDisplay(EntryType.Entries.Timer);
@@ -292,9 +335,25 @@ namespace DANT2a {
     //put this in a more logical location, verify that other methods are
     //grouped reasonably, as well
     private void alarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      activeAlarms.ElementAt(e.Index).Running = true;
-      //MessageBox.Show(e.Index.ToString());
-      tmrGreenwichAtomic.Start();
+      Boolean ouah = false;
+
+      //activeAlarms.ElementAt(e.Index).Running = true;
+      if (activeAlarms.ElementAt(e.Index).toggleRunning()) {
+        if (!tmrGreenwichAtomic.Enabled) {
+          tmrGreenwichAtomic.Start();
+        }
+      } else {
+        foreach (EntryType.Alarm al in activeAlarms) {
+          if (al.Running) {
+            ouah = true;
+            break;
+          }
+        }
+
+        if (!ouah) {
+          tmrGreenwichAtomic.Enabled = false;
+        }
+      }
     }
   }
 }

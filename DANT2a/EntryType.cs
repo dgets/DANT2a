@@ -13,7 +13,7 @@ namespace DANT2a {
     public partial class Entry {
       //I guess we could put a DateTime & TimeSpan in here in order to
       //save more duplicate code when writing the extending classes, but
-      //I just hate the waste of the unused fields, then :P
+      //I just hate the waste of the unused fields :P
 
       private String name;
       private String soundBite;
@@ -56,7 +56,7 @@ namespace DANT2a {
       }
  
       //this can probably be removed, as isPast() is doing the same
-      private Boolean checkInterval() {
+      /*private Boolean checkInterval() {
         DateTime nao = DateTime.Now;
 
         if ((activeAt - DateTime.Now).Duration().TotalSeconds <= 1) {
@@ -64,7 +64,7 @@ namespace DANT2a {
         } else {
           return false;
         }
-      }
+      }*/
 
       public TimeSpan getInterval() {
         return (activeAt - DateTime.Now);
@@ -73,14 +73,15 @@ namespace DANT2a {
       public Boolean isPast() {
         DateTime nao = DateTime.Now;
 
-        if (activeAt.Date.CompareTo(nao) >= 0) {
+        if (activeAt.Date.CompareTo(nao) <= 0) {
           return true;
         } else {
           return false;
         }
       }
       
-      private void updateDisplay() {
+      //this is gross and disgusting spaghetti enabling; knock it off
+      /*private void updateDisplay() {
         HeadsUp mommy = (HeadsUp) Form.ActiveForm;
 
         for (int cntr = 0; cntr < HeadsUp.activeAlarms.Count; cntr++) {
@@ -88,7 +89,7 @@ namespace DANT2a {
             mommy.updateEntry(EntryType.Entries.Alarm, cntr);
           }
         }
-      }
+      }*/
 
       public override String ToString() {
         if (!Running) {
