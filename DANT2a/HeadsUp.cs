@@ -55,14 +55,6 @@ namespace DANT2a {
     public static List<EntryType.Reminder> activeReminders = 
       new List<EntryType.Reminder>();           
 
-    //debugging flags
-    public const Boolean generalDebugging = true;
-    public const Boolean alarmDebugging = false;
-    public const Boolean timerDebugging = true;
-    public const Boolean reminderDebugging = true;
-    public const Boolean tickDebugging = false;
-    public const Boolean fileIODebugging = true;
-
     //HeadsUp form constructor
     public HeadsUp() {
       InitializeComponent();
@@ -109,7 +101,8 @@ namespace DANT2a {
           FileIO.WriteActivesBinary<EntryType.AllEntries>(
             saveDir + saveFile, theGlob);
         } catch (Exception ex) {
-          MessageBox.Show("Exception saving: " + ex.Message);
+          Debug.showException("Save: " + ex.Message);
+          //MessageBox.Show("Exception saving: " + ex.Message);
         }
     }
 
@@ -122,7 +115,8 @@ namespace DANT2a {
         deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(
           saveDir + saveFile));
       } catch (Exception ex) {
-        MessageBox.Show("Exception loading: " + ex.Message);
+        Debug.showException("Load: " + ex.Message);
+        //MessageBox.Show("Exception loading: " + ex.Message);
       }
 
       updateDisplay(EntryType.Entries.Alarm);
@@ -152,13 +146,15 @@ namespace DANT2a {
               if (!al.isPast()) {
                 updateEntry(EntryType.Entries.Alarm, cntr2);
 
-                if (tickDebugging && alarmDebugging) {
-                  MessageBox.Show("Entered updateEntry()",
-                    "Tick & Alarm Debugging");
+                if (Debug.tickDebugging && Debug.alarmDebugging) {
+                  Debug.showDbgOut("Entered updateEntry()");
+                  //MessageBox.Show("Entered updateEntry()",
+                  //  "Tick & Alarm Debugging");
                 }
               } else {
-                if (tickDebugging && alarmDebugging) {
-                  MessageBox.Show("toggling", "Tick & Alarm Debugging");
+                if (Debug.tickDebugging && Debug.alarmDebugging) {
+                  //MessageBox.Show("toggling", "Tick & Alarm Debugging");
+                  Debug.showDbgOut("Toggling alarm #" + cntr2.ToString());
                 }
 
                 al.toggleRunning();
@@ -166,8 +162,9 @@ namespace DANT2a {
             } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
 
-              if (tickDebugging && alarmDebugging) {
-                MessageBox.Show("#" + cntr2.ToString() + " not running");
+              if (Debug.tickDebugging && Debug.alarmDebugging) {
+                //MessageBox.Show("#" + cntr2.ToString() + " not running");
+                Debug.showDbgOut("Alarm #" + cntr2.ToString() + " not running");
               }
             }
           }
@@ -282,8 +279,9 @@ namespace DANT2a {
     //at least
     private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
       if (!anythingRunning()) {
-        if (tickDebugging) {
-          MessageBox.Show("anythingRunning() sez false");
+        if (Debug.tickDebugging) {
+          //MessageBox.Show("anythingRunning() sez false");
+          Debug.showDbgOut("anythingRunning() sez false");
         }
 
         tmrGreenwichAtomic.Enabled = false;
@@ -298,8 +296,9 @@ namespace DANT2a {
 
             ouah = current.toggleRunning();
 
-            if (tickDebugging) {
-              MessageBox.Show(current.Name + " toggle");
+            if (Debug.tickDebugging) {
+              //MessageBox.Show(current.Name + " toggle");
+              Debug.showDbgOut(current.Name + " isPast() sez true");
             }
 
             MessageBox.Show(current.Name + " isPast(); ouah = "

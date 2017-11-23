@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9A5FA8C4-630F-489C-B2EA-08AB6EF874FB}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>DANT2a</RootNamespace>
     <AssemblyName>DANT2a</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -69,6 +72,7 @@
     <Compile Include="AddWut.Designer.cs">
       <DependentUpon>AddWut.cs</DependentUpon>
     </Compile>
+    <Compile Include="Debug.cs" />
     <Compile Include="EntryType.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="FriendlyForms.cs" />
