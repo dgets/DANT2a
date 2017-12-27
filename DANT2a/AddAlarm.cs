@@ -24,7 +24,7 @@ namespace DANT2a {
       
       tbxName.ForeColor = SystemColors.InactiveCaption;
       tbxName.Text = Properties.Resources.InactiveNameTbx;
-      dtpAlarmTarget.CustomFormat = "MMMM.dd, yyyy '@' H:mm:ss";
+      dtpAlarmTarget.CustomFormat = "MMMM dd, yyyy '@' H:mm:ss";
       dtpAlarmTarget.Value = DateTime.Now;
     }
 

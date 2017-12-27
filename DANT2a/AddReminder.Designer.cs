@@ -81,12 +81,15 @@
       // 
       // dtpReminderTarget
       // 
+      this.dtpReminderTarget.CustomFormat = "f";
+      this.dtpReminderTarget.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
       this.dtpReminderTarget.Location = new System.Drawing.Point(99, 44);
       this.dtpReminderTarget.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
       this.dtpReminderTarget.MinDate = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
       this.dtpReminderTarget.Name = "dtpReminderTarget";
       this.dtpReminderTarget.Size = new System.Drawing.Size(272, 20);
       this.dtpReminderTarget.TabIndex = 5;
+      this.dtpReminderTarget.Value = new System.DateTime(2017, 12, 27, 3, 4, 27, 0);
       // 
       // tbxReminder
       // 

@@ -22,7 +22,7 @@ namespace DANT2a {
 
       tbxName.ForeColor = SystemColors.InactiveCaption;
       tbxName.Text = Properties.Resources.InactiveNameTbx;
-      dtpReminderTarget.CustomFormat = "MMMM.dd, yyyy '@' H:mm:ss";
+      dtpReminderTarget.CustomFormat = "MMMM dd, yyyy '@' H:mm:ss";
       dtpReminderTarget.Value = DateTime.Now;
       tbxReminder.ForeColor = SystemColors.InactiveCaption;
       tbxReminder.Text = Properties.Resources.InactiveReminderTbx;
