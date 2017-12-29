@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -351,6 +352,26 @@ namespace DANT2a {
 
         if (!ouah) {
           tmrGreenwichAtomic.Enabled = false;
+        }
+      }
+    }
+
+    private void btnDbgWipe_Click(object sender, EventArgs e) {
+      //confirm wiping the old one, first
+      if (File.Exists(FileIO.saveDataLoc)) {
+        if (MessageBox.Show("Do you want to delete the save file?", 
+              "Confirm savefile deletion!", MessageBoxButtons.YesNo) ==
+              DialogResult.Yes) {
+          //hose it
+          try {
+            File.Delete(FileIO.saveDataLoc);
+          } catch (Exception ex) {
+            MessageBox.Show("Exception trying to delete!", "Can't delete!",
+              MessageBoxButtons.OK, MessageBoxIcon.Error);
+          }
+        } else {
+          MessageBox.Show("Letting savefile live.  Maybe it was never there" +
+            " to begin with...  Do you think that's air you're breathing?");
         }
       }
     }
