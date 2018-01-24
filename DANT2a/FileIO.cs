@@ -10,16 +10,13 @@ namespace DANT2a{
         private static String saveFile = "DANTentries.cfg";
         private static String saveDir = Environment.GetFolderPath(
           Environment.SpecialFolder.ApplicationData);
-        public static String saveDataLoc = saveDir + saveFile;
+        public static String saveDataLoc = saveDir + "\\" + saveFile;
 
         public static void WriteActivesBinary<List>(string path,
           EntryType.AllEntries glob) {
 
             try {
                 using (Stream stream = File.Open(path, FileMode.Create)) {
-                    /*var binFmttr =
-                      new System.Runtime.Serialization.Formatters.Binary.
-                      BinaryFormatter();*/
                     var xmlFmttr = new System.Xml.Serialization.XmlSerializer(
                       typeof(EntryType.AllEntries));
                     
@@ -42,11 +39,6 @@ namespace DANT2a{
         public static EntryType.AllEntries ReadActivesBinary<List>(string path) {
             //ffs add the try/catch code
             using (Stream stream = File.Open(path, FileMode.Open)) {
-              /*var binFmttr =
-                  new System.Runtime.Serialization.Formatters.Binary.
-                      BinaryFormatter();
-              return (EntryType.AllEntries)binFmttr.Deserialize(stream);*/
-
               var xmlFmttr = new System.Xml.Serialization.XmlSerializer(
                 typeof(EntryType.AllEntries));
 

@@ -91,32 +91,33 @@ namespace DANT2a {
     }
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
-      const String saveFile = "DANTentries.cfg";
+      /*const String saveFile = "DANTentries.cfg";
       String saveDir = Environment.GetFolderPath(
-        Environment.SpecialFolder.ApplicationData);
+        Environment.SpecialFolder.ApplicationData);*/
 
     //construct & deconstructGlob() need to be moved to EntryType
     EntryType.AllEntries theGlob = constructGlob();
 
       try {
-        FileIO.WriteActivesBinary<EntryType.AllEntries>(
-          saveDir + saveFile, theGlob);
+        FileIO.WriteActivesBinary<EntryType.AllEntries>(FileIO.saveDataLoc, 
+          theGlob);
       } catch (Exception ex) {
         Debug.showException("Save: " + ex.Message);
         //MessageBox.Show("Exception saving: " + ex.Message);
       }
 
-      MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", MessageBoxButtons.OK);
+      MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", 
+        MessageBoxButtons.OK);
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
-      const String saveFile = "DANTentries.cfg";
+      /*const String saveFile = "DANTentries.cfg";
       String saveDir = Environment.GetFolderPath(
-        Environment.SpecialFolder.ApplicationData);
+        Environment.SpecialFolder.ApplicationData);*/
 
       try {
         deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(
-          saveDir + saveFile));
+          FileIO.saveDataLoc));
       } catch (Exception ex) {
         Debug.showException("Load: " + ex.Message);
         //MessageBox.Show("Exception loading: " + ex.Message);
@@ -167,7 +168,8 @@ namespace DANT2a {
 
               if (Debug.tickDebugging && Debug.alarmDebugging) {
                 //MessageBox.Show("#" + cntr2.ToString() + " not running");
-                Debug.showDbgOut("Alarm #" + cntr2.ToString() + " not running");
+                Debug.showDbgOut("Alarm #" + cntr2.ToString() + 
+                  " not running");
               }
             }
           }
@@ -373,13 +375,15 @@ namespace DANT2a {
           }
 
           activeAlarms.Clear(); activeTimers.Clear(); activeReminders.Clear();
-          alarmCLB.Items.Clear(); timerCLB.Items.Clear(); reminderCLB.Items.Clear();
+          alarmCLB.Items.Clear(); timerCLB.Items.Clear();
+          reminderCLB.Items.Clear();
         } else {
           MessageBox.Show("Letting savefile live.  Maybe it was never there" +
             " to begin with...  Do you think that's air you're breathing?");
         }
 
-        MessageBox.Show("Alarms/Timers/Reminders Wiped", "Wipe Successful", MessageBoxButtons.OK);
+        MessageBox.Show("Alarms/Timers/Reminders Wiped", "Wipe Successful", 
+          MessageBoxButtons.OK);
       }
     }
   }
