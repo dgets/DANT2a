@@ -27,7 +27,7 @@
       this.tbxName = new System.Windows.Forms.TextBox();
       this.lblRingAt = new System.Windows.Forms.Label();
       this.dtpAlarmTarget = new System.Windows.Forms.DateTimePicker();
-      this.label1 = new System.Windows.Forms.Label();
+      this.lblAlarmSound = new System.Windows.Forms.Label();
       this.btnAddAlarm = new System.Windows.Forms.Button();
       this.ofdLocateSoundbite = new System.Windows.Forms.OpenFileDialog();
       this.SuspendLayout();
@@ -74,14 +74,14 @@
       this.dtpAlarmTarget.TabIndex = 3;
       this.dtpAlarmTarget.Value = new System.DateTime(2017, 11, 21, 0, 0, 0, 0);
       // 
-      // label1
+      // lblAlarmSound
       // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(13, 68);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(70, 13);
-      this.label1.TabIndex = 4;
-      this.label1.Text = "Alarm Sound:";
+      this.lblAlarmSound.AutoSize = true;
+      this.lblAlarmSound.Location = new System.Drawing.Point(13, 68);
+      this.lblAlarmSound.Name = "lblAlarmSound";
+      this.lblAlarmSound.Size = new System.Drawing.Size(70, 13);
+      this.lblAlarmSound.TabIndex = 4;
+      this.lblAlarmSound.Text = "Alarm Sound:";
       // 
       // btnAddAlarm
       // 
@@ -103,7 +103,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(302, 199);
       this.Controls.Add(this.btnAddAlarm);
-      this.Controls.Add(this.label1);
+      this.Controls.Add(this.lblAlarmSound);
       this.Controls.Add(this.dtpAlarmTarget);
       this.Controls.Add(this.lblRingAt);
       this.Controls.Add(this.tbxName);
@@ -121,7 +121,7 @@
     private System.Windows.Forms.TextBox tbxName;
     private System.Windows.Forms.Label lblRingAt;
     private System.Windows.Forms.DateTimePicker dtpAlarmTarget;
-    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Label lblAlarmSound;
     private System.Windows.Forms.Button btnAddAlarm;
     private System.Windows.Forms.OpenFileDialog ofdLocateSoundbite;
   }

@@ -166,11 +166,12 @@ namespace DANT2a {
             } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
 
-              if (Debug.tickDebugging && Debug.alarmDebugging) {
-                //MessageBox.Show("#" + cntr2.ToString() + " not running");
+              //if this is needed later on, uncomment and change 
+              //Debug.alarmDebugging when necessary after that point
+              /*if (Debug.tickDebugging && Debug.alarmDebugging) {
                 Debug.showDbgOut("Alarm #" + cntr2.ToString() + 
                   " not running");
-              }
+              }*/
             }
           }
           break;
