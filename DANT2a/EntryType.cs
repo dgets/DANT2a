@@ -73,7 +73,7 @@ namespace DANT2a {
       public Boolean isPast() {
         DateTime nao = DateTime.Now;
 
-        if (activeAt.Date.CompareTo(nao) <= 0) {
+        if (activeAt.Date.CompareTo(DateTime.Now) > 0) {
           return true;
         } else {
           return false;
