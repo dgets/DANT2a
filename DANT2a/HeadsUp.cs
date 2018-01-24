@@ -293,6 +293,8 @@ namespace DANT2a {
           if (current.isPast()) {
             Boolean ouah;
 
+            current.ringRingNeo();
+            /* all of this should be handled in ringRingNeo() nao
             ouah = current.toggleRunning();
 
             if (Debug.tickDebugging) {
@@ -301,7 +303,7 @@ namespace DANT2a {
             }
 
             MessageBox.Show(current.Name + " isPast(); ouah = "
-              + ouah.ToString());
+              + ouah.ToString());*/
           } else {
             updateDisplay(EntryType.Entries.Alarm);
           }

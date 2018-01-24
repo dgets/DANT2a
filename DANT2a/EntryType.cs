@@ -41,6 +41,16 @@ namespace DANT2a {
         running = !running;
         return running; //not sure if I'll ever use this, but why not...
       }
+
+      public void ringRingNeo() {
+        //be sure to add something to change the display in the applicable
+        //CLB to reflect ringing/rung status
+        //don't forget about the audio schitt, either
+        this.toggleRunning();
+        Debug.showDbgOut("ringRingNeo()");
+        MessageBox.Show("Ring ring, Neo. . .", "Time Up!", 
+          MessageBoxButtons.OK);
+      }
     }
 
     [Serializable]
@@ -61,7 +71,10 @@ namespace DANT2a {
       }
 
       public Boolean isPast() {
-        if (activeAt.Date.CompareTo(DateTime.Now) > 0) {
+        Debug.showDbgOut("activeAt.Date: " + activeAt.ToString() +
+            "\nDateTime.Now: " + DateTime.Now.ToString());
+
+        if (activeAt.CompareTo(DateTime.Now) <= 0) {
           Debug.showDbgOut("isPast() = true");
           return true;
         } else {
