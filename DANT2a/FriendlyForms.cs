@@ -25,11 +25,9 @@ namespace DANT2a {
       }
 
       public static void nameWipe(TextBox tbx) {
-        //AddAlarm.getNameTbx();
-        tbx.ForeColor = inactive;
-
         if (tbx.Text.Length < 3) {
           tbx.Text = inactiveName;
+          tbx.ForeColor = inactive;
         }
       }
 
