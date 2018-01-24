@@ -98,13 +98,15 @@ namespace DANT2a {
     //construct & deconstructGlob() need to be moved to EntryType
     EntryType.AllEntries theGlob = constructGlob();
 
-        try {
-          FileIO.WriteActivesBinary<EntryType.AllEntries>(
-            saveDir + saveFile, theGlob);
-        } catch (Exception ex) {
-          Debug.showException("Save: " + ex.Message);
-          //MessageBox.Show("Exception saving: " + ex.Message);
-        }
+      try {
+        FileIO.WriteActivesBinary<EntryType.AllEntries>(
+          saveDir + saveFile, theGlob);
+      } catch (Exception ex) {
+        Debug.showException("Save: " + ex.Message);
+        //MessageBox.Show("Exception saving: " + ex.Message);
+      }
+
+      MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", MessageBoxButtons.OK);
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
@@ -369,10 +371,15 @@ namespace DANT2a {
             MessageBox.Show("Exception trying to delete!", "Can't delete!",
               MessageBoxButtons.OK, MessageBoxIcon.Error);
           }
+
+          activeAlarms.Clear(); activeTimers.Clear(); activeReminders.Clear();
+          alarmCLB.Items.Clear(); timerCLB.Items.Clear(); reminderCLB.Items.Clear();
         } else {
           MessageBox.Show("Letting savefile live.  Maybe it was never there" +
             " to begin with...  Do you think that's air you're breathing?");
         }
+
+        MessageBox.Show("Alarms/Timers/Reminders Wiped", "Wipe Successful", MessageBoxButtons.OK);
       }
     }
   }

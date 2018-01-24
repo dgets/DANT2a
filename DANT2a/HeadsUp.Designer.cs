@@ -42,9 +42,11 @@
       this.btnDbgSave = new System.Windows.Forms.Button();
       this.btnDbgLoad = new System.Windows.Forms.Button();
       this.btnDbgWipe = new System.Windows.Forms.Button();
+      this.grpDebug = new System.Windows.Forms.GroupBox();
       this.grpAlarms.SuspendLayout();
       this.grpTimers.SuspendLayout();
       this.grpReminders.SuspendLayout();
+      this.grpDebug.SuspendLayout();
       this.SuspendLayout();
       // 
       // grpAlarms
@@ -79,7 +81,6 @@
       // 
       // clbAlarms
       // 
-      this.clbAlarms.CheckOnClick = true;
       this.clbAlarms.FormattingEnabled = true;
       this.clbAlarms.Location = new System.Drawing.Point(7, 20);
       this.clbAlarms.Name = "clbAlarms";
@@ -130,7 +131,6 @@
       // 
       // clbTimers
       // 
-      this.clbTimers.CheckOnClick = true;
       this.clbTimers.FormattingEnabled = true;
       this.clbTimers.Location = new System.Drawing.Point(7, 20);
       this.clbTimers.Name = "clbTimers";
@@ -169,7 +169,6 @@
       // 
       // clbReminders
       // 
-      this.clbReminders.CheckOnClick = true;
       this.clbReminders.FormattingEnabled = true;
       this.clbReminders.Location = new System.Drawing.Point(7, 20);
       this.clbReminders.Name = "clbReminders";
@@ -178,11 +177,11 @@
       // 
       // btnAddAny
       // 
-      this.btnAddAny.Location = new System.Drawing.Point(13, 271);
+      this.btnAddAny.Location = new System.Drawing.Point(269, 270);
       this.btnAddAny.Name = "btnAddAny";
       this.btnAddAny.Size = new System.Drawing.Size(75, 23);
       this.btnAddAny.TabIndex = 3;
-      this.btnAddAny.Text = "Add";
+      this.btnAddAny.Text = "Add Entry";
       this.btnAddAny.UseVisualStyleBackColor = true;
       this.btnAddAny.Click += new System.EventHandler(this.btnAddAny_Click);
       // 
@@ -193,7 +192,7 @@
       // 
       // btnDbgSave
       // 
-      this.btnDbgSave.Location = new System.Drawing.Point(13, 301);
+      this.btnDbgSave.Location = new System.Drawing.Point(6, 48);
       this.btnDbgSave.Name = "btnDbgSave";
       this.btnDbgSave.Size = new System.Drawing.Size(75, 23);
       this.btnDbgSave.TabIndex = 4;
@@ -203,7 +202,7 @@
       // 
       // btnDbgLoad
       // 
-      this.btnDbgLoad.Location = new System.Drawing.Point(13, 331);
+      this.btnDbgLoad.Location = new System.Drawing.Point(6, 19);
       this.btnDbgLoad.Name = "btnDbgLoad";
       this.btnDbgLoad.Size = new System.Drawing.Size(75, 23);
       this.btnDbgLoad.TabIndex = 5;
@@ -213,7 +212,7 @@
       // 
       // btnDbgWipe
       // 
-      this.btnDbgWipe.Location = new System.Drawing.Point(95, 301);
+      this.btnDbgWipe.Location = new System.Drawing.Point(93, 19);
       this.btnDbgWipe.Name = "btnDbgWipe";
       this.btnDbgWipe.Size = new System.Drawing.Size(75, 23);
       this.btnDbgWipe.TabIndex = 6;
@@ -221,14 +220,24 @@
       this.btnDbgWipe.UseVisualStyleBackColor = true;
       this.btnDbgWipe.Click += new System.EventHandler(this.btnDbgWipe_Click);
       // 
+      // grpDebug
+      // 
+      this.grpDebug.Controls.Add(this.btnDbgLoad);
+      this.grpDebug.Controls.Add(this.btnDbgWipe);
+      this.grpDebug.Controls.Add(this.btnDbgSave);
+      this.grpDebug.Location = new System.Drawing.Point(362, 270);
+      this.grpDebug.Name = "grpDebug";
+      this.grpDebug.Size = new System.Drawing.Size(174, 81);
+      this.grpDebug.TabIndex = 7;
+      this.grpDebug.TabStop = false;
+      this.grpDebug.Text = "Debugging";
+      // 
       // HeadsUp
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(833, 363);
-      this.Controls.Add(this.btnDbgWipe);
-      this.Controls.Add(this.btnDbgLoad);
-      this.Controls.Add(this.btnDbgSave);
+      this.Controls.Add(this.grpDebug);
       this.Controls.Add(this.btnAddAny);
       this.Controls.Add(this.grpReminders);
       this.Controls.Add(this.grpTimers);
@@ -238,6 +247,7 @@
       this.grpAlarms.ResumeLayout(false);
       this.grpTimers.ResumeLayout(false);
       this.grpReminders.ResumeLayout(false);
+      this.grpDebug.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -262,6 +272,7 @@
         private System.Windows.Forms.Button btnDbgSave;
         private System.Windows.Forms.Button btnDbgLoad;
     private System.Windows.Forms.Button btnDbgWipe;
+    private System.Windows.Forms.GroupBox grpDebug;
   }
 }
 
