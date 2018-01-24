@@ -20,7 +20,7 @@ namespace DANT2a {
     public const Boolean tickDebugging = true;
     public const Boolean fileIODebugging = true;
     public const Boolean consoleDebugging = true;
-    public const Boolean mBoxDebugging = true;
+    public const Boolean mBoxDebugging = false;
 
     //methods
     public static void showException(String eMsg) {

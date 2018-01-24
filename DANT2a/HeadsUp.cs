@@ -111,10 +111,6 @@ namespace DANT2a {
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
-      /*const String saveFile = "DANTentries.cfg";
-      String saveDir = Environment.GetFolderPath(
-        Environment.SpecialFolder.ApplicationData);*/
-
       try {
         deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(
           FileIO.saveDataLoc));
@@ -129,7 +125,7 @@ namespace DANT2a {
     }
 
     private void updateDisplay(EntryType.Entries eType) {
-      int cntr;
+      int cntr;   //wut?
 
       switch (eType) {
         //implement EntryType.Entries.All, ffs
@@ -150,14 +146,11 @@ namespace DANT2a {
               if (!al.isPast()) {
                 updateEntry(EntryType.Entries.Alarm, cntr2);
 
-                if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  Debug.showDbgOut("Entered updateEntry()");
-                  //MessageBox.Show("Entered updateEntry()",
-                  //  "Tick & Alarm Debugging");
-                }
+                /*if (Debug.tickDebugging && Debug.alarmDebugging) {
+                  Debug.showDbgOut("Entered updateEntry(alarm)");
+                }*/
               } else {
                 if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  //MessageBox.Show("toggling", "Tick & Alarm Debugging");
                   Debug.showDbgOut("Toggling alarm #" + cntr2.ToString());
                 }
 
@@ -287,7 +280,7 @@ namespace DANT2a {
       if (!anythingRunning()) {
         if (Debug.tickDebugging) {
           //MessageBox.Show("anythingRunning() sez false");
-          Debug.showDbgOut("anythingRunning() sez false");
+          Debug.showDbgOut("anythingRunning() sez false; disabling tmr");
         }
 
         tmrGreenwichAtomic.Enabled = false;
@@ -300,6 +293,8 @@ namespace DANT2a {
           if (current.isPast()) {
             Boolean ouah;
 
+            current.ringRingNeo();
+            /* all of this should be handled in ringRingNeo() nao
             ouah = current.toggleRunning();
 
             if (Debug.tickDebugging) {
@@ -308,7 +303,7 @@ namespace DANT2a {
             }
 
             MessageBox.Show(current.Name + " isPast(); ouah = "
-              + ouah.ToString());
+              + ouah.ToString());*/
           } else {
             updateDisplay(EntryType.Entries.Alarm);
           }
@@ -316,11 +311,11 @@ namespace DANT2a {
       }
 
       //timers
-      foreach (EntryType.Timer current in activeTimers) {
+      /*foreach (EntryType.Timer current in activeTimers) {
         if (current.Running) {
           updateDisplay(EntryType.Entries.Timer);
         }
-      }
+      }*/
     }
 
     private EntryType.AllEntries constructGlob() {
@@ -342,9 +337,15 @@ namespace DANT2a {
     private void alarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
       Boolean ouah = false;
 
-      //activeAlarms.ElementAt(e.Index).Running = true;
-      if (activeAlarms.ElementAt(e.Index).toggleRunning()) {
+      activeAlarms.ElementAt(e.Index).Running = true;
+      //if (activeAlarms.ElementAt(e.Index).toggleRunning()) {
+      if (activeAlarms.ElementAt(e.Index).Running) { 
         if (!tmrGreenwichAtomic.Enabled) {
+          if (Debug.tickDebugging) {
+            Debug.showDbgOut("Starting Greenwich Atomic");
+          }
+
+          tmrGreenwichAtomic.Enabled = true;
           tmrGreenwichAtomic.Start();
         }
       } else {
