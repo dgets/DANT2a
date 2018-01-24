@@ -82,9 +82,8 @@ namespace DANT2a {
     }
 
     private void tbxReminder_Leave(object sender, EventArgs e) {
-      tbxReminder.ForeColor = SystemColors.InactiveCaption;
-
       if (tbxReminder.Text.Length < 3) {
+        tbxReminder.ForeColor = SystemColors.InactiveCaption;
         tbxReminder.Text = Properties.Resources.InactiveReminderTbx;
       }
     }
