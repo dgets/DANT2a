@@ -37,6 +37,7 @@ namespace DANT2a {
 
       //methods
       public Boolean toggleRunning() {
+        Debug.showDbgOut("toggleRunning(): toggling from " + running);
         running = !running;
         return running; //not sure if I'll ever use this, but why not...
       }
@@ -55,41 +56,19 @@ namespace DANT2a {
         this.Running = false;
       }
  
-      //this can probably be removed, as isPast() is doing the same
-      /*private Boolean checkInterval() {
-        DateTime nao = DateTime.Now;
-
-        if ((activeAt - DateTime.Now).Duration().TotalSeconds <= 1) {
-          return true;
-        } else {
-          return false;
-        }
-      }*/
-
       public TimeSpan getInterval() {
         return (activeAt - DateTime.Now);
       }
 
       public Boolean isPast() {
-        DateTime nao = DateTime.Now;
-
         if (activeAt.Date.CompareTo(DateTime.Now) > 0) {
+          Debug.showDbgOut("isPast() = true");
           return true;
         } else {
+          Debug.showDbgOut("isPast() = false");
           return false;
         }
       }
-      
-      //this is gross and disgusting spaghetti enabling; knock it off
-      /*private void updateDisplay() {
-        HeadsUp mommy = (HeadsUp) Form.ActiveForm;
-
-        for (int cntr = 0; cntr < HeadsUp.activeAlarms.Count; cntr++) {
-          if (HeadsUp.activeAlarms.ElementAt(cntr).Running) {
-            mommy.updateEntry(EntryType.Entries.Alarm, cntr);
-          }
-        }
-      }*/
 
       public override String ToString() {
         if (!Running) {
