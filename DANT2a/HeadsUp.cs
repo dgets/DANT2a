@@ -388,5 +388,9 @@ namespace DANT2a {
           MessageBoxButtons.OK);
       }
     }
+
+    private void btnEditAlarm_Click(object sender, EventArgs e) {
+
+    }
   }
 }
