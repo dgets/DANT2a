@@ -401,5 +401,38 @@ namespace DANT2a {
           MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
     }
+
+    private void btnEditReminder_Click(object sender, EventArgs e) {
+      if (reminderCLB.SelectedIndex != -1) {
+        EditEntry editEntry = new EditEntry();
+        editEntry.Show();
+      } else {
+        MessageBox.Show("You must select an entry to edit!", "Select Entry",
+          MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+      }
+    }
+
+    //there's a better way to handle the *SelectedChange() methods here;
+    //one method should be able to handle everything based
+    private void alarmSelectedChange(object sender, EventArgs e) {
+      if ((timerCLB.SelectedIndex != -1) || 
+          (reminderCLB.SelectedIndex != -1)) {
+        timerCLB.ClearSelected(); reminderCLB.ClearSelected();
+      }
+    }
+
+    private void reminderSelectedChange(object sender, EventArgs e) {
+      if ((alarmCLB.SelectedIndex != -1) ||
+          (timerCLB.SelectedIndex != -1)) {
+        alarmCLB.ClearSelected(); timerCLB.ClearSelected();
+      }
+    }
+
+    private void timerSelectedChange(object sender, EventArgs e) {
+      if ((alarmCLB.SelectedIndex != -1) ||
+          (reminderCLB.SelectedIndex != -1)) {
+        alarmCLB.ClearSelected(); reminderCLB.ClearSelected();
+      }
+    }
   }
 }

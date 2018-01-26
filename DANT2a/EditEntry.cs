@@ -22,8 +22,16 @@ namespace DANT2a {
     }
 
     private void EditEntry_Load(object sender, EventArgs e) {
-      EntryType.Entries currentTypeEdited = EntryType.Entries.Alarm;
+      EntryType.Entries currentTypeEdited = new EntryType.Entries();
 
+      if (mainForm.alarmCLB.SelectedIndex != -1) {
+        currentTypeEdited = EntryType.Entries.Alarm;
+      } else if (mainForm.reminderCLB.SelectedIndex != -1) {
+        currentTypeEdited = EntryType.Entries.Reminder;
+      } else {
+        currentTypeEdited = EntryType.Entries.Timer;
+      }
+      
       switch (currentTypeEdited) {
         case EntryType.Entries.Alarm:
           //edit our alarm entry heah
@@ -78,6 +86,7 @@ namespace DANT2a {
             if (MessageBox.Show("You haven't made any changes!",
               "Nothing changed", MessageBoxButtons.OKCancel,
               MessageBoxIcon.Warning) == DialogResult.Cancel) {
+              mainForm.Enabled = true;
               this.Close();
             }
             break;
