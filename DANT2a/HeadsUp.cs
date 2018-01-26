@@ -124,7 +124,7 @@ namespace DANT2a {
       updateDisplay(EntryType.Entries.Reminder);
     }
 
-    private void updateDisplay(EntryType.Entries eType) {
+    public void updateDisplay(EntryType.Entries eType) {
       int cntr;   //wut?
 
       switch (eType) {
@@ -293,20 +293,14 @@ namespace DANT2a {
           if (current.isPast()) {
             Boolean ouah;
 
+            alarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
+              CheckState.Unchecked);
             current.ringRingNeo();
-            /* all of this should be handled in ringRingNeo() nao
-            ouah = current.toggleRunning();
-
-            if (Debug.tickDebugging) {
-              //MessageBox.Show(current.Name + " toggle");
-              Debug.showDbgOut(current.Name + " isPast() sez true");
-            }
-
-            MessageBox.Show(current.Name + " isPast(); ouah = "
-              + ouah.ToString());*/
-          } else {
+          } /*else {
             updateDisplay(EntryType.Entries.Alarm);
-          }
+          }*/
+
+          updateDisplay(EntryType.Entries.Alarm);
         }
       }
 

@@ -49,7 +49,7 @@ namespace DANT2a {
         this.toggleRunning();
         Debug.showDbgOut("ringRingNeo()");
         MessageBox.Show("Ring ring, Neo. . .", "Time Up!", 
-          MessageBoxButtons.OK);
+          MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
     }
 

@@ -65,6 +65,8 @@
       // 
       // dtpActiveAt
       // 
+      this.dtpActiveAt.CustomFormat = "MMMM dd, yyyy \'@\' H:mm:ss";
+      this.dtpActiveAt.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
       this.dtpActiveAt.Location = new System.Drawing.Point(92, 39);
       this.dtpActiveAt.Name = "dtpActiveAt";
       this.dtpActiveAt.Size = new System.Drawing.Size(200, 20);

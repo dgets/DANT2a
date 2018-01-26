@@ -165,7 +165,9 @@ namespace DANT2a {
 
           MessageBox.Show("Changes propagated (not yet saved!)",
             "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
-          
+
+          mainForm.Enabled = true;
+          mainForm.updateDisplay(EntryType.Entries.Alarm);
           this.Close();
 
           break;
