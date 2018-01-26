@@ -105,6 +105,7 @@
       this.btnMakeChanges.TabIndex = 7;
       this.btnMakeChanges.Text = "Make Changes";
       this.btnMakeChanges.UseVisualStyleBackColor = true;
+      this.btnMakeChanges.Click += new System.EventHandler(this.btnMakeChanges_Click);
       // 
       // EditEntry
       // 

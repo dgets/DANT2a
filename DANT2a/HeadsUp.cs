@@ -381,11 +381,13 @@ namespace DANT2a {
           reminderCLB.Items.Clear();
         } else {
           MessageBox.Show("Letting savefile live.  Maybe it was never there" +
-            " to begin with...  Do you think that's air you're breathing?");
+            " to begin with...  Do you think that's air you're breathing?",
+            "Not killing existing savefile", MessageBoxButtons.OK, 
+            MessageBoxIcon.Information);
         }
 
         MessageBox.Show("Alarms/Timers/Reminders Wiped", "Wipe Successful", 
-          MessageBoxButtons.OK);
+          MessageBoxButtons.OK, MessageBoxIcon.Information);
       }
     }
 
@@ -396,7 +398,7 @@ namespace DANT2a {
       } else {
         //nothing selected, error between floor & keyboard
         MessageBox.Show("You must select an entry to edit!", "Select Entry",
-          MessageBoxButtons.OK);
+          MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
     }
   }

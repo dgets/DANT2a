@@ -61,5 +61,41 @@ namespace DANT2a {
           break;
       }
     }
+
+    private void btnMakeChanges_Click(object sender, EventArgs e) {
+      EntryType.Entries currentTypeEdited = EntryType.Entries.Alarm;
+
+      switch (currentTypeEdited) {
+        case (EntryType.Entries.Alarm):
+          /* note that the following conditional will need to have soundbite
+           * information checking, as well */
+          if (tbxName.Text.Equals(
+            HeadsUp.activeAlarms[mainForm.alarmCLB.SelectedIndex].Name) &&
+              dtpActiveAt.Value.Equals(
+            HeadsUp.activeAlarms[mainForm.alarmCLB.SelectedIndex].ActiveAt)) {
+
+            //no changes made to settings
+            if (MessageBox.Show("You haven't made any changes!",
+              "Nothing changed", MessageBoxButtons.OKCancel,
+              MessageBoxIcon.Warning) == DialogResult.Cancel) {
+              this.Close();
+            }
+            break;
+          }
+
+          HeadsUp.activeAlarms[mainForm.alarmCLB.SelectedIndex].Name =
+            tbxName.Text;
+          HeadsUp.activeAlarms[mainForm.alarmCLB.SelectedIndex].ActiveAt =
+            dtpActiveAt.Value;
+
+          MessageBox.Show("Changes propagated (not yet saved!)",
+            "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
+          
+          this.Close();
+
+          break;
+        //timer & reminder need to follow here
+      }
+    }
   }
 }
