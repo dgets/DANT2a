@@ -125,8 +125,6 @@ namespace DANT2a {
     }
 
     public void updateDisplay(EntryType.Entries eType) {
-      int cntr;   //wut?
-
       switch (eType) {
         //implement EntryType.Entries.All, ffs
         /*case EntryType.Entries.All:
@@ -138,6 +136,8 @@ namespace DANT2a {
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
 
+          //swap this gross for loop out for a foreach like is done for
+          //timer entries immediately below
           for (int cntr2 = 0; cntr2 < activeAlarms.Count; cntr2++) {
             //switch the above to a 'for' loop & remove cntr++ below
             EntryType.Alarm al = activeAlarms[cntr2];
@@ -145,10 +145,6 @@ namespace DANT2a {
             if (al.Running) {
               if (!al.isPast()) {
                 updateEntry(EntryType.Entries.Alarm, cntr2);
-
-                /*if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  Debug.showDbgOut("Entered updateEntry(alarm)");
-                }*/
               } else {
                 if (Debug.tickDebugging && Debug.alarmDebugging) {
                   Debug.showDbgOut("Toggling alarm #" + cntr2.ToString());
@@ -158,26 +154,20 @@ namespace DANT2a {
               }
             } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
-
-              //if this is needed later on, uncomment and change 
-              //Debug.alarmDebugging when necessary after that point
-              /*if (Debug.tickDebugging && Debug.alarmDebugging) {
-                Debug.showDbgOut("Alarm #" + cntr2.ToString() + 
-                  " not running");
-              }*/
             }
           }
           break;
 
         case EntryType.Entries.Timer:
-          cntr = 0;
-
           clbTimers.Items.Clear();
 
           foreach (EntryType.Timer tm in activeTimers) {
-            if (tm.Running) {
+            if (tm.Running && (tm.Remaining > new TimeSpan(0))) {
               //clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
-              updateEntry(EntryType.Entries.Timer, cntr);
+              updateEntry(EntryType.Entries.Timer,
+                activeTimers.IndexOf(tm));
+            } else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
+              tm.toggleRunning();
             } else {
               clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
             }
@@ -291,8 +281,6 @@ namespace DANT2a {
       foreach (EntryType.Alarm current in activeAlarms) {
         if (current.Running) {
           if (current.isPast()) {
-            Boolean ouah;
-
             alarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
               CheckState.Unchecked);
             current.ringRingNeo();
@@ -365,7 +353,7 @@ namespace DANT2a {
           //hose it
           try {
             File.Delete(FileIO.saveDataLoc);
-          } catch (Exception ex) {
+          } catch (Exception) {
             MessageBox.Show("Exception trying to delete!", "Can't delete!",
               MessageBoxButtons.OK, MessageBoxIcon.Error);
           }

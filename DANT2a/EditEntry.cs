@@ -137,9 +137,17 @@ namespace DANT2a {
     }
 
     private void btnMakeChanges_Click(object sender, EventArgs e) {
-      EntryType.Entries currentTypeEdited = EntryType.Entries.Alarm;
+      EntryType.Entries currentTypeEdited = new EntryType.Entries();
+      if (mainForm.alarmCLB.SelectedIndex != -1) {
+        currentTypeEdited = EntryType.Entries.Alarm;
+      } else if (mainForm.timerCLB.SelectedIndex != -1) {
+        currentTypeEdited = EntryType.Entries.Timer;
+      } else {
+        currentTypeEdited = EntryType.Entries.Reminder;
+      }
 
       switch (currentTypeEdited) {
+        //need to modularize this shit :|
         case (EntryType.Entries.Alarm):
           /* note that the following conditional will need to have soundbite
            * information checking, as well */
@@ -171,7 +179,43 @@ namespace DANT2a {
           this.Close();
 
           break;
+
         //timer & reminder need to follow here
+        case (EntryType.Entries.Timer):
+          /* note that the following conditional will need to have soundbite
+           * information checking, as well */
+          if (tbxName.Text.Equals(
+            HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Name) &&
+              new TimeSpan((int)nudTmrHrs.Value, (int)nudTmrMin.Value, 
+                           (int)nudTmrSec.Value).Equals(
+              HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Duration)) {
+
+            //no changes made to settings
+            if (MessageBox.Show("You haven't made any changes!",
+              "Nothing changed", MessageBoxButtons.OKCancel,
+              MessageBoxIcon.Warning) == DialogResult.Cancel) {
+              mainForm.Enabled = true;
+              this.Close();
+            }
+            break;
+          }
+
+          HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Name =
+            tbxName.Text;
+          HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Duration =
+            new TimeSpan((int)nudTmrHrs.Value, (int)nudTmrMin.Value,
+                         (int)nudTmrSec.Value);
+          HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Remaining =
+            HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Duration;
+
+          MessageBox.Show("Changes propagated (not yet saved!)",
+            "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+          mainForm.Enabled = true;
+          mainForm.updateDisplay(EntryType.Entries.Timer);
+          this.Close();
+
+          break;
       }
     }
   }
