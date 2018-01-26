@@ -138,5 +138,13 @@
     private System.Windows.Forms.Label lblReminderText;
     private System.Windows.Forms.TextBox tbxReminderText;
     private System.Windows.Forms.Button btnMakeChanges;
+
+    //added by D4m0 manually for programmatic control changes
+    private System.Windows.Forms.NumericUpDown nudTmrHrs;
+    private System.Windows.Forms.Label lblTmrHours;
+    private System.Windows.Forms.NumericUpDown nudTmrMin;
+    private System.Windows.Forms.Label lblTmrMinutes;
+    private System.Windows.Forms.NumericUpDown nudTmrSec;
+    private System.Windows.Forms.Label lblTmrSeconds;
   }
 }

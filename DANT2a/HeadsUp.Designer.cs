@@ -130,6 +130,7 @@
       this.btnEditTimer.TabIndex = 1;
       this.btnEditTimer.Text = "Edit";
       this.btnEditTimer.UseVisualStyleBackColor = true;
+      this.btnEditTimer.Click += new System.EventHandler(this.btnEditTimer_Click);
       // 
       // clbTimers
       // 

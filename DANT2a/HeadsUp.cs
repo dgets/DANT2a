@@ -412,6 +412,16 @@ namespace DANT2a {
       }
     }
 
+    private void btnEditTimer_Click(object sender, EventArgs e) {
+      if (timerCLB.SelectedIndex != -1) {
+        EditEntry editEntry = new EditEntry();
+        editEntry.Show();
+      } else {
+        MessageBox.Show("You must select an entry to edit!", "Select Entry",
+          MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+      }
+    }
+
     //there's a better way to handle the *SelectedChange() methods here;
     //one method should be able to handle everything based
     private void alarmSelectedChange(object sender, EventArgs e) {
