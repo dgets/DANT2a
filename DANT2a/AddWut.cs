@@ -18,7 +18,6 @@ namespace DANT2a {
       InitializeComponent();
 
       mainForm.Enabled = false;
-
     }
 
     private void btnGo_Click(object sender, EventArgs e) {

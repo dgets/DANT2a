@@ -390,7 +390,14 @@ namespace DANT2a {
     }
 
     private void btnEditAlarm_Click(object sender, EventArgs e) {
-
+      if (alarmCLB.SelectedIndex != -1) {
+        EditEntry editEntry = new EditEntry();
+        editEntry.Show();
+      } else {
+        //nothing selected, error between floor & keyboard
+        MessageBox.Show("You must select an entry to edit!", "Select Entry",
+          MessageBoxButtons.OK);
+      }
     }
   }
 }

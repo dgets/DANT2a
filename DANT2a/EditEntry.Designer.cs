@@ -28,12 +28,13 @@
     private void InitializeComponent()
     {
       this.lblName = new System.Windows.Forms.Label();
-      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.tbxName = new System.Windows.Forms.TextBox();
       this.lblRingAt = new System.Windows.Forms.Label();
-      this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+      this.dtpActiveAt = new System.Windows.Forms.DateTimePicker();
       this.lblSoundBite = new System.Windows.Forms.Label();
       this.lblReminderText = new System.Windows.Forms.Label();
       this.tbxReminderText = new System.Windows.Forms.TextBox();
+      this.btnMakeChanges = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // lblName
@@ -45,12 +46,13 @@
       this.lblName.TabIndex = 0;
       this.lblName.Text = "Name:";
       // 
-      // textBox1
+      // tbxName
       // 
-      this.textBox1.Location = new System.Drawing.Point(92, 10);
-      this.textBox1.Name = "textBox1";
-      this.textBox1.Size = new System.Drawing.Size(100, 20);
-      this.textBox1.TabIndex = 1;
+      this.tbxName.Location = new System.Drawing.Point(92, 10);
+      this.tbxName.Name = "tbxName";
+      this.tbxName.Size = new System.Drawing.Size(100, 20);
+      this.tbxName.TabIndex = 1;
+      this.tbxName.Text = "loading";
       // 
       // lblRingAt
       // 
@@ -61,12 +63,12 @@
       this.lblRingAt.TabIndex = 2;
       this.lblRingAt.Text = "Ring At:";
       // 
-      // dateTimePicker1
+      // dtpActiveAt
       // 
-      this.dateTimePicker1.Location = new System.Drawing.Point(92, 39);
-      this.dateTimePicker1.Name = "dateTimePicker1";
-      this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-      this.dateTimePicker1.TabIndex = 3;
+      this.dtpActiveAt.Location = new System.Drawing.Point(92, 39);
+      this.dtpActiveAt.Name = "dtpActiveAt";
+      this.dtpActiveAt.Size = new System.Drawing.Size(200, 20);
+      this.dtpActiveAt.TabIndex = 3;
       // 
       // lblSoundBite
       // 
@@ -95,20 +97,31 @@
       this.tbxReminderText.Size = new System.Drawing.Size(200, 154);
       this.tbxReminderText.TabIndex = 6;
       // 
+      // btnMakeChanges
+      // 
+      this.btnMakeChanges.Location = new System.Drawing.Point(104, 262);
+      this.btnMakeChanges.Name = "btnMakeChanges";
+      this.btnMakeChanges.Size = new System.Drawing.Size(88, 23);
+      this.btnMakeChanges.TabIndex = 7;
+      this.btnMakeChanges.Text = "Make Changes";
+      this.btnMakeChanges.UseVisualStyleBackColor = true;
+      // 
       // EditEntry
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(301, 262);
+      this.ClientSize = new System.Drawing.Size(301, 297);
+      this.Controls.Add(this.btnMakeChanges);
       this.Controls.Add(this.tbxReminderText);
       this.Controls.Add(this.lblReminderText);
       this.Controls.Add(this.lblSoundBite);
-      this.Controls.Add(this.dateTimePicker1);
+      this.Controls.Add(this.dtpActiveAt);
       this.Controls.Add(this.lblRingAt);
-      this.Controls.Add(this.textBox1);
+      this.Controls.Add(this.tbxName);
       this.Controls.Add(this.lblName);
       this.Name = "EditEntry";
       this.Text = "EditEntry";
+      this.Load += new System.EventHandler(this.EditEntry_Load);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -117,11 +130,12 @@
     #endregion
 
     private System.Windows.Forms.Label lblName;
-    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.TextBox tbxName;
     private System.Windows.Forms.Label lblRingAt;
-    private System.Windows.Forms.DateTimePicker dateTimePicker1;
+    private System.Windows.Forms.DateTimePicker dtpActiveAt;
     private System.Windows.Forms.Label lblSoundBite;
     private System.Windows.Forms.Label lblReminderText;
     private System.Windows.Forms.TextBox tbxReminderText;
+    private System.Windows.Forms.Button btnMakeChanges;
   }
 }
