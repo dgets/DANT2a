@@ -31,8 +31,32 @@ namespace DANT2a {
           tbxReminderText.Enabled = false;
           tbxName.Text =
             HeadsUp.activeAlarms[mainForm.alarmCLB.SelectedIndex].Name;
-          dtpActiveAt.Value = 
+          dtpActiveAt.Value =
             HeadsUp.activeAlarms[mainForm.alarmCLB.SelectedIndex].ActiveAt;
+
+          break;
+        case EntryType.Entries.Timer:
+          //edit timer heah
+          tbxReminderText.Text = "unavailable";
+          tbxReminderText.Enabled = false;
+          tbxName.Text =
+            HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Name;
+          //okay the following isn't a DTP, it's a 3 number field; we're
+          //going to have to handle this one differently, hopefully not with
+          //a completely different form
+          /*dtpActiveAt.Value =
+            HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].remaining*/
+
+          break;
+        case EntryType.Entries.Reminder:
+          //reminder tiem
+          tbxReminderText.Text =
+            HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg;
+          tbxName.Text =
+            HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Name;
+          dtpActiveAt.Value =
+            HeadsUp.activeReminders[
+              mainForm.reminderCLB.SelectedIndex].ActiveAt;
 
           break;
       }
