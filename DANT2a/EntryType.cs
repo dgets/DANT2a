@@ -95,7 +95,6 @@ namespace DANT2a {
     [Serializable]
     public partial class Timer : Entry {
       private TimeSpan duration;
-      private TimeSpan currentCount;
       private DateTime lastTime;  //is this really necessary?
       private TimeSpan remaining;
 

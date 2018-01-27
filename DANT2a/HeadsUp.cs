@@ -91,28 +91,24 @@ namespace DANT2a {
     }
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
-      /*const String saveFile = "DANTentries.cfg";
-      String saveDir = Environment.GetFolderPath(
-        Environment.SpecialFolder.ApplicationData);*/
+      //construct & deconstructGlob() need to be moved to EntryType
+      EntryType.AllEntries theGlob = constructGlob();
 
-    //construct & deconstructGlob() need to be moved to EntryType
-    EntryType.AllEntries theGlob = constructGlob();
+        try {
+          FileIO.WriteActivesXML<EntryType.AllEntries>(FileIO.saveDataLoc, 
+            theGlob);
+        } catch (Exception ex) {
+          Debug.showException("Save: " + ex.Message);
+          //MessageBox.Show("Exception saving: " + ex.Message);
+        }
 
-      try {
-        FileIO.WriteActivesBinary<EntryType.AllEntries>(FileIO.saveDataLoc, 
-          theGlob);
-      } catch (Exception ex) {
-        Debug.showException("Save: " + ex.Message);
-        //MessageBox.Show("Exception saving: " + ex.Message);
-      }
-
-      MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", 
-        MessageBoxButtons.OK);
+        MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", 
+          MessageBoxButtons.OK);
     }
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
       try {
-        deconstructGlob(FileIO.ReadActivesBinary<EntryType.AllEntries>(
+        deconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
           FileIO.saveDataLoc));
       } catch (Exception ex) {
         Debug.showException("Load: " + ex.Message);
@@ -138,6 +134,7 @@ namespace DANT2a {
 
           //swap this gross for loop out for a foreach like is done for
           //timer entries immediately below
+          //or better yet, modularize
           for (int cntr2 = 0; cntr2 < activeAlarms.Count; cntr2++) {
             //switch the above to a 'for' loop & remove cntr++ below
             EntryType.Alarm al = activeAlarms[cntr2];
@@ -269,7 +266,6 @@ namespace DANT2a {
     private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
       if (!anythingRunning()) {
         if (Debug.tickDebugging) {
-          //MessageBox.Show("anythingRunning() sez false");
           Debug.showDbgOut("anythingRunning() sez false; disabling tmr");
         }
 
@@ -284,9 +280,7 @@ namespace DANT2a {
             alarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
               CheckState.Unchecked);
             current.ringRingNeo();
-          } /*else {
-            updateDisplay(EntryType.Entries.Alarm);
-          }*/
+          }
 
           updateDisplay(EntryType.Entries.Alarm);
         }
@@ -320,7 +314,6 @@ namespace DANT2a {
       Boolean ouah = false;
 
       activeAlarms.ElementAt(e.Index).Running = true;
-      //if (activeAlarms.ElementAt(e.Index).toggleRunning()) {
       if (activeAlarms.ElementAt(e.Index).Running) { 
         if (!tmrGreenwichAtomic.Enabled) {
           if (Debug.tickDebugging) {

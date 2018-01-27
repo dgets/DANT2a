@@ -200,6 +200,15 @@ namespace DANT2a {
             break;
           }
 
+          if (Debug.timerDebugging) {
+            MessageBox.Show("nud values: " + nudTmrHrs.Value + ":" +
+              nudTmrMin.Value + ":" + nudTmrSec.Value + "\n" +
+              "(casted) nud values: " + (int)nudTmrHrs.Value + ":" +
+              (int)nudTmrMin.Value + ":" + (int)nudTmrSec.Value + "\n" +
+              "TimeSpan conversion: " + new TimeSpan((int)nudTmrHrs.Value,
+              (int)nudTmrMin.Value, (int)nudTmrSec.Value).ToString());
+          }
+
           HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Name =
             tbxName.Text;
           HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Duration =
