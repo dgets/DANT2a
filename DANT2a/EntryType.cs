@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace DANT2a {
   public class EntryType {
@@ -98,14 +99,28 @@ namespace DANT2a {
       private DateTime lastTime;  //is this really necessary?
       private TimeSpan remaining;
 
+      [XmlIgnore]
       public TimeSpan Duration {
         get { return duration; }
         set { duration = value; }
       }
 
+      [XmlIgnore]
       public TimeSpan Remaining {
         get { return remaining;  }
         set { remaining = value; }
+      }
+
+      [XmlElement("Duration")]
+      public long DurationTicks {
+        get { return duration.Ticks; }
+        set { duration = new TimeSpan(value); }
+      }
+
+      [XmlElement("Remaining")]
+      public long RemainingTicks {
+        get { return remaining.Ticks; }
+        set { remaining = new TimeSpan(value); }
       }
 
       //methods
