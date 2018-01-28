@@ -25,7 +25,7 @@
     private void InitializeComponent() {
       this.lblName = new System.Windows.Forms.Label();
       this.lblDuration = new System.Windows.Forms.Label();
-      this.label3 = new System.Windows.Forms.Label();
+      this.lblSoundBite = new System.Windows.Forms.Label();
       this.tbxName = new System.Windows.Forms.TextBox();
       this.nudHrs = new System.Windows.Forms.NumericUpDown();
       this.nudMin = new System.Windows.Forms.NumericUpDown();
@@ -57,14 +57,14 @@
       this.lblDuration.TabIndex = 1;
       this.lblDuration.Text = "Duration:";
       // 
-      // label3
+      // lblSoundBite
       // 
-      this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(12, 77);
-      this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(70, 13);
-      this.label3.TabIndex = 2;
-      this.label3.Text = "Timer Sound:";
+      this.lblSoundBite.AutoSize = true;
+      this.lblSoundBite.Location = new System.Drawing.Point(12, 77);
+      this.lblSoundBite.Name = "lblSoundBite";
+      this.lblSoundBite.Size = new System.Drawing.Size(70, 13);
+      this.lblSoundBite.TabIndex = 2;
+      this.lblSoundBite.Text = "Timer Sound:";
       // 
       // tbxName
       // 
@@ -160,7 +160,7 @@
       this.Controls.Add(this.nudMin);
       this.Controls.Add(this.nudHrs);
       this.Controls.Add(this.tbxName);
-      this.Controls.Add(this.label3);
+      this.Controls.Add(this.lblSoundBite);
       this.Controls.Add(this.lblDuration);
       this.Controls.Add(this.lblName);
       this.Name = "AddTimer";
@@ -177,7 +177,7 @@
 
     private System.Windows.Forms.Label lblName;
     private System.Windows.Forms.Label lblDuration;
-    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.Label lblSoundBite;
     private System.Windows.Forms.TextBox tbxName;
     private System.Windows.Forms.NumericUpDown nudHrs;
     private System.Windows.Forms.NumericUpDown nudMin;
