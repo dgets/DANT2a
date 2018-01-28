@@ -82,20 +82,12 @@ namespace DANT2a {
         this.lblTmrSeconds.Size = new System.Drawing.Size(23, 20);
         this.lblTmrSeconds.Text = "Sec";
 
-        //and now we've got to add the new numeric selectors and labels
-        //this.nudTmrHrs.Location = new System.Drawing.Point(92, 39);
-
         this.Controls.Add(nudTmrHrs);
         this.Controls.Add(lblTmrHours);
         this.Controls.Add(nudTmrMin);
         this.Controls.Add(lblTmrMinutes);
         this.Controls.Add(nudTmrSec);
         this.Controls.Add(lblTmrSeconds);
-        
-        /*this.nudTmrHrs.Show();
-        this.lblTmrHours.Show();
-        this.nudTmrMin.Show();*/
-        //this.Refresh();
       }
       
       switch (currentTypeEdited) {
@@ -115,14 +107,10 @@ namespace DANT2a {
           tbxReminderText.Enabled = false;
           tbxName.Text =
             HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].Name;
-          //okay the following isn't a DTP, it's a 3 number field; we're
-          //going to have to handle this one differently, hopefully not with
-          //a completely different form
-          /*dtpActiveAt.Value =
-            HeadsUp.activeTimers[mainForm.timerCLB.SelectedIndex].remaining*/
 
           break;
         case EntryType.Entries.Reminder:
+          tbxReminderText.Enabled = true;
           //reminder tiem
           tbxReminderText.Text =
             HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg;
@@ -223,6 +211,42 @@ namespace DANT2a {
           mainForm.Enabled = true;
           mainForm.updateDisplay(EntryType.Entries.Timer);
           this.Close();
+
+          break;
+
+        case (EntryType.Entries.Reminder):
+          //this schitt needs to be modularized, also, Clarice
+          //</Dr.Lecter>
+          if (tbxName.Text.Equals(
+               HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Name)
+              && tbxReminderText.Equals(
+               HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg)
+              && dtpActiveAt.Equals(
+               HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].ActiveAt)) {
+
+            //no changes made
+            //this cuntpasting grows old, Clarice; modularize or 8-x
+            if (MessageBox.Show("You haven't made any changes!",
+              "Nothing changed", MessageBoxButtons.OKCancel,
+              MessageBoxIcon.Warning) == DialogResult.Cancel) {
+              mainForm.Enabled = true;
+              this.Close();
+            }
+          } else {
+            HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Name =
+              tbxName.Text;
+            HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].ActiveAt =
+              dtpActiveAt.Value;
+            HeadsUp.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg =
+              tbxReminderText.Text;
+
+            MessageBox.Show("Changes propagated (not yet saved!)",
+              "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            mainForm.Enabled = true;
+            mainForm.updateDisplay(EntryType.Entries.Timer);
+            this.Close();
+          }
 
           break;
       }

@@ -92,12 +92,12 @@
       // 
       // tbxReminderText
       // 
-      this.tbxReminderText.Enabled = false;
       this.tbxReminderText.Location = new System.Drawing.Point(92, 96);
       this.tbxReminderText.Multiline = true;
       this.tbxReminderText.Name = "tbxReminderText";
       this.tbxReminderText.Size = new System.Drawing.Size(200, 154);
       this.tbxReminderText.TabIndex = 6;
+      this.tbxReminderText.Text = "loading";
       // 
       // btnMakeChanges
       // 
