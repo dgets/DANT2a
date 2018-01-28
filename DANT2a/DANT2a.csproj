@@ -73,6 +73,12 @@
       <DependentUpon>AddWut.cs</DependentUpon>
     </Compile>
     <Compile Include="Debug.cs" />
+    <Compile Include="EditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditEntry.Designer.cs">
+      <DependentUpon>EditEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntryType.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="FriendlyForms.cs" />
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddWut.resx">
       <DependentUpon>AddWut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditEntry.resx">
+      <DependentUpon>EditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HeadsUp.resx">
       <DependentUpon>HeadsUp.cs</DependentUpon>

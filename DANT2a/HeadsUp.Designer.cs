@@ -78,6 +78,7 @@
       this.btnEditAlarm.TabIndex = 1;
       this.btnEditAlarm.Text = "Edit";
       this.btnEditAlarm.UseVisualStyleBackColor = true;
+      this.btnEditAlarm.Click += new System.EventHandler(this.btnEditAlarm_Click);
       // 
       // clbAlarms
       // 
@@ -87,6 +88,7 @@
       this.clbAlarms.Size = new System.Drawing.Size(237, 154);
       this.clbAlarms.TabIndex = 0;
       this.clbAlarms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.alarmCLB_ItemCheck);
+      this.clbAlarms.SelectedIndexChanged += new System.EventHandler(this.alarmSelectedChange);
       // 
       // grpTimers
       // 
@@ -128,6 +130,7 @@
       this.btnEditTimer.TabIndex = 1;
       this.btnEditTimer.Text = "Edit";
       this.btnEditTimer.UseVisualStyleBackColor = true;
+      this.btnEditTimer.Click += new System.EventHandler(this.btnEditTimer_Click);
       // 
       // clbTimers
       // 
@@ -136,6 +139,7 @@
       this.clbTimers.Name = "clbTimers";
       this.clbTimers.Size = new System.Drawing.Size(254, 154);
       this.clbTimers.TabIndex = 0;
+      this.clbTimers.SelectedIndexChanged += new System.EventHandler(this.timerSelectedChange);
       // 
       // grpReminders
       // 
@@ -166,6 +170,7 @@
       this.btnEditReminder.TabIndex = 1;
       this.btnEditReminder.Text = "Edit";
       this.btnEditReminder.UseVisualStyleBackColor = true;
+      this.btnEditReminder.Click += new System.EventHandler(this.btnEditReminder_Click);
       // 
       // clbReminders
       // 
@@ -174,6 +179,7 @@
       this.clbReminders.Name = "clbReminders";
       this.clbReminders.Size = new System.Drawing.Size(266, 154);
       this.clbReminders.TabIndex = 0;
+      this.clbReminders.SelectedIndexChanged += new System.EventHandler(this.reminderSelectedChange);
       // 
       // btnAddAny
       // 

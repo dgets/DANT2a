@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DANT2a{
+namespace DANT2a {
     class FileIO {
         private static String saveFile = "DANTentries.cfg";
         private static String saveDir = Environment.GetFolderPath(
           Environment.SpecialFolder.ApplicationData);
         public static String saveDataLoc = saveDir + "\\" + saveFile;
 
-        public static void WriteActivesBinary<List>(string path,
+        public static void WriteActivesXML<List>(string path,
           EntryType.AllEntries glob) {
 
             try {
@@ -36,7 +36,7 @@ namespace DANT2a{
             }
         }
 
-        public static EntryType.AllEntries ReadActivesBinary<List>(string path) {
+        public static EntryType.AllEntries ReadActivesXML<List>(string path) {
             //ffs add the try/catch code
             using (Stream stream = File.Open(path, FileMode.Open)) {
               var xmlFmttr = new System.Xml.Serialization.XmlSerializer(

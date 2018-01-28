@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace DANT2a {
   public class EntryType {
@@ -49,7 +50,7 @@ namespace DANT2a {
         this.toggleRunning();
         Debug.showDbgOut("ringRingNeo()");
         MessageBox.Show("Ring ring, Neo. . .", "Time Up!", 
-          MessageBoxButtons.OK);
+          MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
     }
 
@@ -95,18 +96,31 @@ namespace DANT2a {
     [Serializable]
     public partial class Timer : Entry {
       private TimeSpan duration;
-      private TimeSpan currentCount;
       private DateTime lastTime;  //is this really necessary?
       private TimeSpan remaining;
 
+      [XmlIgnore]
       public TimeSpan Duration {
         get { return duration; }
         set { duration = value; }
       }
 
+      [XmlIgnore]
       public TimeSpan Remaining {
         get { return remaining;  }
         set { remaining = value; }
+      }
+
+      [XmlElement("Duration")]
+      public long DurationTicks {
+        get { return duration.Ticks; }
+        set { duration = new TimeSpan(value); }
+      }
+
+      [XmlElement("Remaining")]
+      public long RemainingTicks {
+        get { return remaining.Ticks; }
+        set { remaining = new TimeSpan(value); }
       }
 
       //methods
