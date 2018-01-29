@@ -139,6 +139,7 @@
       this.clbTimers.Name = "clbTimers";
       this.clbTimers.Size = new System.Drawing.Size(254, 154);
       this.clbTimers.TabIndex = 0;
+      this.clbTimers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.timerCLB_ItemCheck);
       this.clbTimers.SelectedIndexChanged += new System.EventHandler(this.timerSelectedChange);
       // 
       // grpReminders

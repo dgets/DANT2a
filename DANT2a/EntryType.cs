@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -15,7 +12,6 @@ namespace DANT2a {
       //I guess we could put a DateTime & TimeSpan in here in order to
       //save more duplicate code when writing the extending classes, but
       //I just hate the waste of the unused fields :P
-
       private String name;
       private String soundBite;
       private Boolean running;
@@ -126,8 +122,18 @@ namespace DANT2a {
       //methods
       public Boolean countDown() {
         //would this have less drift if I set 'nao' above the next 2 lines?
-        duration = duration - (DateTime.Now - lastTime);
+        if (lastTime.Equals(default(DateTime))) {
+          remaining = duration;
+        } else {
+          remaining = remaining - (DateTime.Now - lastTime);
+        }
         lastTime = DateTime.Now;
+        if (Debug.timerDebugging) {
+          Debug.showDbgOut("countDown-> remaining: " + remaining.ToString() +
+            //"\n         -> isPast(): " + isPast().ToString() +
+            "\n         -> duration:  " + duration.ToString() +
+            "\n         -> lastTime:  " + lastTime.ToString());
+        }
 
         if (duration.TotalSeconds <= 1) {
           return true;
@@ -136,12 +142,19 @@ namespace DANT2a {
         }
       }
 
+      /*public Boolean isPast() {
+        if (remaining.CompareTo(TimeSpan.MinValue) <= 0) {
+          return true;
+        }
+
+        return false;
+      }*/
+
       public override String ToString() {
         if (!Running) {
           return (duration + " - " + Name);
         } else {
           return (Name + " - " + remaining + " - ");
-          //return (name + " - " + activeAt + " - " + getInterval());
         }
       }
     }
@@ -190,6 +203,21 @@ namespace DANT2a {
         get { return rms; }
         set { rms = value; }
       }
+    }
+
+    public static EntryType.AllEntries constructGlob(List<Alarm> aAls, List<Timer> aTms,
+                                               List<Reminder> aRms) {
+      EntryType.AllEntries newGlob = new EntryType.AllEntries();
+
+      newGlob.Als = aAls; newGlob.Tms = aTms;
+      newGlob.Rms = aRms;
+
+      return newGlob;
+    }
+
+    public static void deconstructGlob(EntryType.AllEntries readGlob) {
+      HeadsUp.activeAlarms = readGlob.Als; HeadsUp.activeTimers = readGlob.Tms;
+      HeadsUp.activeReminders = readGlob.Rms;
     }
   }
 }

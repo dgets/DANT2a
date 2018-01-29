@@ -1,17 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DANT2a {
   public interface IAddForm {
-    //not an interface virgin anymore, yay
     TextBox nameTbx {
       get;
     }
@@ -61,8 +55,6 @@ namespace DANT2a {
       InitializeComponent();
     }
 
-    //List setters (add edit/delete) - should these just be a single generic
-    //passed an EntryType?
     public void addActiveAlarm(EntryType.Alarm newAl) {
       activeAlarms.Add(newAl);
 
@@ -92,14 +84,14 @@ namespace DANT2a {
 
     private void btnDbgSave_Click(object sender, EventArgs e) {
       //construct & deconstructGlob() need to be moved to EntryType
-      EntryType.AllEntries theGlob = constructGlob();
+      EntryType.AllEntries theGlob = EntryType.constructGlob(activeAlarms, 
+        activeTimers, activeReminders);
 
         try {
           FileIO.WriteActivesXML<EntryType.AllEntries>(FileIO.saveDataLoc, 
             theGlob);
         } catch (Exception ex) {
           Debug.showException("Save: " + ex.Message);
-          //MessageBox.Show("Exception saving: " + ex.Message);
         }
 
         MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", 
@@ -108,11 +100,10 @@ namespace DANT2a {
 
     private void btnDbgLoad_Click(object sender, EventArgs e) {
       try {
-        deconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
+        EntryType.deconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
           FileIO.saveDataLoc));
       } catch (Exception ex) {
         Debug.showException("Load: " + ex.Message);
-        //MessageBox.Show("Exception loading: " + ex.Message);
       }
 
       updateDisplay(EntryType.Entries.Alarm);
@@ -122,13 +113,6 @@ namespace DANT2a {
 
     public void updateDisplay(EntryType.Entries eType) {
       switch (eType) {
-        //implement EntryType.Entries.All, ffs
-        /*case EntryType.Entries.All:
-          clbAlarms.Items.Clear(); clbTimers.Items.Clear();
-          clbReminders.Items.Clear();
-
-          break;*/
-
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
 
@@ -164,7 +148,7 @@ namespace DANT2a {
               updateEntry(EntryType.Entries.Timer,
                 activeTimers.IndexOf(tm));
             } else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
-              tm.toggleRunning();
+              tm.ringRingNeo();
             } else {
               clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
             }
@@ -201,10 +185,6 @@ namespace DANT2a {
     //are going to almost certainly be replacing the above update*() method
     //at least where it contains the switch/case logic
     public void updateEntry(EntryType.Entries whichType, int curr) {
-      /*if (tickDebugging) {
-        MessageBox.Show("In updateEntry()", "Tick Debugging");
-      }*/
-      
       switch (whichType) {
         case EntryType.Entries.Alarm:
           alarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
@@ -281,31 +261,25 @@ namespace DANT2a {
               CheckState.Unchecked);
             current.ringRingNeo();
           }
-
+          
           updateDisplay(EntryType.Entries.Alarm);
         }
       }
 
       //timers
-      /*foreach (EntryType.Timer current in activeTimers) {
+      foreach (EntryType.Timer current in activeTimers) {
         if (current.Running) {
+          if (current.countDown()) {
+            timerCLB.SetItemCheckState(activeTimers.IndexOf(current),
+              CheckState.Unchecked);
+            current.ringRingNeo();
+          }/* else {
+            current.countDown();
+          }*/
+
           updateDisplay(EntryType.Entries.Timer);
         }
-      }*/
-    }
-
-    private EntryType.AllEntries constructGlob() {
-      EntryType.AllEntries newGlob = new EntryType.AllEntries();
-
-      newGlob.Als = activeAlarms; newGlob.Tms = activeTimers;
-      newGlob.Rms = activeReminders;
-
-      return newGlob;
-    }
-
-    private void deconstructGlob(EntryType.AllEntries readGlob) {
-      activeAlarms = readGlob.Als; activeTimers = readGlob.Tms;
-      activeReminders = readGlob.Rms;
+      }
     }
 
     //put this in a more logical location, verify that other methods are
@@ -335,6 +309,29 @@ namespace DANT2a {
           tmrGreenwichAtomic.Enabled = false;
         }
       }
+    }
+
+    private void timerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      Boolean ouah = false;
+
+      activeTimers.ElementAt(e.Index).Running = true;
+      //if (activeTimers.ElementAt(e.Index).Running) {
+        if (!tmrGreenwichAtomic.Enabled) {
+          tmrGreenwichAtomic.Enabled = true;
+          tmrGreenwichAtomic.Start();
+        }
+      /*} else {
+        foreach (EntryType.Timer tm in activeTimers) {
+          if (tm.Running) {
+            ouah = true;
+            break;
+          }
+        }
+
+        if (!ouah) {
+          tmrGreenwichAtomic.Enabled = false;
+        }
+      }*/
     }
 
     private void btnDbgWipe_Click(object sender, EventArgs e) {
