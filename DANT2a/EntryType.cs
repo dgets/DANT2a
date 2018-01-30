@@ -175,7 +175,7 @@ namespace DANT2a {
       }
 
       public Boolean checkInterval() {
-        if (((DateTime.Now) - activeAt).TotalSeconds <= 1) {
+        if (((DateTime.Now) - activeAt).TotalSeconds > 1) {
           return true;
         } else {
           return false;

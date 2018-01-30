@@ -280,6 +280,22 @@ namespace DANT2a {
           updateDisplay(EntryType.Entries.Timer);
         }
       }
+
+      //reminders
+      foreach (EntryType.Reminder current in activeReminders) {
+        if (current.Running) {
+          if (Debug.tickDebugging) {
+            Debug.showDbgOut(" - found running reminder");
+          }
+          if (current.checkInterval()) {
+            reminderCLB.SetItemCheckState(activeReminders.IndexOf(current),
+              CheckState.Unchecked);
+            current.ringRingNeo();
+          }
+
+          updateDisplay(EntryType.Entries.Reminder);
+        }
+      }
     }
 
     //put this in a more logical location, verify that other methods are
@@ -300,6 +316,33 @@ namespace DANT2a {
       } else {
         foreach (EntryType.Alarm al in activeAlarms) {
           if (al.Running) {
+            ouah = true;
+            break;
+          }
+        }
+
+        if (!ouah) {
+          tmrGreenwichAtomic.Enabled = false;
+        }
+      }
+    }
+
+    private void reminderCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      Boolean ouah = false;
+
+      activeReminders.ElementAt(e.Index).Running = true;
+      if (activeReminders.ElementAt(e.Index).Running) {
+        if (!tmrGreenwichAtomic.Enabled) {
+          if (Debug.tickDebugging) {
+            Debug.showDbgOut("Starting Greenwich Atomic");
+          }
+        }
+
+        tmrGreenwichAtomic.Enabled = true;
+        tmrGreenwichAtomic.Start();
+      } else {
+        foreach (EntryType.Reminder rm in activeReminders) {
+          if (rm.Running) {
             ouah = true;
             break;
           }

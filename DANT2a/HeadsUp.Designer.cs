@@ -180,6 +180,7 @@
       this.clbReminders.Name = "clbReminders";
       this.clbReminders.Size = new System.Drawing.Size(266, 154);
       this.clbReminders.TabIndex = 0;
+      this.clbReminders.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.reminderCLB_ItemCheck);
       this.clbReminders.SelectedIndexChanged += new System.EventHandler(this.reminderSelectedChange);
       // 
       // btnAddAny
