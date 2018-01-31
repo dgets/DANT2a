@@ -159,9 +159,10 @@ namespace DANT2a {
           clbReminders.Items.Clear();
 
           foreach (EntryType.Reminder rm in activeReminders) {
-            if (rm.Running) {
-              clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, true);
-            } else {
+            if (rm.Running && (!rm.checkInterval())) {
+              updateEntry(EntryType.Entries.Reminder,
+                activeReminders.IndexOf(rm));
+            } else if (!rm.Running) {
               clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
             }
           }
@@ -291,6 +292,10 @@ namespace DANT2a {
             reminderCLB.SetItemCheckState(activeReminders.IndexOf(current),
               CheckState.Unchecked);
             current.ringRingNeo();
+            //maybe add some text formatting for aesthetics here, if user
+            //has long text with no '\n's
+            MessageBox.Show(current.Msg, "Don't Forget!", MessageBoxButtons.OK,
+              MessageBoxIcon.Information);
           }
 
           updateDisplay(EntryType.Entries.Reminder);

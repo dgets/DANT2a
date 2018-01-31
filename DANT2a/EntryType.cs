@@ -181,6 +181,15 @@ namespace DANT2a {
           return false;
         }
       }
+
+      public override String ToString() {
+        if (!Running) {
+          return (activeAt + " - " + Name);
+        } else {
+          return (Name + " - " + activeAt + " - " + 
+            (DateTime.Now - activeAt).ToString());
+        }
+      }
     }
 
     [Serializable]
