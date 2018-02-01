@@ -244,7 +244,7 @@ namespace DANT2a {
               "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             mainForm.Enabled = true;
-            mainForm.updateDisplay(EntryType.Entries.Timer);
+            mainForm.updateDisplay(EntryType.Entries.Reminder);
             this.Close();
           }
 
