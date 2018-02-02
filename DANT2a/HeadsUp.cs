@@ -6,40 +6,40 @@ using System.Windows.Forms;
 
 namespace DANT2a {
   public interface IAddForm {
-    TextBox nameTbx {
+    TextBox NameTbx {
       get;
     }
   }
 
   public interface IHeadsUp {
-    CheckedListBox alarmCLB {
+    CheckedListBox AlarmCLB {
       get;
     }
 
-    CheckedListBox timerCLB {
+    CheckedListBox TimerCLB {
       get;
     }
 
-    CheckedListBox reminderCLB {
+    CheckedListBox ReminderCLB {
       get;
     }
   }
 
   public partial class HeadsUp : Form, IHeadsUp {
     //interface schiesse
-    public CheckedListBox alarmCLB {
+    public CheckedListBox AlarmCLB {
       get { return this.clbAlarms; }
-      set { this.clbAlarms = alarmCLB;  }
+      set { this.clbAlarms = AlarmCLB;  }
     }
 
-    public CheckedListBox timerCLB {
+    public CheckedListBox TimerCLB {
       get { return this.clbTimers; }
-      set { this.clbTimers = timerCLB; }
+      set { this.clbTimers = TimerCLB; }
     }
 
-    public CheckedListBox reminderCLB {
+    public CheckedListBox ReminderCLB {
       get { return this.clbReminders; }
-      set { this.clbReminders = reminderCLB; }
+      set { this.clbReminders = ReminderCLB; }
     }
 
     //active lists - should these be private w/getters & setters?
@@ -55,63 +55,63 @@ namespace DANT2a {
       InitializeComponent();
     }
 
-    public void addActiveAlarm(EntryType.Alarm newAl) {
+    public void AddActiveAlarm(EntryType.Alarm newAl) {
       activeAlarms.Add(newAl);
 
       //trigger display update
-      updateDisplay(EntryType.Entries.Alarm);
+      UpdateDisplay(EntryType.Entries.Alarm);
     }
 
-    public void addActiveTimer(EntryType.Timer newTm) {
+    public void AddActiveTimer(EntryType.Timer newTm) {
       activeTimers.Add(newTm);
 
       //display update
-      updateDisplay(EntryType.Entries.Timer);
+      UpdateDisplay(EntryType.Entries.Timer);
     }
 
-    public void addActiveReminder(EntryType.Reminder newRe) {
+    public void AddActiveReminder(EntryType.Reminder newRe) {
       activeReminders.Add(newRe);
 
       //display, etc
-      updateDisplay(EntryType.Entries.Reminder);
+      UpdateDisplay(EntryType.Entries.Reminder);
     }
 
     //misc methods
-    private void btnAddAny_Click(object sender, EventArgs e) {
+    private void BtnAddAny_Click(object sender, EventArgs e) {
       AddWut newOne = new AddWut();
       newOne.Show();
     }
 
-    private void btnDbgSave_Click(object sender, EventArgs e) {
+    private void BtnDbgSave_Click(object sender, EventArgs e) {
       //construct & deconstructGlob() need to be moved to EntryType
-      EntryType.AllEntries theGlob = EntryType.constructGlob(activeAlarms, 
+      EntryType.AllEntries theGlob = EntryType.ConstructGlob(activeAlarms, 
         activeTimers, activeReminders);
 
         try {
           FileIO.WriteActivesXML<EntryType.AllEntries>(FileIO.saveDataLoc, 
             theGlob);
         } catch (Exception ex) {
-          Debug.showException("Save: " + ex.Message);
+          Debug.ShowException("Save: " + ex.Message);
         }
 
         MessageBox.Show("Alarms/Timers/Reminders Saved", "Save Successful", 
           MessageBoxButtons.OK);
     }
 
-    private void btnDbgLoad_Click(object sender, EventArgs e) {
+    private void BtnDbgLoad_Click(object sender, EventArgs e) {
       try {
-        EntryType.deconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
+        EntryType.DeconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
           FileIO.saveDataLoc));
       } catch (Exception ex) {
-        Debug.showException("Load: " + ex.Message);
+        Debug.ShowException("Load: " + ex.Message);
       }
 
-      updateDisplay(EntryType.Entries.Alarm);
-      updateDisplay(EntryType.Entries.Timer);
-      updateDisplay(EntryType.Entries.Reminder);
+      UpdateDisplay(EntryType.Entries.Alarm);
+      UpdateDisplay(EntryType.Entries.Timer);
+      UpdateDisplay(EntryType.Entries.Reminder);
     }
 
-    public void updateDisplay(EntryType.Entries eType) {
+    public void UpdateDisplay(EntryType.Entries eType) {
       switch (eType) {
         case EntryType.Entries.Alarm:
           clbAlarms.Items.Clear();
@@ -124,14 +124,14 @@ namespace DANT2a {
             EntryType.Alarm al = activeAlarms[cntr2];
 
             if (al.Running) {
-              if (!al.isPast()) {
-                updateEntry(EntryType.Entries.Alarm, cntr2);
+              if (!al.IsPast()) {
+                UpdateEntry(EntryType.Entries.Alarm, cntr2);
               } else {
                 if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  Debug.showDbgOut("Toggling alarm #" + cntr2.ToString());
+                  Debug.ShowDbgOut("Toggling alarm #" + cntr2.ToString());
                 }
 
-                al.toggleRunning();
+                al.ToggleRunning();
               }
             } else {
               clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
@@ -144,11 +144,10 @@ namespace DANT2a {
 
           foreach (EntryType.Timer tm in activeTimers) {
             if (tm.Running && (tm.Remaining > new TimeSpan(0))) {
-              //clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
-              updateEntry(EntryType.Entries.Timer,
+              UpdateEntry(EntryType.Entries.Timer,
                 activeTimers.IndexOf(tm));
-            } else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
-              tm.ringRingNeo();
+            /*} else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
+              tm.ringRingNeo();*/
             } else {
               clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
             }
@@ -159,8 +158,8 @@ namespace DANT2a {
           clbReminders.Items.Clear();
 
           foreach (EntryType.Reminder rm in activeReminders) {
-            if (rm.Running && (!rm.checkInterval())) {
-              updateEntry(EntryType.Entries.Reminder,
+            if (rm.Running && (!rm.CheckInterval())) {
+              UpdateEntry(EntryType.Entries.Reminder,
                 activeReminders.IndexOf(rm));
             } else if (!rm.Running) {
               clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
@@ -170,7 +169,7 @@ namespace DANT2a {
       }
     }
 
-    private int getNumRunning() {
+    private int GetNumRunning() {
       int cntr = 0;
 
       foreach (EntryType.Alarm al in activeAlarms) {
@@ -185,19 +184,19 @@ namespace DANT2a {
     //display update methods - this (and the related ToString() methods,
     //are going to almost certainly be replacing the above update*() method
     //at least where it contains the switch/case logic
-    public void updateEntry(EntryType.Entries whichType, int curr) {
+    public void UpdateEntry(EntryType.Entries whichType, int curr) {
       switch (whichType) {
         case EntryType.Entries.Alarm:
-          alarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
-          alarmCLB.Show();
+          AlarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
+          AlarmCLB.Show();
           break;
         case EntryType.Entries.Timer:
-          timerCLB.Items.Add(activeTimers[curr].ToString(), true);
-          timerCLB.Show();
+          TimerCLB.Items.Add(activeTimers[curr].ToString(), true);
+          TimerCLB.Show();
           break;
         case EntryType.Entries.Reminder:
-          reminderCLB.Items.Add(activeReminders[curr].ToString(), true);
-          reminderCLB.Show();
+          ReminderCLB.Items.Add(activeReminders[curr].ToString(), true);
+          ReminderCLB.Show();
           break;
         default:
           //ouah
@@ -206,7 +205,7 @@ namespace DANT2a {
     }
 
     //is this really the best place for this?
-    private void btnResetTimer_Click(object sender, EventArgs e) {
+    private void BtnResetTimer_Click(object sender, EventArgs e) {
       if (clbTimers.SelectedIndices.Count == 0) {
         MessageBox.Show("You must first select timer(s) to reset!", 
           Properties.Resources.NoTimerSelectedError, MessageBoxButtons.OK,
@@ -217,12 +216,12 @@ namespace DANT2a {
         }
       }
 
-      updateDisplay(EntryType.Entries.Timer);
+      UpdateDisplay(EntryType.Entries.Timer);
     }
 
     //not sure at this point if it would be useful to have an option to 
     //select just one type; we'll keep it generic for now
-    private Boolean anythingRunning() {
+    private Boolean AnythingRunning() {
       foreach (EntryType.Alarm al in activeAlarms) {
         if (al.Running) {
           return true;
@@ -244,10 +243,10 @@ namespace DANT2a {
 
     //alright, let's get down to the meat of things here.  or the tofu,
     //at least
-    private void tmrGreenwichAtomic_Tick(object sender, EventArgs e) {
-      if (!anythingRunning()) {
+    private void TmrGreenwichAtomic_Tick(object sender, EventArgs e) {
+      if (!AnythingRunning()) {
         if (Debug.tickDebugging) {
-          Debug.showDbgOut("anythingRunning() sez false; disabling tmr");
+          Debug.ShowDbgOut("anythingRunning() sez false; disabling tmr");
         }
 
         tmrGreenwichAtomic.Enabled = false;
@@ -257,28 +256,28 @@ namespace DANT2a {
       //alarms
       foreach (EntryType.Alarm current in activeAlarms) {
         if (current.Running) {
-          if (current.isPast()) {
-            alarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
+          if (current.IsPast()) {
+            AlarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
               CheckState.Unchecked);
-            current.ringRingNeo();
+            current.RingRingNeo();
           }
           
-          updateDisplay(EntryType.Entries.Alarm);
+          UpdateDisplay(EntryType.Entries.Alarm);
         }
       }
 
       //timers
       foreach (EntryType.Timer current in activeTimers) {
         if (current.Running) {
-          if (current.countDown()) {
-            timerCLB.SetItemCheckState(activeTimers.IndexOf(current),
+          if (current.CountDown()) {
+            TimerCLB.SetItemCheckState(activeTimers.IndexOf(current),
               CheckState.Unchecked);
-            current.ringRingNeo();
-          }/* else {
+            current.RingRingNeo();
+          } /*else {
             current.countDown();
           }*/
 
-          updateDisplay(EntryType.Entries.Timer);
+          UpdateDisplay(EntryType.Entries.Timer);
         }
       }
 
@@ -286,103 +285,69 @@ namespace DANT2a {
       foreach (EntryType.Reminder current in activeReminders) {
         if (current.Running) {
           if (Debug.tickDebugging) {
-            Debug.showDbgOut(" - found running reminder");
+            Debug.ShowDbgOut(" - found running reminder");
           }
-          if (current.checkInterval()) {
-            reminderCLB.SetItemCheckState(activeReminders.IndexOf(current),
+          if (current.CheckInterval()) {
+            ReminderCLB.SetItemCheckState(activeReminders.IndexOf(current),
               CheckState.Unchecked);
-            current.ringRingNeo();
+            current.RingRingNeo();
             //maybe add some text formatting for aesthetics here, if user
             //has long text with no '\n's
             MessageBox.Show(current.Msg, "Don't Forget!", MessageBoxButtons.OK,
               MessageBoxIcon.Information);
           }
 
-          updateDisplay(EntryType.Entries.Reminder);
+          UpdateDisplay(EntryType.Entries.Reminder);
         }
       }
     }
 
     //put this in a more logical location, verify that other methods are
     //grouped reasonably, as well
-    private void alarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      Boolean ouah = false;
-
-      activeAlarms.ElementAt(e.Index).Running = true;
+    private void AlarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      activeAlarms.ElementAt(e.Index).Running = 
+        activeAlarms.ElementAt(e.Index).ToggleRunning();
       if (activeAlarms.ElementAt(e.Index).Running) { 
         if (!tmrGreenwichAtomic.Enabled) {
           if (Debug.tickDebugging) {
-            Debug.showDbgOut("Starting Greenwich Atomic");
+            Debug.ShowDbgOut("Starting Greenwich Atomic");
           }
 
           tmrGreenwichAtomic.Enabled = true;
           tmrGreenwichAtomic.Start();
         }
-      } else {
-        foreach (EntryType.Alarm al in activeAlarms) {
-          if (al.Running) {
-            ouah = true;
-            break;
-          }
-        }
-
-        if (!ouah) {
-          tmrGreenwichAtomic.Enabled = false;
-        }
       }
     }
 
-    private void reminderCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      Boolean ouah = false;
-
-      activeReminders.ElementAt(e.Index).Running = true;
+    private void ReminderCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      activeReminders.ElementAt(e.Index).Running = //true;
+        activeReminders.ElementAt(e.Index).ToggleRunning();
       if (activeReminders.ElementAt(e.Index).Running) {
         if (!tmrGreenwichAtomic.Enabled) {
           if (Debug.tickDebugging) {
-            Debug.showDbgOut("Starting Greenwich Atomic");
+            Debug.ShowDbgOut("Starting Greenwich Atomic");
           }
         }
 
         tmrGreenwichAtomic.Enabled = true;
         tmrGreenwichAtomic.Start();
-      } else {
-        foreach (EntryType.Reminder rm in activeReminders) {
-          if (rm.Running) {
-            ouah = true;
-            break;
-          }
-        }
-
-        if (!ouah) {
-          tmrGreenwichAtomic.Enabled = false;
-        }
       }
     }
 
-    private void timerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      Boolean ouah = false;
-
-      activeTimers.ElementAt(e.Index).Running = true;
-      //if (activeTimers.ElementAt(e.Index).Running) {
+    private void TimerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      activeTimers.ElementAt(e.Index).Running = 
+        activeTimers.ElementAt(e.Index).ToggleRunning();
+      //if (activeTimers.ElementAt(e.Index).toggleRunning()) {
         if (!tmrGreenwichAtomic.Enabled) {
           tmrGreenwichAtomic.Enabled = true;
           tmrGreenwichAtomic.Start();
         }
-      /*} else {
-        foreach (EntryType.Timer tm in activeTimers) {
-          if (tm.Running) {
-            ouah = true;
-            break;
-          }
-        }
+      //}
 
-        if (!ouah) {
-          tmrGreenwichAtomic.Enabled = false;
-        }
-      }*/
+      UpdateDisplay(EntryType.Entries.Timer);
     }
 
-    private void btnDbgWipe_Click(object sender, EventArgs e) {
+    private void BtnDbgWipe_Click(object sender, EventArgs e) {
       //confirm wiping the old one, first
       if (File.Exists(FileIO.saveDataLoc)) {
         if (MessageBox.Show("Do you want to delete the save file?", 
@@ -397,8 +362,8 @@ namespace DANT2a {
           }
 
           activeAlarms.Clear(); activeTimers.Clear(); activeReminders.Clear();
-          alarmCLB.Items.Clear(); timerCLB.Items.Clear();
-          reminderCLB.Items.Clear();
+          AlarmCLB.Items.Clear(); TimerCLB.Items.Clear();
+          ReminderCLB.Items.Clear();
         } else {
           MessageBox.Show("Letting savefile live.  Maybe it was never there" +
             " to begin with...  Do you think that's air you're breathing?",
@@ -411,8 +376,8 @@ namespace DANT2a {
       }
     }
 
-    private void btnEditAlarm_Click(object sender, EventArgs e) {
-      if (alarmCLB.SelectedIndex != -1) {
+    private void BtnEditAlarm_Click(object sender, EventArgs e) {
+      if (AlarmCLB.SelectedIndex != -1) {
         EditEntry editEntry = new EditEntry();
         editEntry.Show();
       } else {
@@ -422,8 +387,8 @@ namespace DANT2a {
       }
     }
 
-    private void btnEditReminder_Click(object sender, EventArgs e) {
-      if (reminderCLB.SelectedIndex != -1) {
+    private void BtnEditReminder_Click(object sender, EventArgs e) {
+      if (ReminderCLB.SelectedIndex != -1) {
         EditEntry editEntry = new EditEntry();
         editEntry.Show();
       } else {
@@ -432,8 +397,8 @@ namespace DANT2a {
       }
     }
 
-    private void btnEditTimer_Click(object sender, EventArgs e) {
-      if (timerCLB.SelectedIndex != -1) {
+    private void BtnEditTimer_Click(object sender, EventArgs e) {
+      if (TimerCLB.SelectedIndex != -1) {
         EditEntry editEntry = new EditEntry();
         editEntry.Show();
       } else {
@@ -444,24 +409,24 @@ namespace DANT2a {
 
     //there's a better way to handle the *SelectedChange() methods here;
     //one method should be able to handle everything based
-    private void alarmSelectedChange(object sender, EventArgs e) {
-      if ((timerCLB.SelectedIndex != -1) || 
-          (reminderCLB.SelectedIndex != -1)) {
-        timerCLB.ClearSelected(); reminderCLB.ClearSelected();
+    private void AlarmSelectedChange(object sender, EventArgs e) {
+      if ((TimerCLB.SelectedIndex != -1) || 
+          (ReminderCLB.SelectedIndex != -1)) {
+        TimerCLB.ClearSelected(); ReminderCLB.ClearSelected();
       }
     }
 
-    private void reminderSelectedChange(object sender, EventArgs e) {
-      if ((alarmCLB.SelectedIndex != -1) ||
-          (timerCLB.SelectedIndex != -1)) {
-        alarmCLB.ClearSelected(); timerCLB.ClearSelected();
+    private void ReminderSelectedChange(object sender, EventArgs e) {
+      if ((AlarmCLB.SelectedIndex != -1) ||
+          (TimerCLB.SelectedIndex != -1)) {
+        AlarmCLB.ClearSelected(); TimerCLB.ClearSelected();
       }
     }
 
-    private void timerSelectedChange(object sender, EventArgs e) {
-      if ((alarmCLB.SelectedIndex != -1) ||
-          (reminderCLB.SelectedIndex != -1)) {
-        alarmCLB.ClearSelected(); reminderCLB.ClearSelected();
+    private void TimerSelectedChange(object sender, EventArgs e) {
+      if ((AlarmCLB.SelectedIndex != -1) ||
+          (ReminderCLB.SelectedIndex != -1)) {
+        AlarmCLB.ClearSelected(); ReminderCLB.ClearSelected();
       }
     }
   }

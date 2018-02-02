@@ -70,7 +70,7 @@
       this.btnGo.TabIndex = 3;
       this.btnGo.Text = "Go";
       this.btnGo.UseVisualStyleBackColor = true;
-      this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+      this.btnGo.Click += new System.EventHandler(this.BtnGo_Click);
       // 
       // AddWut
       // 
