@@ -139,7 +139,7 @@ namespace DANT2a {
       }
 
       public Boolean IsPast() {
-        if (remaining.CompareTo(TimeSpan.MinValue) <= 0) {
+        if (remaining.CompareTo(TimeSpan.MinValue) > 0) {
           return true;
         }
 

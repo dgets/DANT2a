@@ -144,6 +144,11 @@ namespace DANT2a {
 
           foreach (EntryType.Timer tm in activeTimers) {
             if (tm.Running && (tm.Remaining > new TimeSpan(0))) {
+              if (Debug.timerDebugging && Debug.tickDebugging) {
+                Debug.ShowDbgOut("UpdateDisplay for Timer active\n" +
+                  "  -> activeTimers[" + activeTimers.IndexOf(tm).ToString() +
+                  "]: " + tm.Running.ToString());
+              }
               UpdateEntry(EntryType.Entries.Timer,
                 activeTimers.IndexOf(tm));
             /*} else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
@@ -185,6 +190,10 @@ namespace DANT2a {
     //are going to almost certainly be replacing the above update*() method
     //at least where it contains the switch/case logic
     public void UpdateEntry(EntryType.Entries whichType, int curr) {
+      if (Debug.tickDebugging) {
+        Debug.ShowDbgOut("In UpdateEntry()");
+      }
+
       switch (whichType) {
         case EntryType.Entries.Alarm:
           AlarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
@@ -244,13 +253,21 @@ namespace DANT2a {
     //alright, let's get down to the meat of things here.  or the tofu,
     //at least
     private void TmrGreenwichAtomic_Tick(object sender, EventArgs e) {
+      if (Debug.tickDebugging) {
+        Debug.ShowDbgOut("_Tick():");
+      }
+
       if (!AnythingRunning()) {
         if (Debug.tickDebugging) {
-          Debug.ShowDbgOut("anythingRunning() sez false; disabling tmr");
+          Debug.ShowDbgOut("  --> anythingRunning() sez false; disabling tmr");
         }
 
         tmrGreenwichAtomic.Enabled = false;
         return;
+      }
+
+      if (Debug.tickDebugging) {
+        Debug.ShowDbgOut("  -> anythingRunning() == true");
       }
 
       //alarms
@@ -270,12 +287,14 @@ namespace DANT2a {
       foreach (EntryType.Timer current in activeTimers) {
         if (current.Running) {
           if (current.CountDown()) {
+          //if (current.IsPast()) { 
+            Debug.ShowDbgOut("GNAHHH");
             TimerCLB.SetItemCheckState(activeTimers.IndexOf(current),
               CheckState.Unchecked);
             current.RingRingNeo();
-          } /*else {
-            current.countDown();
-          }*/
+          } else {
+            Debug.ShowDbgOut("OUAH OUAH OUAH");
+          }
 
           UpdateDisplay(EntryType.Entries.Timer);
         }
@@ -320,13 +339,12 @@ namespace DANT2a {
     }
 
     private void ReminderCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      activeReminders.ElementAt(e.Index).Running = //true;
-        activeReminders.ElementAt(e.Index).ToggleRunning();
-      if (activeReminders.ElementAt(e.Index).Running) {
-        if (!tmrGreenwichAtomic.Enabled) {
-          if (Debug.tickDebugging) {
-            Debug.ShowDbgOut("Starting Greenwich Atomic");
-          }
+      activeReminders.ElementAt(e.Index).Running = true;
+        //activeReminders.ElementAt(e.Index).ToggleRunning();
+      if (activeReminders.ElementAt(e.Index).Running  && 
+          !tmrGreenwichAtomic.Enabled) {
+        if (Debug.tickDebugging) {
+          Debug.ShowDbgOut("Starting Greenwich Atomic");
         }
 
         tmrGreenwichAtomic.Enabled = true;
@@ -335,16 +353,22 @@ namespace DANT2a {
     }
 
     private void TimerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      activeTimers.ElementAt(e.Index).Running = 
-        activeTimers.ElementAt(e.Index).ToggleRunning();
+      activeTimers.ElementAt(e.Index).ToggleRunning();
+      if (Debug.timerDebugging) {
+        Debug.ShowDbgOut("  -> activeTimers[" + e.Index.ToString() +
+          "].running == " + activeTimers.ElementAt(e.Index).Running);
+      }
       //if (activeTimers.ElementAt(e.Index).toggleRunning()) {
         if (!tmrGreenwichAtomic.Enabled) {
+          if (Debug.tickDebugging) {
+            Debug.ShowDbgOut("Starting Greenwich Atomic");
+          }
           tmrGreenwichAtomic.Enabled = true;
           tmrGreenwichAtomic.Start();
         }
       //}
 
-      UpdateDisplay(EntryType.Entries.Timer);
+      //UpdateDisplay(EntryType.Entries.Timer);
     }
 
     private void BtnDbgWipe_Click(object sender, EventArgs e) {
