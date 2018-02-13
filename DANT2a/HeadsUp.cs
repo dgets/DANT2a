@@ -324,9 +324,17 @@ namespace DANT2a {
     //put this in a more logical location, verify that other methods are
     //grouped reasonably, as well
     private void AlarmCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      if (!activeAlarms.ElementAt(e.Index).Running &&
+          activeAlarms.ElementAt(e.Index).IsPast()) {
+        MessageBox.Show("Alarm cannot be in the past!", "Alarm Already Passed",
+          MessageBoxButtons.OK, MessageBoxIcon.Error);
+        AlarmCLB.SetItemCheckState(e.Index, CheckState.Unchecked);
+        return;
+      }
+
       activeAlarms.ElementAt(e.Index).Running = 
         activeAlarms.ElementAt(e.Index).ToggleRunning();
-      if (activeAlarms.ElementAt(e.Index).Running) { 
+      if (activeAlarms.ElementAt(e.Index).Running) {
         if (!tmrGreenwichAtomic.Enabled) {
           if (Debug.tickDebugging) {
             Debug.ShowDbgOut("Starting Greenwich Atomic");
@@ -339,6 +347,15 @@ namespace DANT2a {
     }
 
     private void ReminderCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      if (activeReminders.ElementAt(e.Index).ActiveAt.CompareTo(
+            DateTime.Now) <= 0) {
+        MessageBox.Show("Reminder cannot be in the past!", 
+          "Reminder Already Passed", MessageBoxButtons.OK, 
+          MessageBoxIcon.Error);
+        ReminderCLB.SetItemCheckState(e.Index, CheckState.Unchecked);
+        return;
+      }
+
       activeReminders.ElementAt(e.Index).Running = true;
         //activeReminders.ElementAt(e.Index).ToggleRunning();
       if (activeReminders.ElementAt(e.Index).Running  && 
