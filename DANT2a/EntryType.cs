@@ -7,6 +7,8 @@ namespace DANT2a {
   public class EntryType {
     public enum Entries { Alarm, Timer, Reminder, All };
 
+    private static HeadsUp mainForm = (HeadsUp)Application.OpenForms[0];
+
     [Serializable]
     public partial class Entry {
       //I guess we could put a DateTime & TimeSpan in here in order to
@@ -225,8 +227,8 @@ namespace DANT2a {
     }
 
     public static void deconstructGlob(EntryType.AllEntries readGlob) {
-      HeadsUp.activeAlarms = readGlob.Als; HeadsUp.activeTimers = readGlob.Tms;
-      HeadsUp.activeReminders = readGlob.Rms;
+      mainForm.activeAlarms = readGlob.Als; mainForm.activeTimers = readGlob.Tms;
+      mainForm.activeReminders = readGlob.Rms;
     }
   }
 }

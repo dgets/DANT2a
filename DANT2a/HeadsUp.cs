@@ -43,11 +43,11 @@ namespace DANT2a {
     }
 
     //active lists - should these be private w/getters & setters?
-    public static List<EntryType.Alarm> activeAlarms =
+    public List<EntryType.Alarm> activeAlarms =
       new List<EntryType.Alarm>();
-    public static List<EntryType.Timer> activeTimers = 
+    public List<EntryType.Timer> activeTimers = 
       new List<EntryType.Timer>();
-    public static List<EntryType.Reminder> activeReminders = 
+    public List<EntryType.Reminder> activeReminders = 
       new List<EntryType.Reminder>();           
 
     //HeadsUp form constructor
@@ -59,21 +59,21 @@ namespace DANT2a {
       activeAlarms.Add(newAl);
 
       //trigger display update
-      updateDisplay(EntryType.Entries.Alarm);
+      Display.updateDisplay(EntryType.Entries.Alarm);
     }
 
     public void addActiveTimer(EntryType.Timer newTm) {
       activeTimers.Add(newTm);
 
       //display update
-      updateDisplay(EntryType.Entries.Timer);
+      Display.updateDisplay(EntryType.Entries.Timer);
     }
 
     public void addActiveReminder(EntryType.Reminder newRe) {
       activeReminders.Add(newRe);
 
       //display, etc
-      updateDisplay(EntryType.Entries.Reminder);
+      Display.updateDisplay(EntryType.Entries.Reminder);
     }
 
     //misc methods
@@ -106,103 +106,9 @@ namespace DANT2a {
         Debug.showException("Load: " + ex.Message);
       }
 
-      updateDisplay(EntryType.Entries.Alarm);
-      updateDisplay(EntryType.Entries.Timer);
-      updateDisplay(EntryType.Entries.Reminder);
-    }
-
-    public void updateDisplay(EntryType.Entries eType) {
-      switch (eType) {
-        case EntryType.Entries.Alarm:
-          clbAlarms.Items.Clear();
-
-          //swap this gross for loop out for a foreach like is done for
-          //timer entries immediately below
-          //or better yet, modularize
-          for (int cntr2 = 0; cntr2 < activeAlarms.Count; cntr2++) {
-            //switch the above to a 'for' loop & remove cntr++ below
-            EntryType.Alarm al = activeAlarms[cntr2];
-
-            if (al.Running) {
-              if (!al.isPast()) {
-                updateEntry(EntryType.Entries.Alarm, cntr2);
-              } else {
-                if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  Debug.showDbgOut("Toggling alarm #" + cntr2.ToString());
-                }
-
-                al.toggleRunning();
-              }
-            } else {
-              clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
-            }
-          }
-          break;
-
-        case EntryType.Entries.Timer:
-          clbTimers.Items.Clear();
-
-          foreach (EntryType.Timer tm in activeTimers) {
-            if (tm.Running && (tm.Remaining > new TimeSpan(0))) {
-              //clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
-              updateEntry(EntryType.Entries.Timer,
-                activeTimers.IndexOf(tm));
-            } else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
-              tm.ringRingNeo();
-            } else {
-              clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
-            }
-          }
-          break;
-
-        case EntryType.Entries.Reminder:
-          clbReminders.Items.Clear();
-
-          foreach (EntryType.Reminder rm in activeReminders) {
-            if (rm.Running && (!rm.checkInterval())) {
-              updateEntry(EntryType.Entries.Reminder,
-                activeReminders.IndexOf(rm));
-            } else if (!rm.Running) {
-              clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
-            }
-          }
-          break;
-      }
-    }
-
-    private int getNumRunning() {
-      int cntr = 0;
-
-      foreach (EntryType.Alarm al in activeAlarms) {
-        if (al.Running == true) {
-          cntr++;
-        }
-      }
-
-      return cntr;
-    }
-
-    //display update methods - this (and the related ToString() methods,
-    //are going to almost certainly be replacing the above update*() method
-    //at least where it contains the switch/case logic
-    public void updateEntry(EntryType.Entries whichType, int curr) {
-      switch (whichType) {
-        case EntryType.Entries.Alarm:
-          alarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
-          alarmCLB.Show();
-          break;
-        case EntryType.Entries.Timer:
-          timerCLB.Items.Add(activeTimers[curr].ToString(), true);
-          timerCLB.Show();
-          break;
-        case EntryType.Entries.Reminder:
-          reminderCLB.Items.Add(activeReminders[curr].ToString(), true);
-          reminderCLB.Show();
-          break;
-        default:
-          //ouah
-          break;
-      }
+      Display.updateDisplay(EntryType.Entries.Alarm);
+      Display.updateDisplay(EntryType.Entries.Timer);
+      Display.updateDisplay(EntryType.Entries.Reminder);
     }
 
     //is this really the best place for this?
@@ -217,7 +123,7 @@ namespace DANT2a {
         }
       }
 
-      updateDisplay(EntryType.Entries.Timer);
+      Display.updateDisplay(EntryType.Entries.Timer);
     }
 
     //not sure at this point if it would be useful to have an option to 
@@ -263,7 +169,7 @@ namespace DANT2a {
             current.ringRingNeo();
           }
           
-          updateDisplay(EntryType.Entries.Alarm);
+          Display.updateDisplay(EntryType.Entries.Alarm);
         }
       }
 
@@ -278,7 +184,7 @@ namespace DANT2a {
             current.countDown();
           }*/
 
-          updateDisplay(EntryType.Entries.Timer);
+          Display.updateDisplay(EntryType.Entries.Timer);
         }
       }
 
@@ -298,7 +204,7 @@ namespace DANT2a {
               MessageBoxIcon.Information);
           }
 
-          updateDisplay(EntryType.Entries.Reminder);
+          Display.updateDisplay(EntryType.Entries.Reminder);
         }
       }
     }
@@ -360,8 +266,6 @@ namespace DANT2a {
     }
 
     private void timerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      Boolean ouah = false;
-
       activeTimers.ElementAt(e.Index).Running = true;
       //if (activeTimers.ElementAt(e.Index).Running) {
         if (!tmrGreenwichAtomic.Enabled) {
