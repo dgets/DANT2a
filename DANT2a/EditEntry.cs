@@ -96,9 +96,9 @@ namespace DANT2a {
           tbxReminderText.Text = "unavailable";
           tbxReminderText.Enabled = false;
           tbxName.Text =
-            HeadsUp.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name;
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name;
           dtpActiveAt.Value =
-            HeadsUp.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt;
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt;
 
           break;
         case EntryType.Entries.Timer:
@@ -106,18 +106,18 @@ namespace DANT2a {
           tbxReminderText.Text = "unavailable";
           tbxReminderText.Enabled = false;
           tbxName.Text =
-            HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Name;
+            mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Name;
 
           break;
         case EntryType.Entries.Reminder:
           tbxReminderText.Enabled = true;
           //reminder tiem
           tbxReminderText.Text =
-            HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg;
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg;
           tbxName.Text =
-            HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name;
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name;
           dtpActiveAt.Value =
-            HeadsUp.activeReminders[
+            mainForm.activeReminders[
               mainForm.ReminderCLB.SelectedIndex].ActiveAt;
 
           break;
@@ -140,9 +140,9 @@ namespace DANT2a {
           /* note that the following conditional will need to have soundbite
            * information checking, as well */
           if (tbxName.Text.Equals(
-            HeadsUp.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name) &&
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name) &&
               dtpActiveAt.Value.Equals(
-            HeadsUp.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt)) {
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt)) {
 
             //no changes made to settings
             if (MessageBox.Show("You haven't made any changes!",
@@ -154,16 +154,16 @@ namespace DANT2a {
             break;
           }
 
-          HeadsUp.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name =
+          mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name =
             tbxName.Text;
-          HeadsUp.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt =
+          mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt =
             dtpActiveAt.Value;
 
           MessageBox.Show("Changes propagated (not yet saved!)",
             "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
           mainForm.Enabled = true;
-          mainForm.UpdateDisplay(EntryType.Entries.Alarm);
+          Display.updateDisplay(EntryType.Entries.Alarm);
           this.Close();
 
           break;
@@ -173,10 +173,10 @@ namespace DANT2a {
           /* note that the following conditional will need to have soundbite
            * information checking, as well */
           if (tbxName.Text.Equals(
-            HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Name) &&
+            mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Name) &&
               new TimeSpan((int)nudTmrHrs.Value, (int)nudTmrMin.Value, 
                            (int)nudTmrSec.Value).Equals(
-              HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration)) {
+              mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration)) {
 
             //no changes made to settings
             if (MessageBox.Show("You haven't made any changes!",
@@ -197,19 +197,19 @@ namespace DANT2a {
               (int)nudTmrMin.Value, (int)nudTmrSec.Value).ToString());
           }
 
-          HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Name =
+          mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Name =
             tbxName.Text;
-          HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration =
+          mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration =
             new TimeSpan((int)nudTmrHrs.Value, (int)nudTmrMin.Value,
                          (int)nudTmrSec.Value);
-          HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Remaining =
-            HeadsUp.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration;
+          mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Remaining =
+            mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration;
 
           MessageBox.Show("Changes propagated (not yet saved!)",
             "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
           mainForm.Enabled = true;
-          mainForm.UpdateDisplay(EntryType.Entries.Timer);
+          Display.updateDisplay(EntryType.Entries.Timer);
           this.Close();
 
           break;
@@ -218,11 +218,11 @@ namespace DANT2a {
           //this schitt needs to be modularized, also, Clarice
           //</Dr.Lecter>
           if (tbxName.Text.Equals(
-               HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name)
+               mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name)
               && tbxReminderText.Equals(
-               HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg)
+               mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg)
               && dtpActiveAt.Equals(
-               HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].ActiveAt)) {
+               mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].ActiveAt)) {
 
             //no changes made
             //this cuntpasting grows old, Clarice; modularize or 8-x
@@ -233,18 +233,18 @@ namespace DANT2a {
               this.Close();
             }
           } else {
-            HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name =
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name =
               tbxName.Text;
-            HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].ActiveAt =
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].ActiveAt =
               dtpActiveAt.Value;
-            HeadsUp.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg =
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg =
               tbxReminderText.Text;
 
             MessageBox.Show("Changes propagated (not yet saved!)",
               "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             mainForm.Enabled = true;
-            mainForm.UpdateDisplay(EntryType.Entries.Reminder);
+            Display.updateDisplay(EntryType.Entries.Timer);
             this.Close();
           }
 

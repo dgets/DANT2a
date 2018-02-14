@@ -73,6 +73,7 @@
       <DependentUpon>AddWut.cs</DependentUpon>
     </Compile>
     <Compile Include="Debug.cs" />
+    <Compile Include="Display.cs" />
     <Compile Include="EditEntry.cs">
       <SubType>Form</SubType>
     </Compile>

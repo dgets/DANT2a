@@ -43,11 +43,11 @@ namespace DANT2a {
     }
 
     //active lists - should these be private w/getters & setters?
-    public static List<EntryType.Alarm> activeAlarms =
+    public List<EntryType.Alarm> activeAlarms =
       new List<EntryType.Alarm>();
-    public static List<EntryType.Timer> activeTimers = 
+    public List<EntryType.Timer> activeTimers = 
       new List<EntryType.Timer>();
-    public static List<EntryType.Reminder> activeReminders = 
+    public List<EntryType.Reminder> activeReminders = 
       new List<EntryType.Reminder>();           
 
     //HeadsUp form constructor
@@ -59,21 +59,21 @@ namespace DANT2a {
       activeAlarms.Add(newAl);
 
       //trigger display update
-      UpdateDisplay(EntryType.Entries.Alarm);
+      Display.updateDisplay(EntryType.Entries.Alarm);
     }
 
     public void AddActiveTimer(EntryType.Timer newTm) {
       activeTimers.Add(newTm);
 
       //display update
-      UpdateDisplay(EntryType.Entries.Timer);
+      Display.updateDisplay(EntryType.Entries.Timer);
     }
 
     public void AddActiveReminder(EntryType.Reminder newRe) {
       activeReminders.Add(newRe);
 
       //display, etc
-      UpdateDisplay(EntryType.Entries.Reminder);
+      Display.updateDisplay(EntryType.Entries.Reminder);
     }
 
     //misc methods
@@ -100,117 +100,16 @@ namespace DANT2a {
 
     private void BtnDbgLoad_Click(object sender, EventArgs e) {
       try {
-        EntryType.DeconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
+        EntryType.deconstructGlob(FileIO.ReadActivesXML<EntryType.AllEntries>(
           FileIO.saveDataLoc));
       } catch (Exception ex) {
         Debug.ShowException("Load: " + ex.Message);
       }
 
-      UpdateDisplay(EntryType.Entries.Alarm);
-      UpdateDisplay(EntryType.Entries.Timer);
-      UpdateDisplay(EntryType.Entries.Reminder);
-    }
+      Display.updateDisplay(EntryType.Entries.Alarm);
+      Display.updateDisplay(EntryType.Entries.Timer);
+      Display.updateDisplay(EntryType.Entries.Reminder);
 
-    public void UpdateDisplay(EntryType.Entries eType) {
-      switch (eType) {
-        case EntryType.Entries.Alarm:
-          clbAlarms.Items.Clear();
-
-          //swap this gross for loop out for a foreach like is done for
-          //timer entries immediately below
-          //or better yet, modularize
-          for (int cntr2 = 0; cntr2 < activeAlarms.Count; cntr2++) {
-            //switch the above to a 'for' loop & remove cntr++ below
-            EntryType.Alarm al = activeAlarms[cntr2];
-
-            if (al.Running) {
-              if (!al.IsPast()) {
-                UpdateEntry(EntryType.Entries.Alarm, cntr2);
-              } else {
-                if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  Debug.ShowDbgOut("Toggling alarm #" + cntr2.ToString());
-                }
-
-                al.ToggleRunning();
-              }
-            } else {
-              clbAlarms.Items.Add(al.ActiveAt + " - " + al.Name, false);
-            }
-          }
-          break;
-
-        case EntryType.Entries.Timer:
-          clbTimers.Items.Clear();
-
-          foreach (EntryType.Timer tm in activeTimers) {
-            if (tm.Running && (tm.Remaining > new TimeSpan(0))) {
-              if (Debug.timerDebugging && Debug.tickDebugging) {
-                Debug.ShowDbgOut("UpdateDisplay for Timer active\n" +
-                  "  -> activeTimers[" + activeTimers.IndexOf(tm).ToString() +
-                  "]: " + tm.Running.ToString());
-              }
-              UpdateEntry(EntryType.Entries.Timer,
-                activeTimers.IndexOf(tm));
-            /*} else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
-              tm.ringRingNeo();*/
-            } else {
-              clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, false);
-            }
-          }
-          break;
-
-        case EntryType.Entries.Reminder:
-          clbReminders.Items.Clear();
-
-          foreach (EntryType.Reminder rm in activeReminders) {
-            if (rm.Running && (!rm.CheckInterval())) {
-              UpdateEntry(EntryType.Entries.Reminder,
-                activeReminders.IndexOf(rm));
-            } else if (!rm.Running) {
-              clbReminders.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
-            }
-          }
-          break;
-      }
-    }
-
-    private int GetNumRunning() {
-      int cntr = 0;
-
-      foreach (EntryType.Alarm al in activeAlarms) {
-        if (al.Running == true) {
-          cntr++;
-        }
-      }
-
-      return cntr;
-    }
-
-    //display update methods - this (and the related ToString() methods,
-    //are going to almost certainly be replacing the above update*() method
-    //at least where it contains the switch/case logic
-    public void UpdateEntry(EntryType.Entries whichType, int curr) {
-      if (Debug.tickDebugging) {
-        Debug.ShowDbgOut("In UpdateEntry()");
-      }
-
-      switch (whichType) {
-        case EntryType.Entries.Alarm:
-          AlarmCLB.Items.Add(activeAlarms[curr].ToString(), true);
-          AlarmCLB.Show();
-          break;
-        case EntryType.Entries.Timer:
-          TimerCLB.Items.Add(activeTimers[curr].ToString(), true);
-          TimerCLB.Show();
-          break;
-        case EntryType.Entries.Reminder:
-          ReminderCLB.Items.Add(activeReminders[curr].ToString(), true);
-          ReminderCLB.Show();
-          break;
-        default:
-          //ouah
-          break;
-      }
     }
 
     //is this really the best place for this?
@@ -225,7 +124,7 @@ namespace DANT2a {
         }
       }
 
-      UpdateDisplay(EntryType.Entries.Timer);
+      Display.updateDisplay(EntryType.Entries.Timer);
     }
 
     //not sure at this point if it would be useful to have an option to 
@@ -279,7 +178,7 @@ namespace DANT2a {
             current.RingRingNeo();
           }
           
-          UpdateDisplay(EntryType.Entries.Alarm);
+          Display.updateDisplay(EntryType.Entries.Alarm);
         }
       }
 
@@ -296,7 +195,7 @@ namespace DANT2a {
             Debug.ShowDbgOut("OUAH OUAH OUAH");
           }
 
-          UpdateDisplay(EntryType.Entries.Timer);
+          Display.updateDisplay(EntryType.Entries.Timer);
         }
       }
 
@@ -316,7 +215,7 @@ namespace DANT2a {
               MessageBoxIcon.Information);
           }
 
-          UpdateDisplay(EntryType.Entries.Reminder);
+          Display.updateDisplay(EntryType.Entries.Reminder);
         }
       }
     }
@@ -369,13 +268,9 @@ namespace DANT2a {
       }
     }
 
-    private void TimerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
-      activeTimers.ElementAt(e.Index).ToggleRunning();
-      if (Debug.timerDebugging) {
-        Debug.ShowDbgOut("  -> activeTimers[" + e.Index.ToString() +
-          "].running == " + activeTimers.ElementAt(e.Index).Running);
-      }
-      //if (activeTimers.ElementAt(e.Index).toggleRunning()) {
+    private void timerCLB_ItemCheck(Object sender, ItemCheckEventArgs e) {
+      activeTimers.ElementAt(e.Index).Running = true;
+      //if (activeTimers.ElementAt(e.Index).Running) {
         if (!tmrGreenwichAtomic.Enabled) {
           if (Debug.tickDebugging) {
             Debug.ShowDbgOut("Starting Greenwich Atomic");
