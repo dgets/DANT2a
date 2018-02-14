@@ -111,20 +111,6 @@ namespace DANT2a {
       Display.updateDisplay(EntryType.Entries.Reminder);
     }
 
-    private int getNumRunning() {
-      int cntr = 0;
-
-      foreach (EntryType.Alarm al in activeAlarms) {
-        if (al.Running == true) {
-          cntr++;
-        }
-      }
-
-      return cntr;
-    }
-
-    
-
     //is this really the best place for this?
     private void btnResetTimer_Click(object sender, EventArgs e) {
       if (clbTimers.SelectedIndices.Count == 0) {

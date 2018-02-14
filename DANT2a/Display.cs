@@ -13,8 +13,11 @@ namespace DANT2a {
     public static void updateDisplay(EntryType.Entries eType) {
       List<EntryType.Alarm> activeAlarms = new List<EntryType.Alarm>();
       List<EntryType.Timer> activeTimers = new List<EntryType.Timer>();
-      List<EntryType.Reminder> activeReminders =
-        new List<EntryType.Reminder>();
+      List<EntryType.Reminder> activeReminders = new List<EntryType.Reminder>();
+
+      activeAlarms = mainForm.activeAlarms;
+      activeTimers = mainForm.activeTimers;
+      activeReminders = mainForm.activeReminders;
 
       switch (eType) {
         case EntryType.Entries.Alarm:
