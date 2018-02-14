@@ -23,7 +23,7 @@ namespace DANT2a {
     public const Boolean mBoxDebugging = false;
 
     //methods
-    public static void showException(String eMsg) {
+    public static void ShowException(String eMsg) {
       if (consoleDebugging) {
         Console.WriteLine("Excp: " + eMsg);
       }
@@ -34,7 +34,7 @@ namespace DANT2a {
       }
     }
 
-    public static void showDbgOut(/*DebugModes mode,*/ String dMsg) {
+    public static void ShowDbgOut(/*DebugModes mode,*/ String dMsg) {
       if (consoleDebugging) {
         Console.WriteLine("Dbg: " + dMsg);
       }

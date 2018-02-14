@@ -13,9 +13,9 @@ namespace DANT2a {
     private HeadsUp mainForm = 
       (HeadsUp) Application.OpenForms[0];
 
-    public TextBox nameTbx {
+    public TextBox NameTbx {
       get { return this.tbxName; }
-      set { this.tbxName = nameTbx; }
+      set { this.tbxName = NameTbx; }
     }
 
     //constructor(s)
@@ -48,22 +48,22 @@ namespace DANT2a {
       godOuah.SoundBite = null; //this'll just mean a console beep
       //godOuah.SoundBite = ofdLocateSoundbite.FileName.
 
-      mainForm.addActiveAlarm(godOuah);
+      mainForm.AddActiveAlarm(godOuah);
 
       this.Close();
     }
 
     //usability methods - trying to modularize
     private void tbxName_Enter(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameEnter(nameTbx);
+      FriendlyForms.Usability.NameEnter(NameTbx);
     }
 
     private void tbxName_Click(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameEnter(nameTbx);
+      FriendlyForms.Usability.NameEnter(NameTbx);
     }
     
     private void tbxName_Leave(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameWipe(nameTbx);
+      FriendlyForms.Usability.NameWipe(NameTbx);
     }
   }
 }

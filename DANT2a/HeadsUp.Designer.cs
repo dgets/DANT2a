@@ -78,7 +78,7 @@
       this.btnEditAlarm.TabIndex = 1;
       this.btnEditAlarm.Text = "Edit";
       this.btnEditAlarm.UseVisualStyleBackColor = true;
-      this.btnEditAlarm.Click += new System.EventHandler(this.btnEditAlarm_Click);
+      this.btnEditAlarm.Click += new System.EventHandler(this.BtnEditAlarm_Click);
       // 
       // clbAlarms
       // 
@@ -87,8 +87,8 @@
       this.clbAlarms.Name = "clbAlarms";
       this.clbAlarms.Size = new System.Drawing.Size(237, 154);
       this.clbAlarms.TabIndex = 0;
-      this.clbAlarms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.alarmCLB_ItemCheck);
-      this.clbAlarms.SelectedIndexChanged += new System.EventHandler(this.alarmSelectedChange);
+      this.clbAlarms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.AlarmCLB_ItemCheck);
+      this.clbAlarms.SelectedIndexChanged += new System.EventHandler(this.AlarmSelectedChange);
       // 
       // grpTimers
       // 
@@ -111,7 +111,7 @@
       this.btnResetTimer.TabIndex = 3;
       this.btnResetTimer.Text = "Reset Timer";
       this.btnResetTimer.UseVisualStyleBackColor = true;
-      this.btnResetTimer.Click += new System.EventHandler(this.btnResetTimer_Click);
+      this.btnResetTimer.Click += new System.EventHandler(this.BtnResetTimer_Click);
       // 
       // btnDeleteTimer
       // 
@@ -130,7 +130,7 @@
       this.btnEditTimer.TabIndex = 1;
       this.btnEditTimer.Text = "Edit";
       this.btnEditTimer.UseVisualStyleBackColor = true;
-      this.btnEditTimer.Click += new System.EventHandler(this.btnEditTimer_Click);
+      this.btnEditTimer.Click += new System.EventHandler(this.BtnEditTimer_Click);
       // 
       // clbTimers
       // 
@@ -139,8 +139,8 @@
       this.clbTimers.Name = "clbTimers";
       this.clbTimers.Size = new System.Drawing.Size(254, 154);
       this.clbTimers.TabIndex = 0;
-      this.clbTimers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.timerCLB_ItemCheck);
-      this.clbTimers.SelectedIndexChanged += new System.EventHandler(this.timerSelectedChange);
+      this.clbTimers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.TimerCLB_ItemCheck);
+      this.clbTimers.SelectedIndexChanged += new System.EventHandler(this.TimerSelectedChange);
       // 
       // grpReminders
       // 
@@ -171,7 +171,7 @@
       this.btnEditReminder.TabIndex = 1;
       this.btnEditReminder.Text = "Edit";
       this.btnEditReminder.UseVisualStyleBackColor = true;
-      this.btnEditReminder.Click += new System.EventHandler(this.btnEditReminder_Click);
+      this.btnEditReminder.Click += new System.EventHandler(this.BtnEditReminder_Click);
       // 
       // clbReminders
       // 
@@ -180,8 +180,8 @@
       this.clbReminders.Name = "clbReminders";
       this.clbReminders.Size = new System.Drawing.Size(266, 154);
       this.clbReminders.TabIndex = 0;
-      this.clbReminders.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.reminderCLB_ItemCheck);
-      this.clbReminders.SelectedIndexChanged += new System.EventHandler(this.reminderSelectedChange);
+      this.clbReminders.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ReminderCLB_ItemCheck);
+      this.clbReminders.SelectedIndexChanged += new System.EventHandler(this.ReminderSelectedChange);
       // 
       // btnAddAny
       // 
@@ -191,12 +191,12 @@
       this.btnAddAny.TabIndex = 3;
       this.btnAddAny.Text = "Add Entry";
       this.btnAddAny.UseVisualStyleBackColor = true;
-      this.btnAddAny.Click += new System.EventHandler(this.btnAddAny_Click);
+      this.btnAddAny.Click += new System.EventHandler(this.BtnAddAny_Click);
       // 
       // tmrGreenwichAtomic
       // 
       this.tmrGreenwichAtomic.Interval = 1000;
-      this.tmrGreenwichAtomic.Tick += new System.EventHandler(this.tmrGreenwichAtomic_Tick);
+      this.tmrGreenwichAtomic.Tick += new System.EventHandler(this.TmrGreenwichAtomic_Tick);
       // 
       // btnDbgSave
       // 
@@ -206,7 +206,7 @@
       this.btnDbgSave.TabIndex = 4;
       this.btnDbgSave.Text = "Debug Save";
       this.btnDbgSave.UseVisualStyleBackColor = true;
-      this.btnDbgSave.Click += new System.EventHandler(this.btnDbgSave_Click);
+      this.btnDbgSave.Click += new System.EventHandler(this.BtnDbgSave_Click);
       // 
       // btnDbgLoad
       // 
@@ -216,7 +216,7 @@
       this.btnDbgLoad.TabIndex = 5;
       this.btnDbgLoad.Text = "Debug Load";
       this.btnDbgLoad.UseVisualStyleBackColor = true;
-      this.btnDbgLoad.Click += new System.EventHandler(this.btnDbgLoad_Click);
+      this.btnDbgLoad.Click += new System.EventHandler(this.BtnDbgLoad_Click);
       // 
       // btnDbgWipe
       // 
@@ -226,7 +226,7 @@
       this.btnDbgWipe.TabIndex = 6;
       this.btnDbgWipe.Text = "Debug Wipe";
       this.btnDbgWipe.UseVisualStyleBackColor = true;
-      this.btnDbgWipe.Click += new System.EventHandler(this.btnDbgWipe_Click);
+      this.btnDbgWipe.Click += new System.EventHandler(this.BtnDbgWipe_Click);
       // 
       // grpDebug
       // 
