@@ -21,7 +21,7 @@ namespace DANT2a {
 
       switch (eType) {
         case EntryType.Entries.Alarm:
-          mainForm.alarmCLB.Items.Clear();
+          mainForm.AlarmCLB.Items.Clear();
 
           //swap this gross for loop out for a foreach like is done for
           //timer entries immediately below
@@ -31,23 +31,23 @@ namespace DANT2a {
             EntryType.Alarm al = activeAlarms[cntr2];
 
             if (al.Running) {
-              if (!al.isPast()) {
+              if (!al.IsPast()) {
                 updateEntry(EntryType.Entries.Alarm, cntr2);
               } else {
                 if (Debug.tickDebugging && Debug.alarmDebugging) {
-                  Debug.showDbgOut("Toggling alarm #" + cntr2.ToString());
+                  Debug.ShowDbgOut("Toggling alarm #" + cntr2.ToString());
                 }
 
-                al.toggleRunning();
+                al.ToggleRunning();
               }
             } else {
-              mainForm.alarmCLB.Items.Add(al.ActiveAt + " - " + al.Name, false);
+              mainForm.AlarmCLB.Items.Add(al.ActiveAt + " - " + al.Name, false);
             }
           }
           break;
 
         case EntryType.Entries.Timer:
-          mainForm.timerCLB.Items.Clear();
+          mainForm.TimerCLB.Items.Clear();
 
           foreach (EntryType.Timer tm in activeTimers) {
             if (tm.Running && (tm.Remaining > new TimeSpan(0))) {
@@ -55,22 +55,22 @@ namespace DANT2a {
               updateEntry(EntryType.Entries.Timer,
                 activeTimers.IndexOf(tm));
             } else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
-              tm.ringRingNeo();
+              tm.RingRingNeo();
             } else {
-              mainForm.timerCLB.Items.Add(tm.Remaining + " - " + tm.Name, false);
+              mainForm.TimerCLB.Items.Add(tm.Remaining + " - " + tm.Name, false);
             }
           }
           break;
 
         case EntryType.Entries.Reminder:
-          mainForm.reminderCLB.Items.Clear();
+          mainForm.ReminderCLB.Items.Clear();
 
           foreach (EntryType.Reminder rm in activeReminders) {
-            if (rm.Running && (!rm.checkInterval())) {
+            if (rm.Running && (!rm.CheckInterval())) {
               updateEntry(EntryType.Entries.Reminder,
                 activeReminders.IndexOf(rm));
             } else if (!rm.Running) {
-              mainForm.reminderCLB.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
+              mainForm.ReminderCLB.Items.Add(rm.ActiveAt + " - " + rm.Name, false);
             }
           }
           break;
@@ -84,16 +84,16 @@ namespace DANT2a {
     public static void updateEntry(EntryType.Entries whichType, int curr) {
       switch (whichType) {
         case EntryType.Entries.Alarm:
-          mainForm.alarmCLB.Items.Add(mainForm.activeAlarms[curr].ToString(), true);
-          mainForm.alarmCLB.Show();
+          mainForm.AlarmCLB.Items.Add(mainForm.activeAlarms[curr].ToString(), true);
+          mainForm.AlarmCLB.Show();
           break;
         case EntryType.Entries.Timer:
-          mainForm.timerCLB.Items.Add(mainForm.activeTimers[curr].ToString(), true);
-          mainForm.timerCLB.Show();
+          mainForm.TimerCLB.Items.Add(mainForm.activeTimers[curr].ToString(), true);
+          mainForm.TimerCLB.Show();
           break;
         case EntryType.Entries.Reminder:
-          mainForm.reminderCLB.Items.Add(mainForm.activeReminders[curr].ToString(), true);
-          mainForm.reminderCLB.Show();
+          mainForm.ReminderCLB.Items.Add(mainForm.activeReminders[curr].ToString(), true);
+          mainForm.ReminderCLB.Show();
           break;
         default:
           //ouah

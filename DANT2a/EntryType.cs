@@ -35,18 +35,18 @@ namespace DANT2a {
       }
 
       //methods
-      public Boolean toggleRunning() {
-        Debug.showDbgOut("toggleRunning(): toggling from " + running);
+      public Boolean ToggleRunning() {
+        Debug.ShowDbgOut("ToggleRunning(): toggling from " + running);
         running = !running;
         return running; //not sure if I'll ever use this, but why not...
       }
 
-      public void ringRingNeo() {
+      public void RingRingNeo() {
         //be sure to add something to change the display in the applicable
         //CLB to reflect ringing/rung status
         //don't forget about the audio schitt, either
-        this.toggleRunning();
-        Debug.showDbgOut("ringRingNeo()");
+        this.ToggleRunning();
+        Debug.ShowDbgOut("ringRingNeo()");
         MessageBox.Show("Ring ring, Neo. . .", "Time Up!", 
           MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
@@ -65,19 +65,19 @@ namespace DANT2a {
         this.Running = false;
       }
  
-      public TimeSpan getInterval() {
+      public TimeSpan GetInterval() {
         return (activeAt - DateTime.Now);
       }
 
-      public Boolean isPast() {
-        Debug.showDbgOut("activeAt.Date: " + activeAt.ToString() +
+      public Boolean IsPast() {
+        Debug.ShowDbgOut("activeAt.Date: " + activeAt.ToString() +
             "\nDateTime.Now: " + DateTime.Now.ToString());
 
         if (activeAt.CompareTo(DateTime.Now) <= 0) {
-          Debug.showDbgOut("isPast() = true");
+          Debug.ShowDbgOut("isPast() = true");
           return true;
         } else {
-          Debug.showDbgOut("isPast() = false");
+          Debug.ShowDbgOut("isPast() = false");
           return false;
         }
       }
@@ -86,7 +86,7 @@ namespace DANT2a {
         if (!Running) {
           return (activeAt + " - " + Name);
         } else {
-          return (Name + " - " + activeAt + " - " + getInterval());
+          return (Name + " - " + activeAt + " - " + GetInterval());
         }
       }
     }
@@ -122,7 +122,7 @@ namespace DANT2a {
       }
 
       //methods
-      public Boolean countDown() {
+      public Boolean CountDown() {
         //would this have less drift if I set 'nao' above the next 2 lines?
         if (lastTime.Equals(default(DateTime))) {
           remaining = duration;
@@ -131,26 +131,22 @@ namespace DANT2a {
         }
         lastTime = DateTime.Now;
         if (Debug.timerDebugging) {
-          Debug.showDbgOut("countDown-> remaining: " + remaining.ToString() +
-            //"\n         -> isPast(): " + isPast().ToString() +
+          Debug.ShowDbgOut("countDown-> remaining: " + remaining.ToString() +
+            "\n         -> isPast():  " + IsPast().ToString() +
             "\n         -> duration:  " + duration.ToString() +
             "\n         -> lastTime:  " + lastTime.ToString());
         }
-
-        if (duration.TotalSeconds <= 1) {
-          return true;
-        } else {
-          return false;
-        }
+        
+        return IsPast();
       }
 
-      /*public Boolean isPast() {
-        if (remaining.CompareTo(TimeSpan.MinValue) <= 0) {
+      public Boolean IsPast() {
+        if (remaining.CompareTo(TimeSpan.MinValue) > 0) {
           return true;
         }
 
         return false;
-      }*/
+      }
 
       public override String ToString() {
         if (!Running) {
@@ -176,7 +172,7 @@ namespace DANT2a {
         set { reminder = value; }
       }
 
-      public Boolean checkInterval() {
+      public Boolean CheckInterval() {
         if (((DateTime.Now) - activeAt).TotalSeconds > 1) {
           return true;
         } else {
@@ -216,7 +212,7 @@ namespace DANT2a {
       }
     }
 
-    public static EntryType.AllEntries constructGlob(List<Alarm> aAls, List<Timer> aTms,
+    public static EntryType.AllEntries ConstructGlob(List<Alarm> aAls, List<Timer> aTms,
                                                List<Reminder> aRms) {
       EntryType.AllEntries newGlob = new EntryType.AllEntries();
 
