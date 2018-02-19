@@ -190,6 +190,8 @@ namespace DANT2a {
             Debug.ShowDbgOut("GNAHHH");
             TimerCLB.SetItemCheckState(activeTimers.IndexOf(current),
               CheckState.Unchecked);
+            current.Remaining = current.Duration;
+            Display.updateEntry(EntryType.Entries.Timer, activeTimers.IndexOf(current));
             current.RingRingNeo();
           } else {
             Debug.ShowDbgOut("OUAH OUAH OUAH");

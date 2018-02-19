@@ -54,9 +54,10 @@ namespace DANT2a {
               //clbTimers.Items.Add(tm.Remaining + " - " + tm.Name, true);
               updateEntry(EntryType.Entries.Timer,
                 activeTimers.IndexOf(tm));
-            } else if (tm.Running && (tm.Remaining <= new TimeSpan(0))) {
-              tm.RingRingNeo();
-            } else {
+            } else if (!tm.Running || (tm.Running && (tm.Remaining <= new TimeSpan(0)))) {
+              if (tm.Running) {
+                tm.RingRingNeo();
+              }
               mainForm.TimerCLB.Items.Add(tm.Remaining + " - " + tm.Name, false);
             }
           }

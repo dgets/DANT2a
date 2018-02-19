@@ -5,9 +5,8 @@ using System.Xml.Serialization;
 
 namespace DANT2a {
   public class EntryType {
-    public enum Entries { Alarm, Timer, Reminder, All };
-
     private static HeadsUp mainForm = (HeadsUp)Application.OpenForms[0];
+    public enum Entries { Alarm, Timer, Reminder, All };
 
     [Serializable]
     public partial class Entry {
@@ -141,11 +140,7 @@ namespace DANT2a {
       }
 
       public Boolean IsPast() {
-        if (remaining.CompareTo(TimeSpan.MinValue) > 0) {
-          return true;
-        }
-
-        return false;
+        return (remaining.CompareTo(TimeSpan.MinValue) <= 0);
       }
 
       public override String ToString() {
