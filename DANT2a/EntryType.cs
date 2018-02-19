@@ -172,10 +172,25 @@ namespace DANT2a {
         set { reminder = value; }
       }
 
+      //following crap-method should probably be done away with
       public Boolean CheckInterval() {
         if (((DateTime.Now) - activeAt).TotalSeconds > 1) {
           return true;
         } else {
+          return false;
+        }
+      }
+
+      //I _think_ this one would be all we need
+      public Boolean IsPast() {
+        Debug.ShowDbgOut("activeAt.Date: " + activeAt.ToString() +
+            "\nDateTime.Now: " + DateTime.Now.ToString());
+
+        if (activeAt.CompareTo(DateTime.Now) <= 0) {
+          Debug.ShowDbgOut("isPast() = true");
+          return true;
+        } else {
+          Debug.ShowDbgOut("isPast() = false");
           return false;
         }
       }
