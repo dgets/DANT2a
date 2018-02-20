@@ -169,58 +169,10 @@ namespace DANT2a {
         Debug.ShowDbgOut("  -> anythingRunning() == true");
       }
 
-      //alarms
-      foreach (EntryType.Alarm current in activeAlarms) {
-        if (current.Running) {
-          if (current.IsPast()) {
-            AlarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
-              CheckState.Unchecked);
-            current.RingRingNeo();
-          }
-          
-          Display.updateDisplay(EntryType.Entries.Alarm);
-        }
-      }
-
-      //timers
-      foreach (EntryType.Timer current in activeTimers) {
-        if (current.Running) {
-          if (current.CountDown()) {
-            Debug.ShowDbgOut("GNAHHH");
-
-            TimerCLB.SetItemCheckState(activeTimers.IndexOf(current),
-              CheckState.Unchecked);
-            current.Remaining = current.Duration;
-            Display.updateEntry(EntryType.Entries.Timer, activeTimers.IndexOf(current));
-            current.RingRingNeo();  //why doesn't this ringring twice?  See also the
-            //Display.updateEntry() code called above
-          } else {
-            Debug.ShowDbgOut("OUAH OUAH OUAH");
-          }
-
-          Display.updateDisplay(EntryType.Entries.Timer);
-        }
-      }
-
-      //reminders
-      foreach (EntryType.Reminder current in activeReminders) {
-        if (current.Running) {
-          if (Debug.tickDebugging) {
-            Debug.ShowDbgOut(" - found running reminder");
-          }
-          if (current.CheckInterval()) {
-            ReminderCLB.SetItemCheckState(activeReminders.IndexOf(current),
-              CheckState.Unchecked);
-            current.RingRingNeo();
-            //maybe add some text formatting for aesthetics here, if user
-            //has long text with no '\n's
-            MessageBox.Show(current.Msg, "Don't Forget!", MessageBoxButtons.OK,
-              MessageBoxIcon.Information);
-          }
-
-          Display.updateDisplay(EntryType.Entries.Reminder);
-        }
-      }
+      //tick code now (obviously) resides in Utility.*Tick()
+      Utility.alarmTick(activeAlarms);
+      Utility.timerTick(activeTimers);
+      Utility.reminderTick(activeReminders);
     }
 
     //put this in a more logical location, verify that other methods are

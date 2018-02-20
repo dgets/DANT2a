@@ -81,6 +81,62 @@ namespace DANT2a {
       }
     }
 
+    //active list processing routines follow (formerly found in _Tick()
+    public static void alarmTick(List<EntryType.Alarm> activeAlarms) {
+      foreach (EntryType.Alarm current in activeAlarms) {
+        if (current.Running) {
+          if (current.IsPast()) {
+            mainForm.AlarmCLB.SetItemCheckState(activeAlarms.IndexOf(current),
+              CheckState.Unchecked);
+            current.RingRingNeo();
+          }
+
+          Display.updateDisplay(EntryType.Entries.Alarm);
+        }
+      }
+    }
+
+    public static void timerTick(List<EntryType.Timer> activeTimers) {
+      foreach (EntryType.Timer current in activeTimers) {
+        if (current.Running) {
+          if (current.CountDown()) {
+            Debug.ShowDbgOut("GNAHHH");
+
+            mainForm.TimerCLB.SetItemCheckState(activeTimers.IndexOf(current),
+              CheckState.Unchecked);
+            current.Remaining = current.Duration;
+            Display.updateEntry(EntryType.Entries.Timer, activeTimers.IndexOf(current));
+            current.RingRingNeo();  //why doesn't this ringring twice?  See also the
+            //Display.updateEntry() code called above
+          } else {
+            Debug.ShowDbgOut("OUAH OUAH OUAH");
+          }
+
+          Display.updateDisplay(EntryType.Entries.Timer);
+        }
+      }
+    }
+
+    public static void reminderTick(List<EntryType.Reminder> activeReminders) {
+      foreach (EntryType.Reminder current in activeReminders) {
+        if (current.Running) {
+          if (Debug.tickDebugging) {
+            Debug.ShowDbgOut(" - found running reminder");
+          }
+          if (current.CheckInterval()) {
+            mainForm.ReminderCLB.SetItemCheckState(activeReminders.IndexOf(current),
+              CheckState.Unchecked);
+            current.RingRingNeo();
+            //maybe add some text formatting for aesthetics here, if user
+            //has long text with no '\n's
+            MessageBox.Show(current.Msg, "Don't Forget!", MessageBoxButtons.OK,
+              MessageBoxIcon.Information);
+          }
+
+          Display.updateDisplay(EntryType.Entries.Reminder);
+        }
+      }
+    }
 
   }
 }
