@@ -11,9 +11,9 @@ namespace DANT2a {
     private HeadsUp mainForm =
       (HeadsUp)Application.OpenForms[0];
 
-    public TextBox nameTbx {
+    public TextBox NameTbx {
       get { return this.tbxName; }
-      set { this.tbxName = nameTbx; }
+      set { this.tbxName = NameTbx; }
     }
 
     //constructor
@@ -52,7 +52,7 @@ namespace DANT2a {
       godOuah.Running = false;  //don't need this, but maybe we will l8r
       godOuah.Msg = tbxReminder.Text;
 
-      mainForm.addActiveReminder(godOuah);
+      mainForm.AddActiveReminder(godOuah);
 
       this.Close();
     }
@@ -60,7 +60,7 @@ namespace DANT2a {
     //okay the following usability methods REALLY need to be modularized in an
     //external c# file; inclusion in 3 different forms is ridiculous
     private void tbxName_Enter(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameEnter(nameTbx);
+      FriendlyForms.Usability.NameEnter(NameTbx);
     }
 
     private void tbxReminder_Enter(object sender, EventArgs e) {
@@ -74,11 +74,11 @@ namespace DANT2a {
 
     //not sure that this is really necessary any more
     private void tbxName_Click(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameEnter(nameTbx);
+      FriendlyForms.Usability.NameEnter(NameTbx);
     }
 
     private void tbxName_Leave(object sender, EventArgs e) {
-      FriendlyForms.Usability.nameWipe(nameTbx);
+      FriendlyForms.Usability.NameWipe(NameTbx);
     }
 
     private void tbxReminder_Leave(object sender, EventArgs e) {

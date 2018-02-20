@@ -24,9 +24,9 @@ namespace DANT2a {
     private void EditEntry_Load(object sender, EventArgs e) {
       EntryType.Entries currentTypeEdited = new EntryType.Entries();
 
-      if (mainForm.alarmCLB.SelectedIndex != -1) {
+      if (mainForm.AlarmCLB.SelectedIndex != -1) {
         currentTypeEdited = EntryType.Entries.Alarm;
-      } else if (mainForm.reminderCLB.SelectedIndex != -1) {
+      } else if (mainForm.ReminderCLB.SelectedIndex != -1) {
         currentTypeEdited = EntryType.Entries.Reminder;
       } else {
         currentTypeEdited = EntryType.Entries.Timer;
@@ -96,9 +96,9 @@ namespace DANT2a {
           tbxReminderText.Text = "unavailable";
           tbxReminderText.Enabled = false;
           tbxName.Text =
-            mainForm.activeAlarms[mainForm.alarmCLB.SelectedIndex].Name;
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name;
           dtpActiveAt.Value =
-            mainForm.activeAlarms[mainForm.alarmCLB.SelectedIndex].ActiveAt;
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt;
 
           break;
         case EntryType.Entries.Timer:
@@ -106,19 +106,19 @@ namespace DANT2a {
           tbxReminderText.Text = "unavailable";
           tbxReminderText.Enabled = false;
           tbxName.Text =
-            mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Name;
+            mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Name;
 
           break;
         case EntryType.Entries.Reminder:
           tbxReminderText.Enabled = true;
           //reminder tiem
           tbxReminderText.Text =
-            mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg;
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg;
           tbxName.Text =
-            mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].Name;
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name;
           dtpActiveAt.Value =
             mainForm.activeReminders[
-              mainForm.reminderCLB.SelectedIndex].ActiveAt;
+              mainForm.ReminderCLB.SelectedIndex].ActiveAt;
 
           break;
       }
@@ -126,9 +126,9 @@ namespace DANT2a {
 
     private void btnMakeChanges_Click(object sender, EventArgs e) {
       EntryType.Entries currentTypeEdited = new EntryType.Entries();
-      if (mainForm.alarmCLB.SelectedIndex != -1) {
+      if (mainForm.AlarmCLB.SelectedIndex != -1) {
         currentTypeEdited = EntryType.Entries.Alarm;
-      } else if (mainForm.timerCLB.SelectedIndex != -1) {
+      } else if (mainForm.TimerCLB.SelectedIndex != -1) {
         currentTypeEdited = EntryType.Entries.Timer;
       } else {
         currentTypeEdited = EntryType.Entries.Reminder;
@@ -140,9 +140,9 @@ namespace DANT2a {
           /* note that the following conditional will need to have soundbite
            * information checking, as well */
           if (tbxName.Text.Equals(
-            mainForm.activeAlarms[mainForm.alarmCLB.SelectedIndex].Name) &&
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name) &&
               dtpActiveAt.Value.Equals(
-            mainForm.activeAlarms[mainForm.alarmCLB.SelectedIndex].ActiveAt)) {
+            mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt)) {
 
             //no changes made to settings
             if (MessageBox.Show("You haven't made any changes!",
@@ -154,9 +154,9 @@ namespace DANT2a {
             break;
           }
 
-          mainForm.activeAlarms[mainForm.alarmCLB.SelectedIndex].Name =
+          mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].Name =
             tbxName.Text;
-          mainForm.activeAlarms[mainForm.alarmCLB.SelectedIndex].ActiveAt =
+          mainForm.activeAlarms[mainForm.AlarmCLB.SelectedIndex].ActiveAt =
             dtpActiveAt.Value;
 
           MessageBox.Show("Changes propagated (not yet saved!)",
@@ -173,10 +173,10 @@ namespace DANT2a {
           /* note that the following conditional will need to have soundbite
            * information checking, as well */
           if (tbxName.Text.Equals(
-            mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Name) &&
+            mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Name) &&
               new TimeSpan((int)nudTmrHrs.Value, (int)nudTmrMin.Value, 
                            (int)nudTmrSec.Value).Equals(
-              mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Duration)) {
+              mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration)) {
 
             //no changes made to settings
             if (MessageBox.Show("You haven't made any changes!",
@@ -197,13 +197,13 @@ namespace DANT2a {
               (int)nudTmrMin.Value, (int)nudTmrSec.Value).ToString());
           }
 
-          mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Name =
+          mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Name =
             tbxName.Text;
-          mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Duration =
+          mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration =
             new TimeSpan((int)nudTmrHrs.Value, (int)nudTmrMin.Value,
                          (int)nudTmrSec.Value);
-          mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Remaining =
-            mainForm.activeTimers[mainForm.timerCLB.SelectedIndex].Duration;
+          mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Remaining =
+            mainForm.activeTimers[mainForm.TimerCLB.SelectedIndex].Duration;
 
           MessageBox.Show("Changes propagated (not yet saved!)",
             "Changes made", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -218,11 +218,11 @@ namespace DANT2a {
           //this schitt needs to be modularized, also, Clarice
           //</Dr.Lecter>
           if (tbxName.Text.Equals(
-               mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].Name)
+               mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name)
               && tbxReminderText.Equals(
-               mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg)
+               mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg)
               && dtpActiveAt.Equals(
-               mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].ActiveAt)) {
+               mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].ActiveAt)) {
 
             //no changes made
             //this cuntpasting grows old, Clarice; modularize or 8-x
@@ -233,11 +233,11 @@ namespace DANT2a {
               this.Close();
             }
           } else {
-            mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].Name =
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Name =
               tbxName.Text;
-            mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].ActiveAt =
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].ActiveAt =
               dtpActiveAt.Value;
-            mainForm.activeReminders[mainForm.reminderCLB.SelectedIndex].Msg =
+            mainForm.activeReminders[mainForm.ReminderCLB.SelectedIndex].Msg =
               tbxReminderText.Text;
 
             MessageBox.Show("Changes propagated (not yet saved!)",

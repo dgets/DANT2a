@@ -20,7 +20,7 @@ namespace DANT2a {
       mainForm.Enabled = false;
     }
 
-    private void btnGo_Click(object sender, EventArgs e) {
+    private void BtnGo_Click(object sender, EventArgs e) {
         //is this REALLY necessary? rbts normally come in groups...
         if (!rbtAlarm.Checked && !rbtTimer.Checked && !rbtReminder.Checked) {
           MessageBox.Show(Properties.Resources.SelectTypeToAdd);

@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility.cs" />
     <EmbeddedResource Include="AddAlarm.resx">
       <DependentUpon>AddAlarm.cs</DependentUpon>
     </EmbeddedResource>
