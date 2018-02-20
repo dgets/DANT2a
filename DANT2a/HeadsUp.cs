@@ -186,13 +186,14 @@ namespace DANT2a {
       foreach (EntryType.Timer current in activeTimers) {
         if (current.Running) {
           if (current.CountDown()) {
-          //if (current.IsPast()) { 
             Debug.ShowDbgOut("GNAHHH");
+
             TimerCLB.SetItemCheckState(activeTimers.IndexOf(current),
               CheckState.Unchecked);
             current.Remaining = current.Duration;
             Display.updateEntry(EntryType.Entries.Timer, activeTimers.IndexOf(current));
-            current.RingRingNeo();
+            current.RingRingNeo();  //why doesn't this ringring twice?  See also the
+            //Display.updateEntry() code called above
           } else {
             Debug.ShowDbgOut("OUAH OUAH OUAH");
           }
