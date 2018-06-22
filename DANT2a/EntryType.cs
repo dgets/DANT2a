@@ -46,6 +46,11 @@ namespace DANT2a {
         //don't forget about the audio schitt, either
         this.ToggleRunning();
         Debug.ShowDbgOut("ringRingNeo()");
+
+        if (soundBite == null) {
+          Console.Beep();
+        }
+
         MessageBox.Show("Ring ring, Neo. . .", "Time Up!", 
           MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
