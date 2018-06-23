@@ -52,7 +52,10 @@ namespace DANT2a {
             //we will definitely be needing to add some exception testing
             //handle the saveDir schitt
             if (File.GetAttributes(saveDir) != FileAttributes.Directory) {
-                Debug.ShowDbgOut("FileAttributes.Directory test on 'saveDir' is false");
+                if (Debug.fileIODebugging) {
+                    Debug.ShowDbgOut(
+                        "FileAttributes.Directory test on 'saveDir' is false");
+                }
 
                 //wipe the previous entry (maybe, or set behavior?), create new
                 //with the permissions that we need
@@ -63,14 +66,22 @@ namespace DANT2a {
             if (File.GetAttributes(/*saveDir + saveFile*/ saveDataLoc) 
                 != FileAttributes.Normal) {
                 //same schitt here
-                Debug.ShowDbgOut("FileAttributes.Normal test on 'saveFile' is false");
+                if (Debug.fileIODebugging) {
+                    Debug.ShowDbgOut(
+                        "FileAttributes.Normal test on 'saveFile' is false");
+                }
+
                 File.CreateText(saveDataLoc);    //try/catch, etc etc
             }
 
             //handle the logLoc schitt
             if (File.GetAttributes(saveLogLoc) != FileAttributes.Normal) {
                 //2nd verse, same as the first
-                Debug.ShowDbgOut("FileAttributes.Normal test on 'logFile' is false");
+                if (Debug.fileIODebugging) {
+                    Debug.ShowDbgOut(
+                        "FileAttributes.Normal test on 'logFile' is false");
+                }
+
                 File.CreateText(saveLogLoc);    //try/catch, idiot (&)
             }
 

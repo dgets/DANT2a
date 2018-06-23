@@ -60,6 +60,11 @@ namespace DANT2a {
       InitializeComponent();
     }
 
+    //initialization routine
+    private void InitSchitt(object sender, EventArgs e) {
+      FileIO.DoLocInit();
+    }
+
     public void AddActiveAlarm(EntryType.Alarm newAl) {
       activeAlarms.Add(newAl);
 
