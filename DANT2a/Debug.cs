@@ -21,7 +21,7 @@ namespace DANT2a {
     public const Boolean fileIODebugging = true;
     public const Boolean consoleDebugging = true;
     public const Boolean mBoxDebugging = false;
-
+    
     //methods
     public static void ShowException(String eMsg) {
       if (consoleDebugging) {

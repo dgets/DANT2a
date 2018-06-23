@@ -48,7 +48,12 @@ namespace DANT2a {
     public List<EntryType.Timer> activeTimers = 
       new List<EntryType.Timer>();
     public List<EntryType.Reminder> activeReminders = 
-      new List<EntryType.Reminder>();           
+      new List<EntryType.Reminder>();
+
+    //configuration options
+    public enum ConfigOptions { LogFile, BeepEnabled, Verbose }
+    public Dictionary<String, Boolean> configSettings =
+      new Dictionary<String, Boolean>();
 
     //HeadsUp form constructor
     public HeadsUp() {
