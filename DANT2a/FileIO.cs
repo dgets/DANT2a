@@ -21,11 +21,11 @@ namespace DANT2a {
                 using (Stream stream = File.Open(path, FileMode.Create)) {
                     var xmlFmttr = new System.Xml.Serialization.XmlSerializer(
                       typeof(EntryType.AllEntries));
-                    
+
                     //don't forget to try/catch wrap .Serialize(), too
                     try {
-                      //binFmttr.Serialize(stream, glob);
-                      xmlFmttr.Serialize(stream, glob);
+                        //binFmttr.Serialize(stream, glob);
+                        xmlFmttr.Serialize(stream, glob);
                     } catch (Exception e) {
                         //bubble any Binary/XMLFormatter.Serialize() issues up
                         throw e;
@@ -41,10 +41,10 @@ namespace DANT2a {
         public static EntryType.AllEntries ReadActivesXML<List>(string path) {
             //ffs add the try/catch code
             using (Stream stream = File.Open(path, FileMode.Open)) {
-              var xmlFmttr = new System.Xml.Serialization.XmlSerializer(
-                typeof(EntryType.AllEntries));
+                var xmlFmttr = new System.Xml.Serialization.XmlSerializer(
+                  typeof(EntryType.AllEntries));
 
-              return (EntryType.AllEntries)xmlFmttr.Deserialize(stream);
+                return (EntryType.AllEntries)xmlFmttr.Deserialize(stream);
             }
         }
 
@@ -87,8 +87,11 @@ namespace DANT2a {
                 Debug.ShowDbgOut("Issue creating app's data directory!");
             }*/
 
-            //handle the saveDataLoc schitt
-            if (!File.Exists(saveDataLoc) || !File.Exists(saveLogLoc)) {
+            //handle the saveData* schitt
+            InitFiles(saveDataLoc);
+            InitFiles(saveLogLoc);
+
+            /*if (!File.Exists(saveDataLoc) || !File.Exists(saveLogLoc)) {
                 if (Debug.fileIODebugging) {
                     Debug.ShowDbgOut(saveDataLoc + " or " + saveLogLoc + " cannot be " +
                         "located.\nAttempting to create. . .");
@@ -102,7 +105,7 @@ namespace DANT2a {
                 }
             }
 
-            if ((File.GetAttributes(saveDataLoc) & FileAttributes.Normal) != 
+            if ((File.GetAttributes(saveDataLoc) & FileAttributes.Normal) !=
                 FileAttributes.Normal) {
                 //same schitt here
                 if (Debug.fileIODebugging) {
@@ -118,34 +121,76 @@ namespace DANT2a {
                             Debug.ShowDbgOut("Archived old " + saveDataLoc);
                         }
                     }
-
+                    
                     File.CreateText(saveDataLoc);
                 } catch (Exception ex) {
                     Debug.ShowDbgOut("Unable to create " + saveDataLoc + "\n" +
                         ex.Message);
                 }
-            }
+            }*/
 
             //handle the logLoc schitt
-            if ((File.GetAttributes(saveLogLoc) & FileAttributes.Normal) !=
+            /*if ((File.GetAttributes(saveLogLoc) & FileAttributes.Normal) !=
                 FileAttributes.Normal) {
-                    //2nd verse, same as the first
-                    if (Debug.fileIODebugging) {
-                        Debug.ShowDbgOut(
-                            "FileAttributes.Normal test on 'logFile' is false.\n" +
-                            "Attempting to archive & recreate.");
-                    }
+                //2nd verse, same as the first
+                if (Debug.fileIODebugging) {
+                    Debug.ShowDbgOut(
+                        "FileAttributes.Normal test on 'logFile' is false.\n" +
+                        "Attempting to archive & recreate.");
+                }
+            }
+
+            try {
+                File.Move(saveLogLoc, saveLogLoc + ".bak");
+                File.CreateText(saveLogLoc);    //try/catch, idiot (&)
+            } catch (Exception ex) {
+                Debug.ShowDbgOut("Unable to create " + saveLogLoc + "\n" +
+                    ex.Message);
+            }*/
+        }
+
+        private static void InitFiles(String fn) {
+            if (!File.Exists(fn)) {
+                if (Debug.fileIODebugging) {
+                    Debug.ShowDbgOut(fn + " cannot be located.\n" +
+                        "Attempting to create. . .");
                 }
 
                 try {
-                    File.Move(saveLogLoc, saveLogLoc + ".bak");
-                    File.CreateText(saveLogLoc);    //try/catch, idiot (&)
+                    File.CreateText(fn);
                 } catch (Exception ex) {
-                    Debug.ShowDbgOut("Unable to create " + saveLogLoc + "\n" + 
+                    Debug.ShowDbgOut("Unable to create " + fn + "\nMessage" +
+                        ex.Message);
+
+                    throw new Exception("Can't create " + fn + "!");
+                }
+            }
+
+            if ((File.GetAttributes(fn) & FileAttributes.Normal) !=
+                FileAttributes.Normal) {
+                //same schitt here
+                if (Debug.fileIODebugging) {
+                    Debug.ShowDbgOut(
+                        "FileAttributes.Normal test on " + fn + " is false.\n" +
+                        "Attempting to archive & recreate.");
+                }
+
+                try {
+                    if (File.Exists(fn)) {
+                        File.Move(fn, fn + ".bak");
+                        if (Debug.fileIODebugging) {
+                            Debug.ShowDbgOut("Archived old " + fn);
+                        }
+                    }
+
+                    /*if (Debug.fileIODebugging) {
+                        Debug.ShowDbgOut("Attempting to create " + saveDataLoc);*/
+                    File.CreateText(fn);
+                } catch (Exception ex) {
+                    Debug.ShowDbgOut("Unable to create " + fn + "\n" +
                         ex.Message);
                 }
             }
-            
         }
     }
 }
