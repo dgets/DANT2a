@@ -55,6 +55,9 @@ namespace DANT2a {
     public Dictionary<String, Boolean> configSettings =
       new Dictionary<String, Boolean>();
 
+    //global-ish handles, and stuff of the sort
+    public StreamWriter sFile, lFile;
+
     //HeadsUp form constructor
     public HeadsUp() {
       InitializeComponent();
@@ -63,6 +66,21 @@ namespace DANT2a {
     //initialization routine
     private void InitSchitt(object sender, EventArgs e) {
       FileIO.DoLocInit();
+
+      if (Debug.fileIODebugging) {
+        Debug.ShowDbgOut("Opening configuration & log files . . .");
+      }
+
+      try {
+        sFile = File.CreateText(FileIO.saveDataLoc);
+        lFile = File.CreateText(FileIO.saveLogLoc);
+      } catch (Exception ex) {
+        Debug.ShowDbgOut("Got an exception opening/creating save*Loc files!");
+      }
+
+      //send timestamp to logfile
+      lFile.Write(DateTime.Now.ToShortDateString() + " " + 
+        DateTime.Now.ToShortTimeString() + ": opening log for standard operation\n");
     }
 
     public void AddActiveAlarm(EntryType.Alarm newAl) {
