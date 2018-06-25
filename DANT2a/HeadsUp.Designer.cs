@@ -252,6 +252,7 @@
             this.Controls.Add(this.grpAlarms);
             this.Name = "HeadsUp";
             this.Text = "DANT 2a";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShutdownSchitt);
             this.Load += new System.EventHandler(this.InitSchitt);
             this.grpAlarms.ResumeLayout(false);
             this.grpTimers.ResumeLayout(false);

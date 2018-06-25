@@ -75,12 +75,30 @@ namespace DANT2a {
         sFile = File.CreateText(FileIO.saveDataLoc);
         lFile = File.CreateText(FileIO.saveLogLoc);
       } catch (Exception ex) {
-        Debug.ShowDbgOut("Got an exception opening/creating save*Loc files!");
+        Debug.ShowDbgOut("Got an exception opening/creating save*Loc files!\n" +
+            "Msg: " + ex.Message);
       }
 
       //send timestamp to logfile
-      lFile.Write(DateTime.Now.ToShortDateString() + " " + 
-        DateTime.Now.ToShortTimeString() + ": opening log for standard operation\n");
+      try {
+          lFile.Write(DateTime.Now.ToShortDateString() + " " +
+              DateTime.Now.ToShortTimeString() +
+                  ": opening log for standard operation\n");
+      } catch (Exception ex) {
+          Debug.ShowDbgOut("Issues writing to " + lFile.ToString() + "\nMsg: " +
+            ex.Message);
+      }
+    }
+
+    //shut schitt down
+    private void ShutdownSchitt(object sender, FormClosingEventArgs e) {
+        try {
+          sFile.Close();
+          lFile.Close();
+        } catch (Exception ex) {
+          //really not sure what to do should this issue arise; log file is
+          //probably borked at this point, anyway
+        }
     }
 
     public void AddActiveAlarm(EntryType.Alarm newAl) {
