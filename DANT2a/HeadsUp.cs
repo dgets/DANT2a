@@ -51,11 +51,17 @@ namespace DANT2a {
       new List<EntryType.Reminder>();
 
     //configuration options
+    //NOTE: I'm almost certain that this isn't handled the right way
+    //--old (completely unused?) configuration schitt--
     public enum ConfigOptions { LogFile, BeepEnabled, Verbose }
     public Dictionary<String, Boolean> configSettings =
       new Dictionary<String, Boolean>();
+    //--new (currently implementing) configuration schitt--
+    public Dictionary<String, String> globalConfigSettings =
+      new Dictionary<String, String>();
 
     //global-ish handles, and stuff of the sort
+    //NOTE: This probably isn't handled the best way
     public StreamWriter sFile, lFile;
 
     //HeadsUp form constructor
