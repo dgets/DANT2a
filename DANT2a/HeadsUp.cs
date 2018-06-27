@@ -53,15 +53,20 @@ namespace DANT2a {
     //configuration options
     //NOTE: I'm almost certain that this isn't handled the right way
     //--old (completely unused?) configuration schitt--
+    /* WOW, yeah WHAT was going on here?  Evidently not enough caffeine,
+     * at the very least
+     * 
     public enum ConfigOptions { LogFile, BeepEnabled, Verbose }
     public Dictionary<String, Boolean> configSettings =
       new Dictionary<String, Boolean>();
     //--new (currently implementing) configuration schitt--
     public Dictionary<String, String> globalConfigSettings =
       new Dictionary<String, String>();
+     */
 
     //global-ish handles, and stuff of the sort
     //NOTE: This probably isn't handled the best way
+    //      Something is friggin' wrong with this picture, too :|
     public StreamWriter sFile, lFile;
 
     //HeadsUp form constructor

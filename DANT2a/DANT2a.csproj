@@ -81,6 +81,7 @@
       <DependentUpon>EditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="EntryType.cs" />
+    <Compile Include="EnvConfig.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="FriendlyForms.cs" />
     <Compile Include="HeadsUp.cs">

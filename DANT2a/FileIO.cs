@@ -204,6 +204,8 @@ namespace DANT2a {
 
             FileInfo cfgFileInfo = new FileInfo(saveCfgLoc);
 
+            //so yyyyeah it's probably time for me to take a look at XML serialization
+            //again; this is not the way to be recreating the wheel
             Dictionary<String, String> defaultConfig = new Dictionary<String, String> {
               {"logReminders", "false"},
               {"logSuccessfulReminders", "false"},
