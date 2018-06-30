@@ -13,10 +13,38 @@ namespace DANT2a {
 
         [Serializable]
         public partial class Env {
-            private Boolean Reminders, ReminderAck, Alarms, Timers, Misc;
-            private String DefaultSoundBite;
-            private Boolean BeepEnabled;
+            private Boolean reminders, reminderAck, alarms, timers, misc, beepEnabled; 
+            private String defaultSoundBite;
 
+            //let's see if things are working with the abbreviated style
+            public Boolean Reminders {
+                get; set;
+            }
+
+            public Boolean ReminderAck {
+                get; set;
+            }
+
+            public Boolean Alarms {
+                get; set;
+            }
+
+            public Boolean Timers {
+                get; set;
+            }
+
+            public Boolean Misc {
+                get; set;
+            }
+
+            public Boolean BeepEnabled {
+                get; set;
+            }
+
+            public String DefaultSoundBite {
+                get; set;
+            }
+            
 
 
         }
